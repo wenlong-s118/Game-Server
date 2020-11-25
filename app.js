@@ -8,8 +8,14 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 
+app.get("/", function(req,res){
+  // res.render("index");
+  res.render("underconstruction");
+})
+
 app.get("/api/index", function(req,res){
-  res.render("games/index");
+  // res.render("games/index");
+  res.render("underconstruction");
 });
 
 
