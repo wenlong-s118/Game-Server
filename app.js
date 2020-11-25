@@ -13,12 +13,16 @@ app.get("/", function(req,res){
   res.render("underconstruction");
 })
 
+
 app.get("/api/index", function(req,res){
   // res.render("games/index");
   res.render("underconstruction");
 });
 
-
+//temporary game route to be replaced after MongoDB setup
+app.get("/api/1", function(req,res){
+  res.render("underconstruction");
+})
 
 
 
