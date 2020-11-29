@@ -4,12 +4,13 @@ var passportLocalMongoose = require("passport-local-mongoose");
 
 
 var GameSchema = new mongoose.Schema({
-  //character[]
-  //sessionID
-  //roundID rounds[]
-  //trainID train
-  //stagecoachID stagecoach
-  //
+  //cardID cardsPlayed[]
+  /*struct round{
+    String phase[]
+  }*/
+  //String roundType
+  //bool stationRound
+
 });
 
 

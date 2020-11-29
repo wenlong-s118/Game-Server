@@ -9,7 +9,8 @@ var GameSchema = new mongoose.Schema({
   //roundID rounds[]
   //trainID train
   //stagecoachID stagecoach
-  //
+  //round LastRoundStatus
+  //int nextToPlay
 });
 
 
