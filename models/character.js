@@ -8,7 +8,7 @@ var characterSchema = new mongoose.Schema({
   //loot[]
   //position
   //hostageID hostages[]
-
+  //cardsInHand card[]
 
 });
 
