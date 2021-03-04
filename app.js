@@ -3,6 +3,7 @@ const express        = require("express"),
       mongoose       = require("mongoose"),
       methodOverride = require("method-override")
 
+mongoose.connect('mongodb+srv://Hexanome-14:<password>@cluster0.jxfnz.mongodb.net/<coltDB>?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false});
 app.use(express.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
