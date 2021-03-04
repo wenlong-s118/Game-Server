@@ -3,7 +3,9 @@ const express        = require("express"),
       mongoose       = require("mongoose"),
       methodOverride = require("method-override")
 
-mongoose.connect('mongodb+srv://Hexanome-14:<password>@cluster0.jxfnz.mongodb.net/<coltDB>?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false});
+const Card = require("./models/card");
+
+mongoose.connect('mongodb+srv://Hexanome-14:COMP361D2@cluster0.jxfnz.mongodb.net/<coltDB>?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false});
 app.use(express.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -23,10 +25,24 @@ app.get("/api/index", function(req,res){
 //temporary game route to be replaced after MongoDB setup
 app.get("/api/1", function(req,res){
   res.render("underconstruction");
-})
+});
 
-
-
+app.get("/trial/001", function(req,res){
+  var newCard = {
+    character: "Ghost",
+    card: "Punch",
+  };
+  Card.create(newCard, function(err, product){
+    if(err){
+      console.log(err);
+    }else{
+      //redir back to product admin
+      console.log(product);
+      res.redirect("/");
+    }
+  });
+  res.render("underconstruction");
+});
 
 
 let port = process.env.PORT;
