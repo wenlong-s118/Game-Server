@@ -1,10 +1,10 @@
 var mongoose = require("mongoose");
 
 var lootSchema = new mongoose.Schema({
-  //int amount
-  //string type
+  amount: Number,
+  type: String,
 
 
 });
 
-module.exports= mongoose.model("Cart", cartSchema);
+module.exports= mongoose.model("Loot", lootSchema);

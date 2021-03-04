@@ -3,17 +3,27 @@ var passportLocalMongoose = require("passport-local-mongoose");
 
 
 
-var GameSchema = new mongoose.Schema({
-  //cardID cardsPlayed[]
-  /*struct round{
-    String phase[]
-  }*/
-  //String roundType
-  //bool stationRound
+var roundSchema = new mongoose.Schema({
+  cardsPlayed: [
+    {
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Card"
+      },
+      character: String,
+      card: String,
+
+    },
+  ],
+  phases:[
+    {phase: String,}
+  ],
+
+  roundType: String,
+  stationRound: Boolean,
 
 });
 
 
-AddressSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model("Address", AddressSchema);
+module.exports = mongoose.model("Round", roundSchema);

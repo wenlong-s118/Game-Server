@@ -1,8 +1,10 @@
 var mongoose = require("mongoose");
 
 var userSchema = new mongoose.Schema({
-  //sessionID[]
-  //string username
+  sessionID:[
+    session: String,
+  ],
+  username: String,
 });
 
 module.exports= mongoose.model("Cart", cartSchema);

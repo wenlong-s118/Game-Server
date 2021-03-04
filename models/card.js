@@ -1,8 +1,8 @@
 var mongoose = require("mongoose");
 
-var moveSchema = new mongoose.Schema({
-  //string character
-  //string card
+var cardSchema = new mongoose.Schema({
+  character: String,
+  card: String,
 });
 
-module.exports= mongoose.model("Cart", cartSchema);
+module.exports= mongoose.model("Card", cardSchema);

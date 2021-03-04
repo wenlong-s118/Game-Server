@@ -1,11 +1,11 @@
 var mongoose = require("mongoose");
 
 var positionSchema = new mongoose.Schema({
-  //boolean stagecoach
-  //boolean up
-  //int cart
+  stagecoach: Boolean,
+  onRoof: Boolean,
+  cart: Number,
 
 
 });
 
-module.exports= mongoose.model("Cart", cartSchema);
+module.exports= mongoose.model("Position", cartSchema);

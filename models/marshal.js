@@ -1,9 +1,9 @@
 var mongoose = require("mongoose");
 
 var marshallSchema = new mongoose.Schema({
-  //position
+  position: Number,
 
 
 });
 
-module.exports= mongoose.model("Cart", cartSchema);
+module.exports= mongoose.model("Marshal", marshalSchema);

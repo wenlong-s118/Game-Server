@@ -1,8 +1,8 @@
 var mongoose = require("mongoose");
 
-var userSchema = new mongoose.Schema({
-  //int car
-  //String name
+var hostageSchema = new mongoose.Schema({
+  cart: Number,
+  name: String,
 });
 
-module.exports= mongoose.model("Cart", cartSchema);
+module.exports= mongoose.model("Hostage", hostageSchema);

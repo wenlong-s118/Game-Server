@@ -3,14 +3,40 @@ var passportLocalMongoose = require("passport-local-mongoose");
 
 
 
-var StageCoachSchema = new mongoose.Schema({
-  //playersInside[]
-  //playersOnRoof[]
-  //hostages[]
+var stageCoachSchema = new mongoose.Schema({
+  charactersInside:[
+    {
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Character"
+      },
+      character: String,
+
+    },
+  ],
+  characterssOnRoof:[
+    {
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Character"
+      },
+      character: String,
+
+    },
+  ],
+  hostages:[
+    {
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Hostage"
+      },
+
+
+    },
+  ],
 
 });
 
 
-AddressSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model("Address", AddressSchema);
+module.exports = mongoose.model("StageCoach", stageCoachSchema);
