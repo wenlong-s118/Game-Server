@@ -5,11 +5,16 @@ const express        = require("express"),
 
 const Card = require("./models/card");
 
+var cardRoutes = require("./browserRoutes/cards");
+
 mongoose.connect('mongodb+srv://Hexanome-14:COMP361D2@cluster0.jxfnz.mongodb.net/<coltDB>?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false});
 app.use(express.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
+
+
+app.use("/cards", cardRoutes);
 
 app.get("/", function(req,res){
   // res.render("index");
