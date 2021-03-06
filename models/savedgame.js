@@ -1,8 +1,6 @@
 var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
 
-
-
 var savedGameSchema = new mongoose.Schema({
   characters:[
     {

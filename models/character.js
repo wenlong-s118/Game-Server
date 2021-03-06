@@ -5,7 +5,6 @@ var characterSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   },
-  sessionID: String,
   character: String,
   lootamount: Number,
   loot: [
@@ -20,7 +19,7 @@ var characterSchema = new mongoose.Schema({
   ],
   position: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Cart"
+    ref: "Position"
   },
   onRoof: Boolean,
   hostages: [
@@ -32,15 +31,18 @@ var characterSchema = new mongoose.Schema({
 
     }
   ],
-  cardsInHand: card[
+  cardsInHand: [
     {
       id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Card"
       },
       card: String,
-  ]
-
+    }
+  ],
+  inTurn: Boolean,
+  turnNumber: Number, 
+  finishedTurn: Boolean,
 });
 
 module.exports= mongoose.model("Character", characterSchema);
