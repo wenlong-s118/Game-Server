@@ -8,6 +8,10 @@ const express        = require("express"),
 const Card = require("./models/card");
 const User = require("./models/user");
 const Character = require("./models/character");
+const Game = require("./models/game");
+const Cart = require("./models/cart");
+const Position = require("./models/position");
+const Train = require("./models/train");
 
 var cardRoutes = require("./browserRoutes/cards");
 
@@ -29,6 +33,27 @@ app.get("/", function(req,res){
   res.render("underconstruction");
 })
 
+/* USER ROUTES */
+
+app.post("/user/create", function(req,res){
+  var newUser = {
+    sessionID: req.body.sessionID,
+    username: req.body.username,
+  };
+  User.create(newUser, function(err, product){
+    if(err){
+      console.log(err);
+    }else{
+      //redir back to product admin
+      console.log(product);
+
+      res.send(product);
+    }
+  });
+});
+
+/* CARD ROUTES */
+
 app.get("/card/create", function(req,res){
   var newCard = {
     character: "Ghost",
@@ -45,12 +70,17 @@ app.get("/card/create", function(req,res){
   });
 });
 
-app.post("/user/create", function(req,res){
-  var newUser = {
-    sessionID: req.body.sessionID,
-    username: req.body.username,
+/* GAME ROUTES */
+app.post("/character/create", function(req,res){
+  var newGame = {
+    userID: req.body.userID,
+    character: req.body.character,
+    lootamount: 0,
+    onRoof: false,
+    inTurn: false,
+    finishedTurn: false,
   };
-  User.create(newUser, function(err, product){
+  Character.create(newCharacter, function(err, product){
     if(err){
       console.log(err);
     }else{
@@ -61,6 +91,9 @@ app.post("/user/create", function(req,res){
   });
 });
 
+
+/* CHARACTER ROUTES */
+
 app.post("/character/create", function(req,res){
   var newCharacter = {
     userID: req.body.userID,
@@ -70,7 +103,6 @@ app.post("/character/create", function(req,res){
     inTurn: false,
     finishedTurn: false,
   };
-
   Character.create(newCharacter, function(err, product){
     if(err){
       console.log(err);
@@ -87,6 +119,14 @@ app.get("/character/:id", function(req,res){
        if(err) console.log(err);
        else res.send(data);
    });
+});
+
+app.put("/character/:id/position", function(req,res){
+    Character.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { upsert: true, new: true }
+    );
 });
 
 
