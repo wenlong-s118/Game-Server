@@ -71,16 +71,15 @@ app.get("/card/create", function(req,res){
 });
 
 /* GAME ROUTES */
-app.post("/character/create", function(req,res){
+app.post("/game/create", function(req,res){
   var newGame = {
-    userID: req.body.userID,
-    character: req.body.character,
-    lootamount: 0,
-    onRoof: false,
-    inTurn: false,
-    finishedTurn: false,
+    phase: "Scheming",
+    session: req.body.session,
+    train: req.body.train,
+    stagecoach: req.body.stagecoach,
+    round: req.body.round
   };
-  Character.create(newCharacter, function(err, product){
+  Game.create(newGame, function(err, product){
     if(err){
       console.log(err);
     }else{
