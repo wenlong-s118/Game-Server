@@ -6,4 +6,4 @@ var positionSchema = new mongoose.Schema({
   cart: Number,
 });
 
-module.exports= mongoose.model("Position", cartSchema);
+module.exports= mongoose.model("Position", positionSchema);
