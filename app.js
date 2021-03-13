@@ -54,7 +54,7 @@ app.post("/user/create", function(req,res){
 
 /* CARD ROUTES */
 
-app.get("/card/create", function(req,res){
+app.post("/card/create", function(req,res){
   var newCard = {
     character: "Ghost",
     card: "Punch",
@@ -89,7 +89,6 @@ app.post("/game/create", function(req,res){
     }
   });
 });
-
 
 /* CHARACTER ROUTES */
 
