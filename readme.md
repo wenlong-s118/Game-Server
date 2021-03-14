@@ -8,6 +8,8 @@ node app.js
 ## API Requests Routes
 
 ### Intialize/Save/Load Routes
+&nbsp;
+&nbsp;
 #### /initializeGame:
 Creates game, trains, stagecoach, carts, loot, whisky, etc.
 
