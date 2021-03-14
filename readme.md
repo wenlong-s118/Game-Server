@@ -18,13 +18,13 @@ Turns game object into savedGame object
 Turns savedGame object into game object
 
 ### Train Routes:
-####/trainCarts:
+#### /trainCarts:
 lists all specific carts to a specific train
 
-####/trainWhisky:
+#### /trainWhisky:
 lists whisky pertaining to specific train/game: no post route to be provided
 
-####/trainLoot:
+#### /trainLoot:
 loot pertaining to a specific train/game: not post route to be provided
 
 
