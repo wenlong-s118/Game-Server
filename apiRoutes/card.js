@@ -5,7 +5,7 @@ const express        = require("express"),
 
 /* CARD ROUTES */
 
-app.post("/create", function(req,res){
+router.post("/", function(req,res){
     var newCard = {
         character: "Ghost",
         card: "Punch",
@@ -20,3 +20,4 @@ app.post("/create", function(req,res){
         }
     });
 });
+module.exports = router;

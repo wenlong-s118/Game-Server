@@ -6,6 +6,6 @@ node app.js
 ```
 
 ## API Requests Routes
-```
-/cards
-```
+
+###/cards
+- POST: Creates new card

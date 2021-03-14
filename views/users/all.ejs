@@ -6,16 +6,13 @@
 
 
     <div class="row text-center">
-      <% games.forEach(function(game){ %>
+      <% users.forEach(function(user){ %>
         <div class="col-st-xl-3 col-st-lg-4 col-st-md-4 col-st-sm-4 col-st-xs-4 col-mobile-sm">
           <a href="#" class="dashboard-card">
             <div class="card" style="margin-top: 30px">
               <div class="card-body">
-                <p><%=game.phase%></p>
-                <p><%=game.session%></p>
-                <p><%=game.train%></p>
-                <p><%=game.stagecoach%></p>
-                <p><%=game.round%></p>
+                <p><%=user.sessionID%></p>
+                <p><%=user.username%></p>
               </div>
             </div>
           </a>

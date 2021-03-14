@@ -16,13 +16,16 @@ const Train = require("./models/train");
 
 //Routes Require
 //Browser Routes
-var browserUserRoutes = require("./browserRoutes/card");
-var browserCardRoutes = require("./browserRoutes/user");
+var browserUserRoutes = require("./browserRoutes/user");
+var browserCardRoutes = require("./browserRoutes/card");
+var browserGameRoutes = require("./browserRoutes/game");
 
 
 //API Routes
 var apiUserRoutes = require("./apiRoutes/user");
 var apiCardRoutes = require("./apiRoutes/card");
+var apiGameRoutes = require("./apiRoutes/game");
+
 
 
 
@@ -38,13 +41,17 @@ app.use(bodyParser.json());
 
 //Routes assign
 //Browser Routes
-app.use("/browser/users", browserCardRoutes);
+app.use("/browser/users", browserUserRoutes);
 app.use("/browser/cards", browserCardRoutes);
+app.use("/browser/games", browserGameRoutes);
+
 
 
 //API Routes
-app.use("/users", apiCardRoutes);
+app.use("/users", apiUserRoutes);
 app.use("/cards", apiCardRoutes);
+app.use("/games", apiGameRoutes);
+
 
 
 
@@ -53,42 +60,9 @@ app.get("/", function(req,res){
   res.render("underconstruction");
 })
 
-/* USER ROUTES */
 
-app.post("/user/create", function(req,res){
-  var newUser = {
-    sessionID: req.body.sessionID,
-    username: req.body.username,
-  };
-  User.create(newUser, function(err, product){
-    if(err){
-      console.log(err);
-    }else{
-      //redir back to product admin
-      console.log(product);
 
-      res.send(product);
-    }
-  });
-});
 
-/* CARD ROUTES */
-
-app.post("/card/create", function(req,res){
-  var newCard = {
-    character: "Ghost",
-    card: "Punch",
-  };
-  Card.create(newCard, function(err, product){
-    if(err){
-      console.log(err);
-    }else{
-      //redir back to product admin
-      console.log(product);
-      res.send(product);
-    }
-  });
-});
 
 /* GAME ROUTES */
 app.post("/game/create", function(req,res){
