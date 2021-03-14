@@ -13,7 +13,18 @@ const Cart = require("./models/cart");
 const Position = require("./models/position");
 const Train = require("./models/train");
 
-var cardRoutes = require("./browserRoutes/cards");
+
+//Routes Require
+//Browser Routes
+var browserUserRoutes = require("./browserRoutes/card");
+var browserCardRoutes = require("./browserRoutes/user");
+
+
+//API Routes
+var apiUserRoutes = require("./apiRoutes/user");
+var apiCardRoutes = require("./apiRoutes/card");
+
+
 
 mongoose.connect('mongodb+srv://Hexanome-14:COMP361D2@cluster0.jxfnz.mongodb.net/<coltDB>?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false});
 app.use(express.urlencoded({extended: true}));
@@ -25,8 +36,17 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+//Routes assign
+//Browser Routes
+app.use("/browser/users", browserCardRoutes);
+app.use("/browser/cards", browserCardRoutes);
 
-app.use("/cards", cardRoutes);
+
+//API Routes
+app.use("/users", apiCardRoutes);
+app.use("/cards", apiCardRoutes);
+
+
 
 app.get("/", function(req,res){
   // res.render("index");
