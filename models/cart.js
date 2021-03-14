@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 
 var cartSchema = new mongoose.Schema({
+  cartNumber: Number,
   loot: [{type: mongoose.Schema.Types.ObjectId,ref: 'Loot'}],
   horses: Number,
   marshal: Boolean,
