@@ -8,11 +8,18 @@ node app.js
 ## API Requests Routes
 
 ### Intialize/Save/Load Routes
-#### /createLobby: POST
+#### /loby: POST
 Makes lobby and first user(the owner)
-#### /joinLobby: POST
-Makes new user
-#### /
+&nbsp;
+#### /loby/join: POST
+Makes new user join game
+&nbsp;
+#### /loby/selectCharacter POST
+Select character
+&nbsp;
+#### updateCharactersToGame
+Update characters to contain GameID
+&nbsp;
 #### /initializeGame: POST
 Creates game, trains, stagecoach, carts, loot, whisky, etc.
 &nbsp;
@@ -22,8 +29,7 @@ Turns game object into savedGame object
 #### /loadGame: POST
 Turns savedGame object into game object
 &nbsp;
-#### /joinGame: POST
-Adds player object to game
+
 #### /selectCharacter: POST
 Assigns character object to player + creates all relative card objects
 &nbsp;
