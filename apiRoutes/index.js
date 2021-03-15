@@ -14,9 +14,6 @@ const express        = require("express"),
       User           = require("../models/user");
 
 router.post("/initializeGame", function(req,res){
-    var userOrder= [];
-
-
     var sessionID = req.body.sessionID;
     var noChar = req.body.noChar;
     // var round: {type: mongoose.Schema.Types.ObjectId, ref: "Round"};
@@ -428,7 +425,6 @@ router.post("/initializeGame", function(req,res){
         })
         res.redirect("/");
     });
-
 
 });
 

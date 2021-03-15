@@ -5,6 +5,10 @@ var cardSchema = new mongoose.Schema({
   characterID: { type: mongoose.Schema.Types.ObjectId, ref: "Character"},
   character: String,
   card: String,
+  inHand: Boolean,
+  inDeck: Boolean,
+  isBullet: Boolean,
+  isHostileBullet: Boolean
 });
 
 module.exports= mongoose.model("Card", cardSchema);

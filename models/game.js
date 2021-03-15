@@ -2,9 +2,8 @@ var mongoose = require("mongoose");
 
 var gameSchema = new mongoose.Schema({
   sessionID: String,
-  userOrder:[{type: mongoose.Schema.Types.ObjectId, ref: "User"}],
-
-  round: {type: mongoose.Schema.Types.ObjectId, ref: "Round"},
+  lobbbyID: {type: mongoose.Schema.Types.ObjectId, ref: "Lobby"},
+  round: String,
   phase: String,
   currentPlayer: {type: mongoose.Schema.Types.ObjectId, ref: "Character"}
 });

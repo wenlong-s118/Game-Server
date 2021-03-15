@@ -8,6 +8,11 @@ node app.js
 ## API Requests Routes
 
 ### Intialize/Save/Load Routes
+#### /createLobby: POST
+Makes lobby and first user(the owner)
+#### /joinLobby: POST
+Makes new user
+#### /
 #### /initializeGame: POST
 Creates game, trains, stagecoach, carts, loot, whisky, etc.
 &nbsp;

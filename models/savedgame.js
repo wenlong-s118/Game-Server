@@ -1,44 +1,13 @@
 var mongoose = require("mongoose");
-var passportLocalMongoose = require("passport-local-mongoose");
 
 var savedGameSchema = new mongoose.Schema({
-  username: String,
-  gameID: { type: mongoose.Schema.Types.ObjectId, ref: "Game"},
-  characters:[
-    {
-      id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Character"
-      },
-      character: String,
-
-    },
-  ],
+  saverUserName: String,
   sessionID: String,
-  roundID: [
-    {
-      id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Round"
-      },
-      character: String,
+  lobbbyID: {type: mongoose.Schema.Types.ObjectId, ref: "Lobby"},
+  round: String,
+  phase: String,
+  currentPlayer: Number,
 
-    },
-  ],
-  trainID:{
-    {
-      id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Train"
-      },
-  },
-  stagecoachID:{
-    {
-      id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Stagecoach"
-      },
-  },
 });
 
 
