@@ -5,7 +5,8 @@ var trainSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Game"
   },
-  carts:[{type: mongoose.Schema.Types.ObjectId,ref: "Cart"}]
+  carCount: Number,
+
 });
 
 module.exports= mongoose.model("Train", trainSchema);

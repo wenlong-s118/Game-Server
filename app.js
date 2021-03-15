@@ -9,7 +9,7 @@ const Card = require("./models/card");
 const User = require("./models/user");
 const Character = require("./models/character");
 const Game = require("./models/game");
-const Cart = require("./models/cart");
+const Car = require("./models/car");
 const Position = require("./models/position");
 const Train = require("./models/train");
 
@@ -25,6 +25,7 @@ var browserGameRoutes = require("./browserRoutes/game");
 var apiUserRoutes = require("./apiRoutes/user");
 var apiCardRoutes = require("./apiRoutes/card");
 var apiGameRoutes = require("./apiRoutes/game");
+var apiIndexRoutes = require("./apiRoutes/index");
 
 
 
@@ -51,6 +52,7 @@ app.use("/browser/games", browserGameRoutes);
 app.use("/users", apiUserRoutes);
 app.use("/cards", apiCardRoutes);
 app.use("/games", apiGameRoutes);
+app.use("/", apiIndexRoutes);
 
 
 

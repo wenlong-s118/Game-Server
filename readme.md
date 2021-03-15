@@ -17,6 +17,11 @@ Turns game object into savedGame object
 #### /loadGame: POST
 Turns savedGame object into game object
 &nbsp;
+#### /joinGame: POST
+Adds player object to game
+#### /selectCharacter: POST
+Assigns character object to player + creates all relative card objects
+&nbsp;
 &nbsp;
 ### Train Routes:
 #### /trainCarts: GET

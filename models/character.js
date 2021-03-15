@@ -1,7 +1,8 @@
 var mongoose = require("mongoose");
 
 var characterSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User"},
+  gameID: { type: mongoose.Schema.Types.ObjectId, ref: "Game"},
+  userID: { type: mongoose.Schema.Types.ObjectId, ref: "User"},
   character: String,
   lootamount: Number,
   loot: [{type: mongoose.Schema.Types.ObjectId, ref: 'Loot'}],

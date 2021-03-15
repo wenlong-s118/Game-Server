@@ -2,6 +2,8 @@ var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
 
 var savedGameSchema = new mongoose.Schema({
+  username: String,
+  gameID: { type: mongoose.Schema.Types.ObjectId, ref: "Game"},
   characters:[
     {
       id: {
