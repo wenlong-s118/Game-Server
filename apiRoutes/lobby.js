@@ -52,8 +52,9 @@ router.post("/join", function(req,res){
     var sessionID = req.body.sessionID;
     var username = req.body.username;
     Lobby.findOne({'sessionID':sessionID}, function(err, foundLobby){
+      console.log(foundLobby._id);
         var newUser = {
-            lobbbyID:foundLobby._id,
+            lobbyID:foundLobby._id,
             sessionID:sessionID,
             username:username
         }
