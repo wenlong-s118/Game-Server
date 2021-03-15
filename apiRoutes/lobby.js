@@ -1,9 +1,10 @@
 const express        = require("express"),
       router         = express.Router(),
       mongoose       = require("mongoose"),
-      Lobby           = require("../models/lobby"),
+      Lobby          = require("../models/lobby"),
+      Game           = require("../models/game"),
       User           = require("../models/user"),
-      Character           = require("../models/character");
+      Character      = require("../models/character");
 
 //create Lobby
 //creates lobby with first user
@@ -20,25 +21,28 @@ router.post("/", function(req,res){
       characterSelectLock:characterSelectLock,
       charactersAvailable:charactersAvailable
     }
+
     Lobby.create(newLobby, function(err, lobby){
         if (err){
             console.log(err);
         }
 
         console.log(lobby);
-    })
-    var newUser = {
-        sessionID:sessionID,
-        username:username
-    }
-    //user created
-    User.create(newUser, function(err, user){
-        if (err){
-            console.log(err);
+        var newUser = {
+            lobbyID: lobby._id,
+            sessionID:sessionID,
+            username:username
         }
+        //user created
+        User.create(newUser, function(err, user){
+            if (err){
+                console.log(err);
+            }
 
-        console.log(user);
+            console.log(user);
+        })
     })
+
 
 })
 //join lobby
@@ -47,20 +51,23 @@ router.post("/join", function(req,res){
     var noChar = 1;
     var sessionID = req.body.sessionID;
     var username = req.body.username;
-
-
-    var newUser = {
-        sessionID:sessionID,
-        username:username
-    }
-    //user created
-    User.create(newUser, function(err, user){
-        if (err){
-            console.log(err);
+    Lobby.findOne({'sessionID':sessionID}, function(err, foundLobby){
+        var newUser = {
+            lobbbyID:foundLobby._id,
+            sessionID:sessionID,
+            username:username
         }
+        //user created
+        User.create(newUser, function(err, user){
+            if (err){
+                console.log(err);
+            }
 
-        console.log(user);
+            console.log(user);
+        })
     })
+
+
 
 })
 //leave Lobby
@@ -111,6 +118,7 @@ router.post("/selectcharacter", function(req, res){
     User.findOne({'username':username}, function(err, foundUser){
         var userID = foundUser._id;
         var newCharacter = {
+            lobbyID: foundUser.lobbyID,
             userID:userID,
             character:characterName
         }
@@ -135,8 +143,20 @@ router.post("/selectcharacter", function(req, res){
 })
 
 
-//update characters to game
+//update characters to game by session
+router.post("/updateCharactersToGame", function(req,res){
+    var sessionID = req.body.sessionID;
 
+    Game.findOne({'sessionID':sessionID}, function(err, foundGame){
+      console.log(foundGame);
+        Lobby.findOne({'sessionID':sessionID}, async function(err, foundLobby){
+          console.log(foundLobby);
+            var res = await Character.updateMany({lobbyID:foundLobby._id}, {gameID:foundGame._id});
+        });
+
+    })
+
+})
 
 
 
