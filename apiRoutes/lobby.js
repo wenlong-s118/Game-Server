@@ -4,7 +4,8 @@ const express        = require("express"),
       Lobby          = require("../models/lobby"),
       Game           = require("../models/game"),
       User           = require("../models/user"),
-      Character      = require("../models/character");
+      Character      = require("../models/character"),
+      Card           = require("../models/card");
 
 //create Lobby
 //creates lobby with first user
@@ -127,7 +128,6 @@ router.post("/selectcharacter", function(req, res){
             if (err){
                 console.log(err);
             }
-
             console.log(character);
         })
         Lobby.findOne({'sessionID':sessionID}, function(err, foundLobby){
@@ -152,9 +152,128 @@ router.post("/updateCharactersToGame", function(req,res){
       console.log(foundGame);
         Lobby.findOne({'sessionID':sessionID}, async function(err, foundLobby){
           console.log(foundLobby);
-            var res = await Character.updateMany({lobbyID:foundLobby._id}, {gameID:foundGame._id});
-        });
+            Character.find({lobbyID:foundLobby._id}, function(err, foundCharacters){
+                foundCharacters.forEach(function(foundCharacter){
+                    var card = "String";
+                    var inHand= false;
+                    var inDeck = true;
+                    var isBullet= false;
 
+                    for(i=0; i< 2; i++){
+                      card = "Loot";
+                      var newCard = {
+                          gameID: foundGame._id,
+                          characterID: foundCharacter._id,
+                          character: foundCharacter.character,
+                          card: card,
+                          inHand: inHand,
+                          inDeck: inDeck,
+                          isBullet: isBullet,
+                      }
+                      Card.create(newCard, function(err, card){
+                          if (err){
+                              console.log(err);
+                          }
+                          console.log(card);
+                      })
+
+
+                    }
+                    for(i=0; i< 1; i++){
+                      card = "Move";
+                      var newCard = {
+                          gameID: foundGame._id,
+                          characterID: foundCharacter._id,
+                          character: foundCharacter.character,
+                          card: card,
+                          inHand: inHand,
+                          inDeck: inDeck,
+                          isBullet: isBullet,
+                      }
+                      Card.create(newCard, function(err, card){
+                          if (err){
+                              console.log(err);
+                          }
+                          console.log(card);
+                      })
+                    }
+                    for(i=0; i< 2; i++){
+                      card = "ChangeFloor";
+                      var newCard = {
+                          gameID: foundGame._id,
+                          characterID: foundCharacter._id,
+                          character: foundCharacter.character,
+                          card: card,
+                          inHand: inHand,
+                          inDeck: inDeck,
+                          isBullet: isBullet,
+                      }
+                      Card.create(newCard, function(err, card){
+                          if (err){
+                              console.log(err);
+                          }
+                          console.log(card);
+                      })
+                    }
+                    for(i=0; i< 2; i++){
+                      card = "Shoot";
+                      var newCard = {
+                          gameID: foundGame._id,
+                          characterID: foundCharacter._id,
+                          character: foundCharacter.character,
+                          card: card,
+                          inHand: inHand,
+                          inDeck: inDeck,
+                          isBullet: isBullet,
+                      }
+                      Card.create(newCard, function(err, card){
+                          if (err){
+                              console.log(err);
+                          }
+                          console.log(card);
+                      })
+                    }
+                    for(i=0; i< 2; i++){
+                      card = "Punch";
+                      var newCard = {
+                          gameID: foundGame._id,
+                          characterID: foundCharacter._id,
+                          character: foundCharacter.character,
+                          card: card,
+                          inHand: inHand,
+                          inDeck: inDeck,
+                          isBullet: isBullet,
+                      }
+                      Card.create(newCard, function(err, card){
+                          if (err){
+                              console.log(err);
+                          }
+                          console.log(card);
+                      })
+                    }
+                    for(i=0; i< 1; i++){
+                      card = "Ride";
+                      var newCard = {
+                          gameID: foundGame._id,
+                          characterID: foundCharacter._id,
+                          character: foundCharacter.character,
+                          card: card,
+                          inHand: inHand,
+                          inDeck: inDeck,
+                          isBullet: isBullet,
+                      }
+                      Card.create(newCard, function(err, card){
+                          if (err){
+                              console.log(err);
+                          }
+                          console.log(card);
+                      })
+                    }
+                    foundCharacter.gameID = foundGame._id;
+                    foundCharacter.save();
+                });
+            });
+        });
     })
 
 })
