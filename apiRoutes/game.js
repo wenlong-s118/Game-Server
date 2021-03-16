@@ -25,7 +25,7 @@ router.post("/", function(req,res){
   });
 });
 
-app.get("/:id", function(req,res){
+router.get("/:id", function(req,res){
   Game.findById(req.params.id, function(err, data){
        if(err) console.log(err);
        else res.send(data);
