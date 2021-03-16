@@ -34,7 +34,7 @@ router.get("/roundID", function(req,res){
     })
 });
 
-router.get("/characterID", function(req,res){
+router.put("/characterID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var name = req.body.name;
     Character.find({gameID:gameID, character:name},'_id').lean().exec(function(err, characterID){
