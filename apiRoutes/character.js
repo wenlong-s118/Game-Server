@@ -20,8 +20,8 @@ router.get("/loot", function(req,res){
 
 router.get("/position", function(req,res){
     var characterID = mongoose.Types.ObjectId(req.body.characterID);
-    Character.findById(characterID, 'position').lean().exec(function(err, position){
-      return res.send(JSON.stringify(position));
+    Character.findById(characterID, 'car onRoof').lean().exec(function(err, position){
+        return res.send(JSON.stringify(position));
     })
 
 });
