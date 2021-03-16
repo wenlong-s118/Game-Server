@@ -17,9 +17,10 @@ router.get("/actionStack", function(req,res){
 router.post("/actionStack", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var cardName = req.body.gameID;
-    Card.find({card: cardName}, function(err, foundRound){
+    Card.find({card: cardName}, function(err, foundCard){
       Round.find({gameID:gameID}, function(err, foundRound){
-          foundRound
+          const actionStack = foundRound.cardsPlayed;
+          
       })
     })
 
