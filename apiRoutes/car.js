@@ -11,7 +11,7 @@ const express        = require("express"),
 
 
 
-router.get("/carLoot", function(req,res){
+router.put("/carLoot", function(req,res){
     var carID = mongoose.Types.ObjectId(req.body.carID);
     Loot.find({carID:carID}).lean().exec(function(err, loots){
       return res.send(JSON.stringify(loots));
@@ -27,7 +27,7 @@ router.get("/carLoot", function(req,res){
 //         var left = carNumber;
 //         var
 //         if(carNumber>0){
-// 
+//
 //         }
 //
 //         Car.find({carNumber:carNumber})

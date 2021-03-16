@@ -13,6 +13,19 @@ const express        = require("express"),
       Turn           = require("../models/turn"),
       User           = require("../models/user");
 
+
+//board train
+router.post("/board", function(req, res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    var carNumber = req.body.carNumber;
+    var characterName = req.body.characterName;
+    Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
+        foundCharacter.car = carNumber;
+        foundCharacter.onRoof = false;
+        foundCharacter.save();
+    })
+})
+
 //punch
 router.post("/punch", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
@@ -32,11 +45,13 @@ router.post("/punch", function(req,res){
 
 
 });
+
 //steal
 router.post("/steal", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     //character who gets punched
-    var characterID = mongoose.Types.ObjectId(req.body.victimID);
+    var thiefID = mongoose.Types.ObjectId(req.body.thiefID);
+    var
     Character.findById(victimID, function(err, foundCharacter){
         Loot.findOne({characterID:victimID}, function(err, foundLoot){
             foundLoot.characterID = null;
