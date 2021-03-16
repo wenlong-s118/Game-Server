@@ -11,10 +11,10 @@ router.get("/all", function(req, res){
         if(err){
             console.log(err);
         } else{
-            res.render("games/all", {games: games});
+          return res.send(JSON.stringify(games));
         }
     });
-})
+});
 
 
 module.exports = router;

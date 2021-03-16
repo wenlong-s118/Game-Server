@@ -4,7 +4,6 @@ const express        = require("express"),
       methodOverride = require("method-override")
       bodyParser = require('body-parser');
 
-
 const Card = require("./models/card");
 const User = require("./models/user");
 const Character = require("./models/character");
@@ -12,8 +11,6 @@ const Game = require("./models/game");
 const Car = require("./models/car");
 const Position = require("./models/position");
 const Train = require("./models/train");
-
-
 
 //Routes Require
 //Browser Routes
@@ -33,9 +30,6 @@ var apiTrainRoutes = require("./apiRoutes/train");
 var apiCarRoutes = require("./apiRoutes/car");
 var apiCharacterRoutes = require("./apiRoutes/character");
 
-
-
-
 mongoose.connect('mongodb+srv://Hexanome-14:COMP361D2@cluster0.jxfnz.mongodb.net/<coltDB>?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false});
 app.use(express.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -52,8 +46,6 @@ app.use("/browser/users", browserUserRoutes);
 app.use("/browser/cards", browserCardRoutes);
 app.use("/browser/games", browserGameRoutes);
 
-
-
 //API Routes
 app.use("/users", apiUserRoutes);
 app.use("/cards", apiCardRoutes);
@@ -64,9 +56,6 @@ app.use("/lobby", apiLobbyRoutes);
 app.use("/train", apiTrainRoutes);
 app.use("/car", apiCarRoutes);
 app.use("/character", apiCharacterRoutes);
-
-
-
 
 app.get("/", function(req,res){
   // res.render("index");
@@ -131,7 +120,13 @@ app.put("/character/:id/position", function(req,res){
     );
 });
 
-
+app.put("/character/:id/position", function(req,res){
+    Character.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { upsert: true, new: true }
+    );
+});
 
 
 let port = process.env.PORT;
