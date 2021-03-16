@@ -116,31 +116,30 @@ router.post("/selectcharacter", function(req, res){
             res.status(500).send('Already chosen');
         }
 
-    })
-    User.findOne({'username':username}, function(err, foundUser){
-        var userID = foundUser._id;
-        var newCharacter = {
-            lobbyID: foundUser.lobbyID,
-            userID:userID,
-            character:characterName
-        }
-        Character.create(newCharacter, function(err, character){
-            if (err){
-                console.log(err);
-            }
-            console.log(character);
-        })
-        Lobby.findOne({'sessionID':sessionID}, function(err, foundLobby){
+    });
+    if(temp != -1){
+      User.findOne({'username':username}, function(err, foundUser){
+          var userID = foundUser._id;
+          var newCharacter = {
+              lobbyID: foundUser.lobbyID,
+              userID:userID,
+              character:characterName
+          }
+          Character.create(newCharacter, function(err, character){
+              if (err){
+                  console.log(err);
+              }
+              console.log(character);
+          })
+          Lobby.findOne({'sessionID':sessionID}, function(err, foundLobby){
 
 
-            foundLobby.characterSelectLock = false;
-            foundLobby.save();
+              foundLobby.characterSelectLock = false;
+              foundLobby.save();
 
-        })
-    })
-
-
-    res.redirect("/");
+          })
+      });
+    }
 })
 
 
