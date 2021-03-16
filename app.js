@@ -14,6 +14,7 @@ const Position = require("./models/position");
 const Train = require("./models/train");
 
 
+
 //Routes Require
 //Browser Routes
 var browserUserRoutes = require("./browserRoutes/user");
@@ -30,7 +31,7 @@ var apiIdRoutes = require("./apiRoutes/id");
 var apiLobbyRoutes = require("./apiRoutes/lobby");
 var apiTrainRoutes = require("./apiRoutes/train");
 var apiCarRoutes = require("./apiRoutes/car");
-
+var apiCharacterRoutes = require("./apiRoutes/character");
 
 
 
@@ -62,6 +63,7 @@ app.use("/", apiIdRoutes);
 app.use("/lobby", apiLobbyRoutes);
 app.use("/train", apiTrainRoutes);
 app.use("/car", apiCarRoutes);
+app.use("/character", apiCharacterRoutes);
 
 
 

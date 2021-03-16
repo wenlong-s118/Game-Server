@@ -8,11 +8,11 @@ var lootSchema = new mongoose.Schema({
   },
   carID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Cart"
+    ref: "Car"
   },
-  playerID:{
+  characterID:{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Cart"
+    ref: "Character"
   },
   amount: Number,
   type: String,
