@@ -18,7 +18,23 @@ router.get("/carLoot", function(req,res){
     })
 
 })
-
+// router.get("/adjacentCars", function(req,res){
+//     var carID = mongoose.Types.ObjectId(req.body.carID);
+//     var adjacentCars = [];
+//
+//     Car.findById(carID, function(err, foundCart){
+//         var carNumber = foundCart.carNumber;
+//         var left = carNumber;
+//         var
+//         if(carNumber>0){
+// 
+//         }
+//
+//         Car.find({carNumber:carNumber})
+//     })
+//
+//
+// })
 
 
 module.exports = router;

@@ -26,8 +26,15 @@ router.get("/characterPosition", function(req,res){
       return res.end(JSON.stringify(position));
     })
 
-})
+});
 
+
+router.get("/allCharacters", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    Character.find({gameID:gameID}).lean().exec(function(err, characters){
+      return res.end(JSON.stringify(characters));
+    })
+})
 
 
 module.exports = router;
