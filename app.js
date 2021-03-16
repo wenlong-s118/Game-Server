@@ -29,6 +29,7 @@ var apiIndexRoutes = require("./apiRoutes/index");
 var apiIdRoutes = require("./apiRoutes/id");
 var apiLobbyRoutes = require("./apiRoutes/lobby");
 var apiTrainRoutes = require("./apiRoutes/train");
+var apiCarRoutes = require("./apiRoutes/car");
 
 
 
@@ -60,6 +61,7 @@ app.use("/", apiIndexRoutes);
 app.use("/", apiIdRoutes);
 app.use("/lobby", apiLobbyRoutes);
 app.use("/train", apiTrainRoutes);
+app.use("/car", apiCarRoutes);
 
 
 
