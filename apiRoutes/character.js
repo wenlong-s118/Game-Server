@@ -10,24 +10,24 @@ const express        = require("express"),
 
 //car routes
 
-router.put("/loot", function(req,res){
-    var characterID = mongoose.Types.ObjectId(req.body.characterID);
+router.put("/loot/:characterID", function(req,res){
+    var characterID = mongoose.Types.ObjectId(req.params.characterID);
     Loot.find({characterID:characterID}).lean().exec(function(err, loots){
       return res.send(JSON.stringify(loots));
     })
 
 });
 
-router.put("/position", function(req,res){
-    var characterID = mongoose.Types.ObjectId(req.body.characterID);
+router.get("/position/:characterID", function(req,res){
+    var characterID = mongoose.Types.ObjectId(req.params.characterID);
     Character.findById(characterID, 'car onRoof').lean().exec(function(err, position){
         return res.send(JSON.stringify(position));
     })
 
 });
 
-router.put("/name", function(req,res){
-    var characterID = mongoose.Types.ObjectId(req.body.characterID);
+router.get("/name/:characterID", function(req,res){
+    var characterID = mongoose.Types.ObjectId(req.params.characterID);
     Character.findById(characterID, 'character').lean().exec(function(err, position){
       return res.send(JSON.stringify(position));
     })
@@ -42,8 +42,8 @@ router.put("/:id", function(req,res){
 });
 
 
-router.put("/allCharacters", function(req,res){
-    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+router.get("/allCharacters/:gameID", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
     Character.find({gameID:gameID}).lean().exec(function(err, characters){
       return res.send(JSON.stringify(characters));
     })

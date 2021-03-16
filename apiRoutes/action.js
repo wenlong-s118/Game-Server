@@ -34,7 +34,7 @@ router.post("/punch", function(req,res){
     Character.findById(victimID, function(err, foundCharacter){
         Loot.findOne({characterID:victimID}, function(err, foundLoot){
             foundLoot.characterID = null;
-            Car.findOne({gameID:gameID, carNumber=foundCharacter.car}, function(err,foundCar){
+            Car.findOne({gameID:gameID, carNumber:foundCharacter.car}, function(err,foundCar){
                 foundLoot.carID = foundCar._id;
             })
             foundCharacter.lootamount-=foundLoot.amount;
@@ -46,26 +46,26 @@ router.post("/punch", function(req,res){
 
 });
 
-//steal
-router.post("/steal", function(req,res){
-    var gameID = mongoose.Types.ObjectId(req.body.gameID);
-    //character who gets punched
-    var thiefID = mongoose.Types.ObjectId(req.body.thiefID);
-    var
-    Character.findById(victimID, function(err, foundCharacter){
-        Loot.findOne({characterID:victimID}, function(err, foundLoot){
-            foundLoot.characterID = null;
-            Car.findOne({gameID:gameID, carNumber=foundCharacter.car}, function(err,foundCar){
-                foundLoot.carID = foundCar._id;
-            })
-            foundCharacter.lootamount-=foundLoot.amount;
-            foundCharacter.save();
-            foundLoot.save();
-        })
-    })
-
-
-});
+// //steal
+// router.post("/steal", function(req,res){
+//     var gameID = mongoose.Types.ObjectId(req.body.gameID);
+//     //character who gets punched
+//     var thiefID = mongoose.Types.ObjectId(req.body.thiefID);
+//     var
+//     Character.findById(victimID, function(err, foundCharacter){
+//         Loot.findOne({characterID:victimID}, function(err, foundLoot){
+//             foundLoot.characterID = null;
+//             Car.findOne({gameID:gameID, carNumber=foundCharacter.car}, function(err,foundCar){
+//                 foundLoot.carID = foundCar._id;
+//             })
+//             foundCharacter.lootamount-=foundLoot.amount;
+//             foundCharacter.save();
+//             foundLoot.save();
+//         })
+//     })
+//
+//
+// });
 //shoot
 //changeFloor
 //move

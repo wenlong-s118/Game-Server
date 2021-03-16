@@ -30,6 +30,8 @@ var apiTrainRoutes = require("./apiRoutes/train");
 var apiCarRoutes = require("./apiRoutes/car");
 var apiCharacterRoutes = require("./apiRoutes/character");
 var apiRoundRoutes  = require("./apiRoutes/round");
+var apiActionRoutes  = require("./apiRoutes/action");
+
 
 mongoose.connect('mongodb+srv://Hexanome-14:COMP361D2@cluster0.jxfnz.mongodb.net/<coltDB>?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false});
 app.use(express.urlencoded({extended: true}));

@@ -11,8 +11,8 @@ const express        = require("express"),
 
 
 
-router.put("/carLoot", function(req,res){
-    var carID = mongoose.Types.ObjectId(req.body.carID);
+router.get("/carLoot/:carID", function(req,res){
+    var carID = mongoose.Types.ObjectId(req.params.carID);
     Loot.find({carID:carID}).lean().exec(function(err, loots){
       return res.send(JSON.stringify(loots));
     })
