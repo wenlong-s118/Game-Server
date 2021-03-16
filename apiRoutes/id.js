@@ -13,9 +13,12 @@ const express        = require("express"),
       Turn           = require("../models/turn"),
       User           = require("../models/user");
 
-// router.get("/gameID", function(req,res){
-//
-// })
+router.get("/gameID", function(req,res){
+    var sessionID = req.body.sessionID;
+    Game.find({sessionID:sessionID},'_id').lean().exec(function(err, gameID){
+      return res.end(JSON.stringify(gameID));
+    })
+})
 // router.get("/trainID", function(req,res){
 //     var gameID = mongoose.Types.ObjectId(req.body.gameID);
 //
