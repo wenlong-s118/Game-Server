@@ -29,6 +29,7 @@ var apiLobbyRoutes = require("./apiRoutes/lobby");
 var apiTrainRoutes = require("./apiRoutes/train");
 var apiCarRoutes = require("./apiRoutes/car");
 var apiCharacterRoutes = require("./apiRoutes/character");
+var apiRoundRoutes  = require("./apiRoutes/round");
 
 mongoose.connect('mongodb+srv://Hexanome-14:COMP361D2@cluster0.jxfnz.mongodb.net/<coltDB>?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false});
 app.use(express.urlencoded({extended: true}));
@@ -56,6 +57,7 @@ app.use("/lobby", apiLobbyRoutes);
 app.use("/train", apiTrainRoutes);
 app.use("/car", apiCarRoutes);
 app.use("/character", apiCharacterRoutes);
+app.use("/round", apiRoundRoutes);
 
 app.get("/", function(req,res){
   // res.render("index");

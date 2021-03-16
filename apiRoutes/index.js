@@ -29,7 +29,7 @@ router.post("/initializeGame", function(req,res){
         console.log(game._id);
         var gameID = game._id;
 
-        newRound = {
+        var newRound = {
           gameID : gameID,
           roundType: 'normal',
           turnsInRound: 4,
