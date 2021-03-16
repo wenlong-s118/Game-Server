@@ -26,7 +26,10 @@ var apiUserRoutes = require("./apiRoutes/user");
 var apiCardRoutes = require("./apiRoutes/card");
 var apiGameRoutes = require("./apiRoutes/game");
 var apiIndexRoutes = require("./apiRoutes/index");
+var apiIdRoutes = require("./apiRoutes/id");
 var apiLobbyRoutes = require("./apiRoutes/lobby");
+var apiTrainRoutes = require("./apiRoutes/train");
+
 
 
 
@@ -54,7 +57,9 @@ app.use("/users", apiUserRoutes);
 app.use("/cards", apiCardRoutes);
 app.use("/games", apiGameRoutes);
 app.use("/", apiIndexRoutes);
+app.use("/", apiIdRoutes);
 app.use("/lobby", apiLobbyRoutes);
+app.use("/train", apiTrainRoutes);
 
 
 
