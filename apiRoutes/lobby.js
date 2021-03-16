@@ -112,10 +112,6 @@ router.post("/selectcharacter", function(req, res){
               foundLobby.save();
             }
         }
-        if(temp==-1){
-            res.status(500).send('Already chosen');
-        }
-
     });
     if(temp != -1){
       User.findOne({'username':username}, function(err, foundUser){
@@ -132,15 +128,16 @@ router.post("/selectcharacter", function(req, res){
               console.log(character);
           })
           Lobby.findOne({'sessionID':sessionID}, function(err, foundLobby){
-
-
               foundLobby.characterSelectLock = false;
               foundLobby.save();
-
-          })
+          });
       });
+      res.status(200).send('OK');
     }
-})
+    else{
+      res.status(500).send("Character already chosen");
+    }
+});
 
 
 //update characters to game by session
