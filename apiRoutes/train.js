@@ -10,8 +10,8 @@ const express        = require("express"),
 //train routes
 
 
-router.put("/trainCars", function(req,res){
-    var trainID = mongoose.Types.ObjectId(req.body.trainID);
+router.get("/trainCars/:trainID", function(req,res){
+    var trainID = mongoose.Types.ObjectId(req.params.trainID);
 
     Car.find({trainID:trainID}).lean().exec(function(err, cars){
       return res.send(JSON.stringify(cars));

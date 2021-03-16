@@ -9,8 +9,8 @@ const express        = require("express"),
       Round          = require("../models/round"),
       Loot           = require("../models/loot");
 
-router.put("/actionStack", function(req,res){
-    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+router.get("/actionStack/:gameID", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
     Round.find({gameID:gameID}, 'cardsPlayed').lean().exec(function(err, characters){
         return res.send(JSON.stringify(characters));
     })
