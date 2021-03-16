@@ -14,13 +14,13 @@ router.get("/trainCars", function(req,res){
     var trainID = mongoose.Types.ObjectId(req.body.trainID);
 
     Car.find({trainID:trainID}).lean().exec(function(err, cars){
-      return res.end(JSON.stringify(cars));
+      return res.send(JSON.stringify(cars));
     })
 });
 router.get("/trainLoot", function(req,res){
     var trainID = mongoose.Types.ObjectId(req.body.trainID);
     Loot.find({trainID:trainID}).lean().exec(function(err, loots){
-      return res.end(JSON.stringify(loots));
+      return res.send(JSON.stringify(loots));
     })
 
 })

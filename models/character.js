@@ -6,10 +6,8 @@ var characterSchema = new mongoose.Schema({
   lobbyID:{ type: mongoose.Schema.Types.ObjectId, ref:"Lobby"},
   character: String,
   lootamount: Number,
-  position: {
-    car: Number,
-    onRoof: Boolean
-  },
+  car: Number,
+  onRoof: Boolean,
   inTurn: Boolean,
   turnNumber: Number,
   finishedTurn: Boolean,

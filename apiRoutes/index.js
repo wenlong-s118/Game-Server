@@ -28,6 +28,21 @@ router.post("/initializeGame", function(req,res){
         }
         console.log(game._id);
         var gameID = game._id;
+
+        newRound = {
+          gameID : gameID,
+          roundType: 'normal',
+          turnsInRound: 4,
+          cardIsFaceUp: true,
+          phase: 'scheming',
+        };
+
+        Round.create(newround, function(err, round){
+          if (err){
+              console.log(err);
+          }
+        });
+
         newTrain = {gameID:gameID};
         Train.create(newTrain, function(err, train){
           if (err){
@@ -420,7 +435,6 @@ router.post("/initializeGame", function(req,res){
 
           //car 1
           var carNumber = 1;
-
 
         })
         res.redirect("/");

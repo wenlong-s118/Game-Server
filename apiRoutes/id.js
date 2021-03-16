@@ -16,21 +16,30 @@ const express        = require("express"),
 router.get("/gameID", function(req,res){
     var sessionID = req.body.sessionID;
     Game.find({sessionID:sessionID},'_id').lean().exec(function(err, gameID){
-      return res.end(JSON.stringify(gameID));
+      return res.send(JSON.stringify(gameID));
     })
-})
+});
+
 router.get("/trainID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     Train.find({gameID:gameID},'_id').lean().exec(function(err, trainID){
-      return res.end(JSON.stringify(trainID));
+      return res.send(JSON.stringify(trainID));
     })
-})
+});
+
+router.get("/roundID", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    Round.find({gameID:gameID},'_id').lean().exec(function(err, roundID){
+      return res.send(JSON.stringify(roundID));
+    })
+});
+
 router.get("/characterID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var name = req.body.name;
     Character.find({gameID:gameID, character:name},'_id').lean().exec(function(err, characterID){
-      return res.end(JSON.stringify(characterID));
+      return res.send(JSON.stringify(characterID));
     })
-})
+});
 
 module.exports = router;

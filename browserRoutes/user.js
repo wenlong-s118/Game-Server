@@ -9,7 +9,7 @@ router.get("/all", function(req, res){
         if(err){
             console.log(err);
         } else{
-            res.render("users/all", {users: users});
+            return res.send(JSON.stringify(users));
         }
     });
 })

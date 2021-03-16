@@ -10,22 +10,35 @@ const express        = require("express"),
 
 //car routes
 
-
-
-router.get("/characterLoot", function(req,res){
+router.get("/loot", function(req,res){
     var characterID = mongoose.Types.ObjectId(req.body.characterID);
     Loot.find({characterID:characterID}).lean().exec(function(err, loots){
-      return res.end(JSON.stringify(loots));
+      return res.send(JSON.stringify(loots));
     })
 
 });
 
-router.get("/characterPosition", function(req,res){
+router.get("/position", function(req,res){
     var characterID = mongoose.Types.ObjectId(req.body.characterID);
     Character.findById(characterID, 'position').lean().exec(function(err, position){
-      return res.end(JSON.stringify(position));
+      return res.send(JSON.stringify(position));
     })
 
+});
+
+router.get("/name", function(req,res){
+    var characterID = mongoose.Types.ObjectId(req.body.characterID);
+    Character.findById(characterID, 'character').lean().exec(function(err, position){
+      return res.send(JSON.stringify(position));
+    })
+});
+
+router.put("/:id", function(req,res){
+    Character.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { upsert: true, new: true }
+    );
 });
 
 

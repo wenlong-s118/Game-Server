@@ -5,8 +5,6 @@ const express        = require("express"),
       User           = require('../models/user'),
       Game           = require('../models/game')
 
-
-
 /* GAME ROUTES */
 router.post("/", function(req,res){
   var newGame = {

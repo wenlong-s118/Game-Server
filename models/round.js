@@ -1,8 +1,5 @@
 var mongoose = require("mongoose");
 
-
-
-
 var roundSchema = new mongoose.Schema({
   gameID: { type: mongoose.Schema.Types.ObjectId, ref: "Game"},
   cardsPlayed: [{
@@ -10,13 +7,11 @@ var roundSchema = new mongoose.Schema({
     character: String,
     card: String
   }],
-  phases:[String],
   roundType: String,
   stationRound: Boolean,
   turnsInRound: Number,
   cardIsFaceUp: Boolean,
+  phase: String,
 });
-
-
 
 module.exports = mongoose.model("Round", roundSchema);
