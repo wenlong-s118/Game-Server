@@ -45,7 +45,7 @@ router.put("/:id", function(req,res){
 router.get("/allCharacters", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     Character.find({gameID:gameID}).lean().exec(function(err, characters){
-      return res.end(JSON.stringify(characters));
+      return res.send(JSON.stringify(characters));
     })
 })
 
