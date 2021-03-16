@@ -113,7 +113,7 @@ router.post("/selectcharacter", function(req, res){
             }
         }
         if(temp==-1){
-            res.redirect("/");
+            res.status(500).send('Already chosen');
         }
 
     })
