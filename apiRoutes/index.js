@@ -37,7 +37,7 @@ router.post("/initializeGame", function(req,res){
           phase: 'scheming',
         };
 
-        Round.create(newround, function(err, round){
+        Round.create(newRound, function(err, round){
           if (err){
               console.log(err);
           }
