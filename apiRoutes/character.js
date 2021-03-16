@@ -28,6 +28,13 @@ router.get("/characterPosition", function(req,res){
 
 })
 
+router.get("/characterName", function(req,res){
+    var characterID = mongoose.Types.ObjectId(req.body.characterID);
+    Character.findById(characterID, 'character').lean().exec(function(err, position){
+      return res.end(JSON.stringify(position));
+    })
+})
+
 
 
 module.exports = router;

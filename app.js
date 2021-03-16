@@ -74,9 +74,6 @@ app.get("/", function(req,res){
 })
 
 
-
-
-
 /* GAME ROUTES */
 app.post("/game/create", function(req,res){
   var newGame = {
@@ -133,6 +130,8 @@ app.put("/character/:id/position", function(req,res){
       { upsert: true, new: true }
     );
 });
+
+
 
 
 let port = process.env.PORT;
