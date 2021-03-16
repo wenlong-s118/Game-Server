@@ -15,7 +15,7 @@ const express        = require("express"),
 
 router.get("/gameID/:id", function(req,res){
     var sessionID = req.params.id;
-    Game.find({sessionID:sessionID},'_id').lean().exec(function(err, gameID){
+    Game.findOne({sessionID:sessionID},'_id').lean().exec(function(err, gameID){
       return res.send(JSON.stringify(gameID));
     })
 });
