@@ -25,7 +25,7 @@ router.post("/", function(req,res){
   });
 });
 
-router.put("/:id", function(req,res){
+router.get("/:id", function(req,res){
   Game.findById(req.params.id).exec(function(err, roundID){
     return res.send(JSON.stringify(roundID));
   });

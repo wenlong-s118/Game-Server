@@ -20,22 +20,22 @@ router.get("/gameID/:id", function(req,res){
     })
 });
 
-router.put("/trainID", function(req,res){
-    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+router.get("/trainID/:gameID", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
     Train.find({gameID:gameID},'_id').lean().exec(function(err, trainID){
       return res.send(JSON.stringify(trainID));
     })
 });
 
-router.put("/roundID", function(req,res){
-    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+router.get("/roundID/gameID", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
     Round.find({gameID:gameID},'_id').lean().exec(function(err, roundID){
       return res.send(JSON.stringify(roundID));
     })
 });
 
-router.put("/characterID", function(req,res){
-    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+router.get("/characterID/:gameID/:name", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var name = req.body.name;
     Character.find({gameID:gameID, character:name},'_id').lean().exec(function(err, characterID){
       return res.send(JSON.stringify(characterID));
