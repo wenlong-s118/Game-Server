@@ -101,7 +101,7 @@ router.post("/selectcharacter", function(req, res){
     })
     Lobby.findOne({'sessionID':sessionID}, function(err, foundLobby){
 
-        temp = -1;
+        var temp = -1;
         console.log(foundLobby.charactersAvailable);
         for(i = 0; i< foundLobby.charactersAvailable.length; i++){
             if(foundLobby.charactersAvailable[i]===characterName){
