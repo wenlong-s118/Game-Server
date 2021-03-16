@@ -28,12 +28,13 @@ router.post("/initializeGame", function(req,res){
         }
         console.log(game._id);
         var gameID = game._id;
-
+        var cardsPlayed = [];
         var newRound = {
           gameID : gameID,
           roundType: 'normal',
           turnsInRound: 4,
           cardIsFaceUp: true,
+          cardsPlayed:cardsPlayed,
           phase: 'scheming',
         };
 
