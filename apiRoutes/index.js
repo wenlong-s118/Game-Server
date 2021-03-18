@@ -438,7 +438,7 @@ router.post("/initializeGame", function(req,res){
           var carNumber = 1;
 
         })
-        res.redirect("/");
+        res.status(200).send('OK');
     });
 
 });
