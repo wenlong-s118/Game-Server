@@ -49,7 +49,7 @@ router.post("/punch", function(req,res){
 //steal
 router.post("/steal", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
-    //character who gets punched
+    //character who steals
     var thiefID = mongoose.Types.ObjectId(req.body.thiefID);
     var lootName = req.body.lootName;
     Character.findById(thiefID, function(err, foundCharacter){
@@ -59,6 +59,7 @@ router.post("/steal", function(req,res){
             foundCharacter.lootamount+=foundLoot.amount;
             foundCharacter.save();
             foundLoot.save();
+            res.status(200).send('OK');
         })
     })
 
@@ -75,13 +76,14 @@ router.post("/shoot", function(req,res){
     Card.findOne({characterID: agressorID, isBullet:true}, function(err, foundCard){
         foundCard.characterID = victimID;
         foundCard.inHand = true;
+        res.status(200).send('OK');
     })
 
 })
 //generalMovement
 router.post("/generalMovement", function(req, res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
-    //character who shoots
+    //character who moves
     var characterID = mongoose.Types.ObjectId(req.body.characterID);
     var carNo = req.body.carNo;
     var onRoof = req.body.onRoof;
@@ -89,6 +91,7 @@ router.post("/generalMovement", function(req, res){
         foundCharacter.car = carNo;
         foundCharacter.onRoof = onRoof;
         foundCharacter.save();
+        res.status(200).send('OK');
     })
 
 })

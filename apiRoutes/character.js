@@ -18,10 +18,10 @@ router.get("/loot/:characterID", function(req,res){
 
 });
 
-router.get("/lootAmount", function(req, res){
+router.get("/lootAmount/:characterID", function(req, res){
     var characterID = mongoose.Types.ObjectId(req.params.characterID);
-    Character.findById(characterID, 'lootamount').lean().exec(function(err, loots){
-      return res.send(JSON.stringify(loots));
+    Character.findById(characterID, 'lootamount').lean().exec(function(err, lootAmount){
+      return res.send(JSON.stringify(lootAmount));
     })
 });
 
