@@ -44,8 +44,6 @@ router.post("/punch", function(req,res){
             res.status(200).send('OK');
         })
     })
-
-
 });
 
 // //steal

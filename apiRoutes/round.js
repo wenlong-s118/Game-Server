@@ -11,8 +11,8 @@ const express        = require("express"),
 
 router.get("/actionStack/:gameID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    Round.find({gameID:gameID}, 'cardsPlayed').lean().exec(function(err, characters){
-        return res.send(JSON.stringify(characters));
+    Round.find({gameID:gameID}, 'cardsPlayed').lean().exec(function(err, cardsPlayed){
+        return res.send(JSON.stringify(cardsPlayed));
     })
 })
 router.post("/playAction", function(req,res){
