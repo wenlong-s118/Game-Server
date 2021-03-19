@@ -18,6 +18,13 @@ router.put("/loot/:characterID", function(req,res){
 
 });
 
+router.get("/lootAmount", function(req, res){
+    var characterID = mongoose.Types.ObjectId(req.params.characterID);
+    Character.findById(characterID, 'lootamount').lean().exec(function(err, loots){
+      return res.send(JSON.stringify(loots));
+    })
+});
+
 router.get("/position/:characterID", function(req,res){
     var characterID = mongoose.Types.ObjectId(req.params.characterID);
     Character.findById(characterID, 'car onRoof').lean().exec(function(err, position){
@@ -48,6 +55,7 @@ router.get("/allCharacters/:gameID", function(req,res){
       return res.send(JSON.stringify(characters));
     })
 })
+
 
 
 module.exports = router;

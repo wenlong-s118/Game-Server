@@ -60,6 +60,7 @@ app.use("/train", apiTrainRoutes);
 app.use("/car", apiCarRoutes);
 app.use("/character", apiCharacterRoutes);
 app.use("/round", apiRoundRoutes);
+app.use("/action", apiActionRoutes);
 
 app.get("/", function(req,res){
   // res.render("index");
