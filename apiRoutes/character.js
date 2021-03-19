@@ -10,7 +10,7 @@ const express        = require("express"),
 
 //car routes
 
-router.put("/loot/:characterID", function(req,res){
+router.get("/loot/:characterID", function(req,res){
     var characterID = mongoose.Types.ObjectId(req.params.characterID);
     Loot.find({characterID:characterID}).lean().exec(function(err, loots){
       return res.send(JSON.stringify(loots));

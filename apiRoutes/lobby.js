@@ -39,8 +39,8 @@ router.post("/", function(req,res){
             if (err){
                 console.log(err);
             }
-
             console.log(user);
+            res.status(200).send('OK');
         })
     })
 
@@ -66,6 +66,7 @@ router.post("/join", function(req,res){
             }
 
             console.log(user);
+            res.status(200).send('OK');
         })
     })
 
@@ -268,6 +269,7 @@ router.post("/updateCharactersToGame", function(req,res){
                     }
                     foundCharacter.gameID = foundGame._id;
                     foundCharacter.save();
+                    res.status(200).send('OK');
                 });
             });
         });

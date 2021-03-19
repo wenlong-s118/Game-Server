@@ -23,6 +23,7 @@ router.post("/board", function(req, res){
         foundCharacter.car = carNumber;
         foundCharacter.onRoof = false;
         foundCharacter.save();
+        res.status(200).send('OK');
     })
 })
 
@@ -40,10 +41,9 @@ router.post("/punch", function(req,res){
             foundCharacter.lootamount-=foundLoot.amount;
             foundCharacter.save();
             foundLoot.save();
+            res.status(200).send('OK');
         })
     })
-
-
 });
 
 //steal
