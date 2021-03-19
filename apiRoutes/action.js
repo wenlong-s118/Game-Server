@@ -65,7 +65,33 @@ router.post("/steal", function(req,res){
 
 });
 //shoot
-//changeFloor
-//move
+router.post("/shoot", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    //character who shoots
+    var agressorID = mongoose.Types.ObjectId(req.body.agressorID);
+    //character who gets shot
+    var victimID = mongoose.Types.ObjectId(req.body.victimID);
+
+    Card.findOne({characterID: agressorID, isBullet:true}, function(err, foundCard){
+        foundCard.characterID = victimID;
+        foundCard.inHand = true;
+    })
+
+})
+//generalMovement
+router.post("/generalMovement", function(req, res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    //character who shoots
+    var characterID = mongoose.Types.ObjectId(req.body.characterID);
+    var carNo = req.body.carNo;
+    var onRoof = req.body.onRoof;
+    Character.findById(characterID, function(err, foundCharacter){
+        foundCharacter.car = carNo;
+        foundCharacter.onRoof = onRoof;
+        foundCharacter.save();
+    })
+
+})
+
 
 module.exports = router;
