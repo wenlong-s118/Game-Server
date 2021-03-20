@@ -54,7 +54,7 @@ router.post("/initializeGame", function(req,res){
           //marshal car
           var gameID = game._id;
           var trainID = train._id;
-          var carNumber = 0;
+          var carNumber = noChar;
           var horses= 0;
           var marshal= true;
 
@@ -72,13 +72,28 @@ router.post("/initializeGame", function(req,res){
             }
             console.log(car.carNumber);
             console.log(car);
+            var carID = car._id;
+            var amount= 1000;
+            var type= "Strongbox";
+            var newPurse = {
+                gameID: gameID,
+                trainID: trainID,
+                carID: carID,
+                amount: amount,
+                type: type,
+            }
+            Loot.create(newPurse, function(err, purse){
+              if (err){
+                  console.log(err);
+              }
 
-
+              console.log(purse);
+            })
           })
 
           //CAR 1
           if (noChar>=1){
-              carNumber = 1;
+              carNumber = 0;
               marshal= false;
               var newCar = {
                   gameID: gameID,
@@ -138,7 +153,7 @@ router.post("/initializeGame", function(req,res){
           }
           //CAR 2
           if (noChar>=2){
-              carNumber = 2;
+              carNumber = 1;
               var newCar = {
                   gameID: gameID,
                   trainID: trainID,
@@ -198,7 +213,7 @@ router.post("/initializeGame", function(req,res){
 
           //CAR 3
           if(noChar>=3){
-              carNumber = 3;
+              carNumber = 2;
               var newCar = {
                   gameID: gameID,
                   trainID: trainID,
@@ -257,7 +272,7 @@ router.post("/initializeGame", function(req,res){
           }
           //CAR 4
           if(noChar>=4){
-              carNumber = 4;
+              carNumber = 3;
               var newCar = {
                   gameID: gameID,
                   trainID: trainID,
@@ -316,7 +331,7 @@ router.post("/initializeGame", function(req,res){
           }
           //CAR 5
           if(noChar>=5){
-              carNumber = 5;
+              carNumber = 4;
               var newCar = {
                   gameID: gameID,
                   trainID: trainID,
@@ -376,7 +391,7 @@ router.post("/initializeGame", function(req,res){
 
           //CAR 6
           if(noChar=6){
-              carNumber = 6;
+              carNumber = 5;
               var car = {
                   gameID: gameID,
                   trainID: trainID,
@@ -434,8 +449,7 @@ router.post("/initializeGame", function(req,res){
               })
           }
 
-          //car 1
-          var carNumber = 1;
+          
 
         })
         res.status(200).send('OK');

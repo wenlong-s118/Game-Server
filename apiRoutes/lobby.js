@@ -154,8 +154,46 @@ router.post("/updateCharactersToGame", function(req,res){
                 foundCharacters.forEach(function(foundCharacter){
                     var card = "String";
                     var inHand= false;
-                    var inDeck = true;
-                    var isBullet= false;
+                    var inDeck = false;
+                    var isBullet= true;
+
+                    for(i=0; i< 6; i++){
+                      card = "Bullet";
+                      var newCard = {
+                          gameID: foundGame._id,
+                          characterID: foundCharacter._id,
+                          character: foundCharacter.character,
+                          card: card,
+                          inHand: inHand,
+                          inDeck: inDeck,
+                          isBullet: isBullet,
+                      }
+                      Card.create(newCard, function(err, card){
+                          if (err){
+                              console.log(err);
+                          }
+                          console.log(card);
+                      })
+                    }
+
+                    inDeck = true;
+                    isBullet = false;
+                    card = "Marshal";
+                    var newMarshalCard = {
+                        gameID: foundGame._id,
+                        characterID: foundCharacter._id,
+                        character: foundCharacter.character,
+                        card: card,
+                        inHand: inHand,
+                        inDeck: inDeck,
+                        isBullet: isBullet,
+                    }
+                    Card.create(newMarshalCard, function(err, card){
+                        if (err){
+                            console.log(err);
+                        }
+                        console.log(card);
+                    })
 
                     for(i=0; i< 2; i++){
                       card = "Loot";
