@@ -95,10 +95,6 @@ router.post("/generalMovement", function(req, res){
     })
 
 })
-//No bullets shot
-//query charactername, gameid, isBullet=true, isHostile=true
 
-//No bullets left
-//6- No bullets shot
 
 module.exports = router;

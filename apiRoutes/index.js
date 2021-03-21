@@ -112,7 +112,7 @@ router.post("/initializeGame", function(req,res){
                 for (i = 0; i < 4; i++) {
 
                     var carID = car._id;
-                    var amount= 250;
+                    var amount= 250+Math.floor(Math.random()*5)*50;
                     var type= "Purse";
                     var newPurse = {
                         gameID: gameID,
@@ -171,7 +171,7 @@ router.post("/initializeGame", function(req,res){
                 for (i = 0; i < 3; i++) {
 
                     var carID = car._id;
-                    var amount= 250;
+                    var amount= 250+Math.floor(Math.random()*5)*50;
                     var type= "Purse";
                     var newPurse = {
                         gameID: gameID,
@@ -231,7 +231,7 @@ router.post("/initializeGame", function(req,res){
                 for (i = 0; i < 3; i++) {
 
                     var carID = car._id;
-                    var amount= 250;
+                    var amount= 250+Math.floor(Math.random()*5)*50;
                     var type= "Purse";
                     var newPurse = {
                         gameID: gameID,
@@ -290,7 +290,7 @@ router.post("/initializeGame", function(req,res){
                 for (i = 0; i < 1; i++) {
 
                     var carID = car._id;
-                    var amount= 250;
+                    var amount= 250+Math.floor(Math.random()*5)*50;
                     var type= "Purse";
                     var newPurse = {
                         gameID: gameID,
@@ -349,7 +349,7 @@ router.post("/initializeGame", function(req,res){
                 for (i = 0; i < 0; i++) {
 
                     var carID = car._id;
-                    var amount= 250;
+                    var amount= 250+Math.floor(Math.random()*5)*50;
                     var type= "Purse";
                     var newPurse = {
                         gameID: gameID,
@@ -409,7 +409,7 @@ router.post("/initializeGame", function(req,res){
                 for (i = 0; i < 1; i++) {
 
                     var carID = car._id;
-                    var amount= 250;
+                    var amount= 250+Math.floor(Math.random()*5)*50;
                     var type= "Purse";
                     var newPurse = {
                         gameID: gameID,
@@ -449,7 +449,7 @@ router.post("/initializeGame", function(req,res){
               })
           }
 
-          
+
 
         })
         res.status(200).send('OK');

@@ -8,6 +8,7 @@ var cardSchema = new mongoose.Schema({
   inHand: Boolean,
   inDeck: Boolean,
   isBullet: Boolean,
+  isHostile: Boolean
 });
 
 module.exports= mongoose.model("Card", cardSchema);

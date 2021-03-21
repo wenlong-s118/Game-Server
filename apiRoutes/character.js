@@ -55,7 +55,29 @@ router.get("/allCharacters/:gameID", function(req,res){
       return res.send(JSON.stringify(characters));
     })
 })
-
-
+//No bullets shot
+//query charactername, gameid, isBullet=true, isHostile=true
+router.get("/bulletsShot/:gameID/:characterName", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    var characterName = mongoose.Types.ObjectId(req.params.characterName);
+    var count = Card.find({character:characterName, gameID:gameID, isBullet:true, isHostile:true},).count();
+    var characterCount = {
+        characterName: characterName,
+        count: count
+    };
+    return res.send(JSON.stringify(characterCount));
+})
+//No bullets left
+//6- No bullets shot
+router.get("/bulletsLeft/:gameID/:characterName", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    var characterName = mongoose.Types.ObjectId(req.params.characterName);
+    var count = 6-Card.find({character:characterName, gameID:gameID, isBullet:true, isHostile:true},).count();
+    var characterCount = {
+        characterName: characterName,
+        count: count
+    };
+    return res.send(JSON.stringify(characterCount));
+})
 
 module.exports = router;
