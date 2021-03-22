@@ -11,7 +11,8 @@ const express        = require("express"),
       Round          = require("../models/round"),
       Train          = require("../models/train"),
       Turn           = require("../models/turn"),
-      User           = require("../models/user");
+      User           = require("../models/user"),
+      StageCoach     = require("../models/stagecoach");
 
 router.get("/gameID/:id", function(req,res){
     var sessionID = req.params.id;
@@ -24,6 +25,13 @@ router.get("/trainID/:gameID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     Train.find({gameID:gameID},'_id').lean().exec(function(err, trainID){
       return res.send(JSON.stringify(trainID));
+    })
+});
+
+router.get("/stageCoachID/:gameID", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    Train.find({gameID:gameID},'_id').lean().exec(function(err, stageCoachID){
+      return res.send(JSON.stringify(stageCoachID));
     })
 });
 

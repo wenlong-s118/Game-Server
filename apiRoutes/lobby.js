@@ -307,11 +307,11 @@ router.post("/updateCharactersToGame", function(req,res){
                     }
                     foundCharacter.gameID = foundGame._id;
                     foundCharacter.save();
-                    res.status(200).send('OK');
                 });
             });
         });
     })
+    res.status(200).send('OK');
 
 })
 

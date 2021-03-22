@@ -8,10 +8,8 @@ var characterSchema = new mongoose.Schema({
   lootamount: Number,
   car: Number,
   onRoof: Boolean,
-  inTurn: Boolean,
-  turnNumber: Number,
-  finishedTurn: Boolean,
-  bulletsRemaining: Number
+  onStageCoach: Boolean,
+  turnNumber: Number
 });
 
 module.exports= mongoose.model("Character", characterSchema);

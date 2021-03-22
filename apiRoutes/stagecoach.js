@@ -5,13 +5,10 @@ const express        = require("express"),
       Game           = require("../models/game"),
       Car            = require("../models/car"),
       Train          = require("../models/train"),
-      Loot           = require("../models/loot");
+      Loot           = require("../models/loot"),
+      StageCoach     = require("../models/stagecoach");
 
-//car routes
-
-
-
-router.get("/carLoot/:carID", function(req,res){
+router.get("/stageLoot/:stageID", function(req,res){
     var carID = mongoose.Types.ObjectId(req.params.carID);
     Loot.find({carID:carID}).lean().exec(function(err, loots){
       return res.send(JSON.stringify(loots));
@@ -19,31 +16,26 @@ router.get("/carLoot/:carID", function(req,res){
 
 });
 
-router.get("charactersInCar/:gameID/:carNo", function(req,res){
+router.get("charactersInStage/:gameID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    var carNo = mongoose.Types.ObjectId(req.params.carNo);
-    Character.find({gameID:gameID, carNo:carNo, onRoof:false}).lean().exec(function(err, foundCharacters){
+    Character.find({gameID:gameID, stageCoach:true, onRoof:false}).lean().exec(function(err, foundCharacters){
         return res.send(JSON.stringify(foundCharacters));
     });
 });
 
-router.get("charactersOnRoofCar/:gameID/:carNo", function(req,res){
+router.get("charactersOnRoofStage/:gameID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    var carNo = mongoose.Types.ObjectId(req.params.carNo);
-    Character.find({gameID:gameID, carNo:carNo, onRoof:true}).lean().exec(function(err, foundCharacters){
+    Character.find({gameID:gameID, stageCoach:true, onRoof:true}).lean().exec(function(err, foundCharacters){
         return res.send(JSON.stringify(foundCharacters));
     });
 });
 
-router.get("charactersAtCar/:gameID/:carNo", function(req,res){
+router.get("charactersAtStage/:gameID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    var carNo = mongoose.Types.ObjectId(req.params.carNo);
-    Character.find({gameID:gameID, carNo:carNo}).lean().exec(function(err, foundCharacters){
+    Character.find({gameID:gameID, stageCoach:true}).lean().exec(function(err, foundCharacters){
         return res.send(JSON.stringify(foundCharacters));
     });
 });
-
-
 
 
 

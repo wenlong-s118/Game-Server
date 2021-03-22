@@ -14,7 +14,7 @@ const express        = require("express"),
       User           = require("../models/user");
 
 
-//board train
+//board train: horse attack
 router.post("/board", function(req, res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var carNumber = req.body.carNumber;
@@ -65,7 +65,7 @@ router.post("/steal", function(req,res){
 
 
 });
-//shoot
+//shoot: need to update
 router.post("/shoot", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     //character who shoots
@@ -95,6 +95,6 @@ router.post("/generalMovement", function(req, res){
     })
 
 })
-
+//ride horse: also for stage coach access
 
 module.exports = router;
