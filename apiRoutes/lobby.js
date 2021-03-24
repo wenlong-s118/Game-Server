@@ -88,10 +88,30 @@ router.post("/leave", function(req,res){
         User.findOne({username:username}, function(err, foundUser){
             Character.findOne({userID:foundUser._id}, function(err, foundCharacter){
                 var characterName = foundCharacter.character;
-                console.log(foundLobby.charactersAvailable);
+                var characterPlayOrder = foundCharacter.playOrder;
                 foundLobby.charactersAvailable.push(characterName);
-                console.log(foundLobby.charactersAvailable);
+                foundLobby.orderIndex--;
+                Character.find({lobbyID:foundLobby._id}, function(err, remainingCharacters){
+                    remainingCharacters.forEach(function(remainingCharacter){
+                        console.log(remainingCharacter.playOrder);
+                        console.log(characterPlayOrder);
+                        if(remainingCharacter.playOrder > characterPlayOrder){
+                            remainingCharacter.playOrder--;
+                            remainingCharacter.save();
+                        }
+
+
+                    });
+                })
                 foundLobby.save();
+                Card.find({character:characterName}, function(err, foundCards){
+                    foundCards.forEach(function(foundCard){
+                        Card.findByIdAndRemove(foundCard._id, function(err){
+                            console.log(err);
+                        });
+                    });
+                });
+
                 Character.findOneAndRemove({userID:foundUser._id},function(err){
                     if(err){
                         console.log(err);
@@ -261,7 +281,7 @@ router.post("/updateCharactersToGame", function(req,res){
 
 
                     }
-                    for(i=0; i< 1; i++){
+                    for(i=0; i< 2; i++){
                       card = "Move";
                       var newCard = {
                           gameID: foundGame._id,
