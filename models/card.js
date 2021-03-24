@@ -7,6 +7,7 @@ var cardSchema = new mongoose.Schema({
   card: String,
   inHand: Boolean,
   inDeck: Boolean,
+  actionStack: Boolean,
   isBullet: Boolean,
   isHostile: Boolean
 });

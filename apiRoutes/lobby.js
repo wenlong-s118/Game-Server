@@ -20,7 +20,8 @@ router.post("/", function(req,res){
       noChar:noChar,
       sessionID:sessionID,
       characterSelectLock:characterSelectLock,
-      charactersAvailable:charactersAvailable
+      charactersAvailable:charactersAvailable,
+      orderIndex:0
     }
 
     Lobby.create(newLobby, function(err, lobby){
@@ -49,11 +50,10 @@ router.post("/", function(req,res){
 //join lobby
 //creates new user and character
 router.post("/join", function(req,res){
-    var noChar = 1;
     var sessionID = req.body.sessionID;
     var username = req.body.username;
     Lobby.findOne({'sessionID':sessionID}, function(err, foundLobby){
-      console.log(foundLobby._id);
+        foundLobby.noChar++;
         var newUser = {
             lobbyID:foundLobby._id,
             sessionID:sessionID,
@@ -66,8 +66,10 @@ router.post("/join", function(req,res){
             }
 
             console.log(user);
-            res.status(200).send('OK');
+
         })
+        foundLobby.save();
+        res.status(200).send('OK');
     })
 
 
@@ -75,6 +77,47 @@ router.post("/join", function(req,res){
 })
 //leave Lobby
 //removes user and character
+router.post("/leave", function(req,res){
+
+    var sessionID = req.body.sessionID;
+    var username = req.body.username;
+    Lobby.findOne({'sessionID':sessionID}, function(err, foundLobby){
+        foundLobby.noChar--;
+
+
+        User.findOne({username:username}, function(err, foundUser){
+            Character.findOne({userID:foundUser._id}, function(err, foundCharacter){
+                var characterName = foundCharacter.character;
+                console.log(foundLobby.charactersAvailable);
+                foundLobby.charactersAvailable.push(characterName);
+                console.log(foundLobby.charactersAvailable);
+                foundLobby.save();
+                Character.findOneAndRemove({userID:foundUser._id},function(err){
+                    if(err){
+                        console.log(err);
+
+                    }
+
+                });
+            });
+
+            User.findByIdAndRemove(foundUser._id, function(err){
+                if(err){
+                    console.log(err);
+
+                }
+
+            })
+
+
+        })
+
+        res.status(200).send('OK');
+    })
+
+
+
+})
 
 //select character
 router.post("/selectcharacter", function(req, res){
@@ -103,6 +146,7 @@ router.post("/selectcharacter", function(req, res){
     Lobby.findOne({'sessionID':sessionID}, function(err, foundLobby){
 
         var temp = -1;
+        var playOrder = foundLobby.orderIndex;
         console.log(foundLobby.charactersAvailable);
         for(i = 0; i< foundLobby.charactersAvailable.length; i++){
             if(foundLobby.charactersAvailable[i]===characterName){
@@ -119,7 +163,8 @@ router.post("/selectcharacter", function(req, res){
               var newCharacter = {
                   lobbyID: foundUser.lobbyID,
                   userID:userID,
-                  character:characterName
+                  character:characterName,
+                  turnNumber:playOrder
               }
               Character.create(newCharacter, function(err, character){
                   if (err){
@@ -128,6 +173,7 @@ router.post("/selectcharacter", function(req, res){
                   console.log(character);
               })
               Lobby.findOne({'sessionID':sessionID}, function(err, foundLobby){
+                  foundLobby.orderIndex = playOrder+1;
                   foundLobby.characterSelectLock = false;
                   foundLobby.save();
               });

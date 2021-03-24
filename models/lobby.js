@@ -5,6 +5,7 @@ var lobbySchema = new mongoose.Schema({
     sessionID: String,
     characterSelectLock: Boolean,
     charactersAvailable: [String],
+    orderIndex: Number
 });
 
 module.exports= mongoose.model("Lobby", lobbySchema);
