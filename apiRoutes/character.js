@@ -62,7 +62,6 @@ router.get("/bulletsShot/:gameID/:characterName", function(req,res){
     var characterName = mongoose.Types.ObjectId(req.params.characterName);
     var count = Card.find({character:characterName, gameID:gameID, isBullet:true, isHostile:true},).count();
     var characterCount = {
-        characterName: characterName,
         count: count
     };
     return res.send(JSON.stringify(characterCount));
@@ -74,7 +73,6 @@ router.get("/bulletsLeft/:gameID/:characterName", function(req,res){
     var characterName = mongoose.Types.ObjectId(req.params.characterName);
     var count = 6-Card.find({character:characterName, gameID:gameID, isBullet:true, isHostile:true},).count();
     var characterCount = {
-        characterName: characterName,
         count: count
     };
     return res.send(JSON.stringify(characterCount));

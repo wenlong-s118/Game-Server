@@ -35,7 +35,7 @@ router.get("/stageCoachID/:gameID", function(req,res){
     })
 });
 
-router.get("/roundID/gameID", function(req,res){
+router.get("/roundID/:gameID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     Round.find({gameID:gameID},'_id').lean().exec(function(err, roundID){
       return res.send(JSON.stringify(roundID));

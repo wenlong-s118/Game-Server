@@ -42,5 +42,10 @@ router.post("/playAction", function(req,res){
 
 })
 
+router.post("/endOfRound", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    
+})
+
 
 module.exports = router;

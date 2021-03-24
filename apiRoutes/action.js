@@ -30,7 +30,9 @@ router.post("/board", function(req, res){
 //punch
 router.post("/punch", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    //can choose loot
     //character who gets punched
+    //agressorID
     var victimID = mongoose.Types.ObjectId(req.body.victimID);
     Character.findById(victimID, function(err, foundCharacter){
         Loot.findOne({characterID:victimID}, function(err, foundLoot){
