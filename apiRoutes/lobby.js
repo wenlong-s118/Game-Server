@@ -88,15 +88,16 @@ router.post("/leave", function(req,res){
         User.findOne({username:username}, function(err, foundUser){
             Character.findOne({userID:foundUser._id}, function(err, foundCharacter){
                 var characterName = foundCharacter.character;
-                var characterPlayOrder = foundCharacter.playOrder;
+                var characterPlayOrder = foundCharacter.turnNumber;
                 foundLobby.charactersAvailable.push(characterName);
                 foundLobby.orderIndex--;
-                Character.find({lobbyID:foundLobby._id}, function(err, remainingCharacters){
+                console.log(characterPlayOrder);
+                Character.find({lobbyID:foundCharacter.lobbyID}, function(err, remainingCharacters){
+                    console.log(remainingCharacters);
                     remainingCharacters.forEach(function(remainingCharacter){
-                        console.log(remainingCharacter.playOrder);
-                        console.log(characterPlayOrder);
-                        if(remainingCharacter.playOrder > characterPlayOrder){
-                            remainingCharacter.playOrder--;
+                        
+                        if(remainingCharacter.turnNumber > characterPlayOrder){
+                            remainingCharacter.turnNumber--;
                             remainingCharacter.save();
                         }
 
