@@ -5,7 +5,6 @@ var roundSchema = new mongoose.Schema({
     cardsPlayed: [{ id: {type: mongoose.Schema.Types.ObjectId, ref: "Card"},}],
     roundType: String,
     roundNumber: Number,
-    turnIndex: Number,
 });
 
 module.exports = mongoose.model("Round", roundSchema);

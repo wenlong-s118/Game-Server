@@ -4,6 +4,8 @@ var gameSchema = new mongoose.Schema({
   sessionID: String,
   lobbbyID: {type: mongoose.Schema.Types.ObjectId, ref: "Lobby"},
   roundIndex: Number,
+  turnIndex: Number,
+  playerIndex: Number,
   phase: String,
   currentPlayer: {type: mongoose.Schema.Types.ObjectId, ref: "Character"}
 });

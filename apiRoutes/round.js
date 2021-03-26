@@ -44,7 +44,23 @@ router.post("/playAction", function(req,res){
 
 router.post("/endOfRound", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
-    
+    Game.findById(gameID, function(err, foundGame){
+        foundGame.roundIndex++;
+        foundGame.save();
+    })
+    Chracter.find({gameID:gameID}, function(err, foundCharacters){
+        var lastIndex = foundCharacters.length - 1;
+        foundCharacters.forEach(function(foundCharacter){
+            if(foundCharacter.turnNumber==0){
+                foundCharacter.turnNumber--;
+            }else{
+                foundCharacter.turnNumber = lastIndex;
+            }
+            foundCharacter.save();
+        })
+
+    })
+    res.status(200).send('OK');
 })
 
 

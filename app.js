@@ -11,6 +11,7 @@ const Game = require("./models/game");
 const Car = require("./models/car");
 const Position = require("./models/position");
 const Train = require("./models/train");
+const Round = require("./models/round");
 
 //Routes Require
 //Browser Routes
@@ -29,8 +30,9 @@ var apiLobbyRoutes = require("./apiRoutes/lobby");
 var apiTrainRoutes = require("./apiRoutes/train");
 var apiCarRoutes = require("./apiRoutes/car");
 var apiCharacterRoutes = require("./apiRoutes/character");
-var apiRoundRoutes  = require("./apiRoutes/round");
 var apiActionRoutes  = require("./apiRoutes/action");
+var apiRoundRoutes  = require("./apiRoutes/round");
+var apiTurnRoutes  = require("./apiRoutes/turn");
 
 
 mongoose.connect('mongodb+srv://Hexanome-14:COMP361D2@cluster0.jxfnz.mongodb.net/<coltDB>?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false});
@@ -59,8 +61,10 @@ app.use("/lobby", apiLobbyRoutes);
 app.use("/train", apiTrainRoutes);
 app.use("/car", apiCarRoutes);
 app.use("/character", apiCharacterRoutes);
-app.use("/round", apiRoundRoutes);
 app.use("/action", apiActionRoutes);
+app.use("/round", apiRoundRoutes);
+app.use("/turn", apiTurnRoutes);
+
 
 app.get("/", function(req,res){
   // res.render("index");
