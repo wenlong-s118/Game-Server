@@ -24,6 +24,20 @@ router.post("/next", function(req, res){
     })
 })
 
+router.post("/endOfTurn", function(req, res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    //find roundindex from game:
+    Game.findById(gameID, function(err, foundGame){
+        var roundIndex = foundGame.roundIndex;
+        //find round: roundindex and gameid
+        Round.findOne({gameID:gameID, roundNumber:roundIndex}, function(err, foundRound){
+            foundRound.turnIndex++;
+            foundRound.save();
+        })
+    })
+
+})
+
 
 
 module.exports = router;
