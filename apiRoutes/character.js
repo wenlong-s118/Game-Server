@@ -62,11 +62,15 @@ router.put("/:id", function(req,res){
 
 
 router.get("/allCharacters/:gameID", function(req,res){
-    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    var gameID = req.params.gameID;
     Character.find({gameID:gameID}).lean().exec(function(err, characters){
-      return res.send(JSON.stringify(characters));
+      var response = {
+        "characters" : characters
+      }
+      return res.send(JSON.stringify(response));
     })
-})
+});
+
 //No bullets shot
 //query charactername, gameid, isBullet=true, isHostile=true
 router.get("/bulletsShot/:gameID/:characterName", function(req,res){
