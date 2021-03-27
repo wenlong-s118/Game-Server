@@ -27,10 +27,19 @@ router.get("/lootAmount/:characterID", function(req, res){
       return res.send(JSON.stringify(lootAmount));
     })
 });
-
-router.get("/position/:characterID", function(req,res){
+//deprecated characterPositionById
+router.get("/positionById/:characterID", function(req,res){
     var characterID = mongoose.Types.ObjectId(req.params.characterID);
     Character.findById(characterID, 'car onRoof').lean().exec(function(err, position){
+        return res.send(JSON.stringify(position));
+    })
+
+});
+//new route characterPositionByCharacterName
+router.get("/positionByName/:gameID/:characterName", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    var characterName = req.params.characterName;
+    Character.findOne({gameID:gameID, character:characterName}, 'car onRoof').lean().exec(function(err, position){
         return res.send(JSON.stringify(position));
     })
 
