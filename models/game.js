@@ -7,7 +7,8 @@ var gameSchema = new mongoose.Schema({
   turnIndex: Number,
   playerIndex: Number,
   phase: String,
-  currentPlayer: {type: mongoose.Schema.Types.ObjectId, ref: "Character"}
+  currentPlayer: {type: mongoose.Schema.Types.ObjectId, ref: "Character"},
+  started: Boolean
 });
 
 
