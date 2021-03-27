@@ -12,13 +12,17 @@ router.post("/ready", function(req, res){
     User.findOne({sessionID: sessionID, username:username}, function(err, foundUser){
         foundUser.ready = true;
         foundUser.save();
-    })
+    });
+    res.status(200).send('OK');
+
 })
 
-router.get("/allReady/:sessionID", function(req,res){
+router.get("/allReady/:sessionID", async function(req,res){
     var sessionID = req.params.sessionID;
-    var usersPresent = User.find({sessionID: sessionID}).count();
-    var usersReady = User.find({sessionID: sessionID, ready:true}).count();
+    var usersPresent = await User.count({sessionID: sessionID});
+    console.log(usersPresent);
+    var usersReady = await User.count({sessionID: sessionID, ready:true});
+    console.log(usersReady);
     var answer = false;
     if (usersReady+1==usersPresent){
         answer = true;

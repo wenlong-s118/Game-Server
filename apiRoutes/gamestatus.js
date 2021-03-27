@@ -11,6 +11,8 @@ router.post("/start", function(req, res){
         foundGame.started = true;
         foundGame.save();
     })
+    res.status(200).send('OK');
+
 })
 
 router.get("/started/:gameID", function(req,res){
