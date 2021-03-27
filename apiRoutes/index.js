@@ -6,10 +6,9 @@ const express        = require("express"),
       Character      = require("../models/character"),
       Game           = require("../models/game"),
       Loot           = require("../models/loot"),
-      Marshal        = require("../models/marshal"),
-      Position       = require("../models/position"),
       Round          = require("../models/round"),
       Train          = require("../models/train"),
+      StageCoach     = require("../models/stagecoach"),
       Turn           = require("../models/turn"),
       User           = require("../models/user");
 
@@ -43,8 +42,40 @@ router.post("/initializeGame", function(req,res){
               console.log(err);
           }
         });
+        var stagePosition = noChar;
+        var newStageCoach = {gameID:gameID, car:stagePosition};
+        StageCoach.create(newStageCoach, function(err,stageCoach){
+            var newShotgun = {
+                gameID: game._id,
+                character: "Shotgun",
+                onRoof: true,
+                onStageCoach: true,
+            }
+            Character.create(newShotgun, function(err, shotgun){
+                if (err){
+                    console.log(err);
+                }
+                for(i=0; i< 3; i++){
+                  var card = "Bullet";
+                  var newCard = {
+                      gameID: game._id,
+                      characterID: shotgun._id,
+                      character: shotgun.character,
+                      card: card,
+                      isBullet: true,
+                  }
+                  Card.create(newCard, function(err, card){
+                      if (err){
+                          console.log(err);
+                      }
+                      console.log(card);
+                  })
+                }
+                console.log(shotgun);
+            })
+        })
 
-        newTrain = {gameID:gameID};
+        var newTrain = {gameID:gameID};
         Train.create(newTrain, function(err, train){
           if (err){
               console.log(err);
@@ -75,19 +106,49 @@ router.post("/initializeGame", function(req,res){
             var carID = car._id;
             var amount= 1000;
             var type= "Strongbox";
-            var newPurse = {
+            var newStrongbox = {
                 gameID: gameID,
                 trainID: trainID,
                 carID: carID,
                 amount: amount,
                 type: type,
             }
-            Loot.create(newPurse, function(err, purse){
-              if (err){
-                  console.log(err);
-              }
+            Loot.create(newStrongbox, function(err, strongbox){
+                if (err){
+                    console.log(err);
+                }
 
-              console.log(purse);
+                console.log(strongbox);
+            })
+            //create marshal
+            var newMarshal = {
+                gameID: game._id,
+                character: "Marshal",
+                car: noChar,
+                onRoof: false,
+                onStageCoach: false,
+            }
+            Character.create(newMarshal, function(err, marshal){
+                if (err){
+                    console.log(err);
+                }
+                for(i=0; i< 13; i++){
+                  var card = "Bullet";
+                  var newCard = {
+                      gameID: game._id,
+                      characterID: marshal._id,
+                      character: marshal.character,
+                      card: card,
+                      isBullet: true,
+                  }
+                  Card.create(newCard, function(err, card){
+                      if (err){
+                          console.log(err);
+                      }
+                      console.log(card);
+                  })
+                }
+                console.log(marshal);
             })
           })
 

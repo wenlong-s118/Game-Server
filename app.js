@@ -9,7 +9,6 @@ const User = require("./models/user");
 const Character = require("./models/character");
 const Game = require("./models/game");
 const Car = require("./models/car");
-const Position = require("./models/position");
 const Train = require("./models/train");
 const Round = require("./models/round");
 
@@ -18,6 +17,7 @@ const Round = require("./models/round");
 var browserUserRoutes = require("./browserRoutes/user");
 var browserCardRoutes = require("./browserRoutes/card");
 var browserGameRoutes = require("./browserRoutes/game");
+var browserLobbyRoutes = require("./browserRoutes/lobby");
 
 
 //API Routes
@@ -50,6 +50,7 @@ app.use(bodyParser.json());
 app.use("/browser/users", browserUserRoutes);
 app.use("/browser/cards", browserCardRoutes);
 app.use("/browser/games", browserGameRoutes);
+app.use("/browser/lobbies", browserLobbyRoutes);
 
 //API Routes
 app.use("/users", apiUserRoutes);

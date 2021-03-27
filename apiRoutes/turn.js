@@ -31,11 +31,12 @@ router.post("/endOfTurn", function(req, res){
     Game.findById(gameID, function(err, foundGame){
         //update turnIndex and playerIndex
         foundGame.turnIndex++;
+        //handle switch turns start index at back
         foundGame.playerIndex = 0;
         foundGame.save();
     })
-
 })
+
 router.get("/currentTurn", function(req,res){
     //returns turnType
     var gameID = mongoose.Types.ObjectId(req.body.gameID);

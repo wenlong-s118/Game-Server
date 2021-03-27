@@ -95,7 +95,7 @@ router.post("/leave", function(req,res){
                 Character.find({lobbyID:foundCharacter.lobbyID}, function(err, remainingCharacters){
                     console.log(remainingCharacters);
                     remainingCharacters.forEach(function(remainingCharacter){
-                        
+
                         if(remainingCharacter.turnNumber > characterPlayOrder){
                             remainingCharacter.turnNumber--;
                             remainingCharacter.save();
@@ -179,7 +179,7 @@ router.post("/selectcharacter", function(req, res){
             }
         }
         if(temp != -1){
-          User.findOne({'username':username}, function(err, foundUser){
+          User.findOne({username:username, sessionID:sessionID}, function(err, foundUser){
               var userID = foundUser._id;
               var newCharacter = {
                   lobbyID: foundUser.lobbyID,
@@ -373,6 +373,7 @@ router.post("/updateCharactersToGame", function(req,res){
                       })
                     }
                     foundCharacter.gameID = foundGame._id;
+                    console.log(foundCharacter.gameID);
                     foundCharacter.save();
                 });
             });

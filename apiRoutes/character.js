@@ -13,7 +13,10 @@ const express        = require("express"),
 router.get("/loot/:characterID", function(req,res){
     var characterID = mongoose.Types.ObjectId(req.params.characterID);
     Loot.find({characterID:characterID}).lean().exec(function(err, loots){
-      return res.send(JSON.stringify(loots));
+      var response = {
+          characters: characters
+      };
+      return res.send(JSON.stringify(response));
     })
 
 });
