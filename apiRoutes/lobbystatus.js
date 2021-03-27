@@ -11,6 +11,7 @@ router.post("/ready", function(req, res){
     var username = req.body.username;
     User.findOne({sessionID: sessionID, username:username}, function(err, foundUser){
         foundUser.ready = true;
+        foundUser.save();
     })
 })
 
