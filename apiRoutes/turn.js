@@ -36,7 +36,7 @@ router.post("/endOfTurn", function(req, res){
         foundGame.save();
     })
 })
-
+//deprecated: turn object to be removed: only turn number matters
 router.get("/currentTurn", function(req,res){
     //returns turnType
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
@@ -59,6 +59,21 @@ router.get("/currentTurn", function(req,res){
     })
 
 
+})
+
+router.get("/currentTurnIndex", function(req,res){
+    //returns turnType
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    //find game to get roundID: roundIndex, gameID
+    Game.findById(gameID, function(err, foundGame){
+        var turnIndex = foundGame.turnIndex;
+
+            var turn = {
+                turn: turnIndex
+            };
+            return res.send(JSON.stringify(turn));
+
+    })
 })
 
 

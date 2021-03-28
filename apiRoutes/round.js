@@ -63,5 +63,25 @@ router.post("/endOfRound", function(req,res){
     res.status(200).send('OK');
 })
 
+router.get("/currentRound", function(req,res){
+    //returns roundType
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    //find game to get roundID: roundIndex, gameID
+    Game.findById(gameID, function(err, foundGame){
+        var roundIndex = foundGame.roundIndex;
+        var turnIndex = foundGame.turnIndex;
+        Round.findOne({gameID:gameID, roundNumber:roundIndex}, function(err, foundRound){
+            //find round by gameID
+            //return round type
+            var roundType = {
+                round: foundRound.roundType
+            };
+            return res.send(JSON.stringify(roundType));
+
+        })
+    })
+
+})
+
 
 module.exports = router;

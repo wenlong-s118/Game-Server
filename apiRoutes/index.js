@@ -18,7 +18,7 @@ router.post("/initializeGame", function(req,res){
     // var round: {type: mongoose.Schema.Types.ObjectId, ref: "Round"};
     // var phase: "";
     // var currentPlayer: {type: mongoose.Schema.Types.ObjectId, ref: "Character"};
-    var newGame = {sessionID: sessionID};
+    var newGame = {sessionID: sessionID, noChar:noChar};
 
     Game.create(newGame, function(err, game){
         if (err) {
