@@ -145,7 +145,7 @@ router.post("/generalMovementByName", function(req, res){
         if(err){
           console.log(err);
         }
-        foundCharacter.car = carNo;
+        foundCharacter.car = carNumber;
         foundCharacter.onRoof = onRoof;
         foundCharacter.save();
         res.status(200).send('OK');
