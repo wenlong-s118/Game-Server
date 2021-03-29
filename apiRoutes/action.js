@@ -141,7 +141,7 @@ router.post("/generalMovementByName", function(req, res){
     var characterName = req.body.characterName;
     var carNumber = req.body.carNumber;
     var onRoof = req.body.onRoof;
-    Character.findOne({gameID: gameID, characterName:characterName}, function(err, foundCharacter){
+    Character.findOne({gameID: gameID, character:characterName}, function(err, foundCharacter){
         foundCharacter.car = carNo;
         foundCharacter.onRoof = onRoof;
         foundCharacter.save();
