@@ -63,9 +63,25 @@ router.post("/endOfRound", function(req,res){
     res.status(200).send('OK');
 })
 
-router.get("/currentRound", function(req,res){
+//currentRoundNumber
+router.get("/currentRoundNumber/:gameID", function(req,res){
+    //returns round number
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    //find game to get roundID: roundIndex, gameID
+    Game.findById(gameID, function(err, foundGame){
+        var roundIndex = foundGame.roundIndex;
+        var roundNumber = {
+            roundNumber: roundIndex
+        };
+        return res.send(JSON.stringify(roundNumber));
+
+    })
+
+})
+//currentRoundType
+router.get("/currentRound/:gameID", function(req,res){
     //returns roundType
-    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
     //find game to get roundID: roundIndex, gameID
     Game.findById(gameID, function(err, foundGame){
         var roundIndex = foundGame.roundIndex;
