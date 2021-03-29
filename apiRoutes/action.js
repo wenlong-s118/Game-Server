@@ -135,6 +135,20 @@ router.post("/generalMovement", function(req, res){
     })
 
 })
+router.post("/generalMovementByName", function(req, res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    //character who moves
+    var characterName = req.body.characterName;
+    var carNo = req.body.carNo;
+    var onRoof = req.body.onRoof;
+    Character.findOne({gameID: gameID, characterName:characterName}, function(err, foundCharacter){
+        foundCharacter.car = carNo;
+        foundCharacter.onRoof = onRoof;
+        foundCharacter.save();
+        res.status(200).send('OK');
+    })
+
+})
 //ride horse: also for stage coach access
 
 module.exports = router;
