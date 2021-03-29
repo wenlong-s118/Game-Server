@@ -71,7 +71,24 @@ router.post("/initializeGame", function(req,res){
                       console.log(card);
                   })
                 }
+                var amount= 1000;
+                var type= "Strongbox";
+                var newStrongbox = {
+                    characterID: shotgun._id,
+                    gameID: gameID,
+                    amount: amount,
+                    type: type,
+                }
+                Loot.create(newStrongbox, function(err, strongbox){
+                    if (err){
+                        console.log(err);
+                    }
+
+                    console.log(strongbox);
+                })
+
                 console.log(shotgun);
+
             })
         })
 
@@ -103,13 +120,13 @@ router.post("/initializeGame", function(req,res){
             }
             console.log(car.carNumber);
             console.log(car);
-            var carID = car._id;
+            var carNo= car.carNumber;
             var amount= 1000;
             var type= "Strongbox";
             var newStrongbox = {
                 gameID: gameID,
                 trainID: trainID,
-                carID: carID,
+                car: carNo,
                 amount: amount,
                 type: type,
             }
@@ -172,13 +189,13 @@ router.post("/initializeGame", function(req,res){
                 console.log(car);
                 for (i = 0; i < 4; i++) {
 
-                    var carID = car._id;
+                    var carNo= car.carNumber;
                     var amount= 250+Math.floor(Math.random()*5)*50;
                     var type= "Purse";
                     var newPurse = {
                         gameID: gameID,
                         trainID: trainID,
-                        carID: carID,
+                        car: carNo,
                         amount: amount,
                         type: type,
                     }
@@ -191,13 +208,13 @@ router.post("/initializeGame", function(req,res){
                     })
                 }
                 for (i = 0; i < 1; i++) {
-                    var carID = car._id;
+                    var carNo= car.carNumber;
                     var amount= 500;
                     var type= "Jewel";
                     var newJewel = {
                         gameID: gameID,
                         trainID: trainID,
-                        carID: carID,
+                        car: carNo,
                         amount: amount,
                         type: type,
                     }
@@ -231,13 +248,13 @@ router.post("/initializeGame", function(req,res){
                 console.log(car);
                 for (i = 0; i < 3; i++) {
 
-                    var carID = car._id;
+                    var carNo= car.carNumber;
                     var amount= 250+Math.floor(Math.random()*5)*50;
                     var type= "Purse";
                     var newPurse = {
                         gameID: gameID,
                         trainID: trainID,
-                        carID: carID,
+                        car: carNo,
                         amount: amount,
                         type: type,
                     }
@@ -250,13 +267,13 @@ router.post("/initializeGame", function(req,res){
                     })
                 }
                 for (i = 0; i < 1; i++) {
-                    var carID = car._id;
+                    var carNo= car.carNumber;
                     var amount= 500;
                     var type= "Jewel";
                     var newJewel = {
                         gameID: gameID,
                         trainID: trainID,
-                        carID: carID,
+                        car: carNo,
                         amount: amount,
                         type: type,
                     }
@@ -291,13 +308,13 @@ router.post("/initializeGame", function(req,res){
                 console.log(car);
                 for (i = 0; i < 3; i++) {
 
-                    var carID = car._id;
+                    var carNo= car.carNumber;
                     var amount= 250+Math.floor(Math.random()*5)*50;
                     var type= "Purse";
                     var newPurse = {
                         gameID: gameID,
                         trainID: trainID,
-                        carID: carID,
+                        car: carNo,
                         amount: amount,
                         type: type,
                     }
@@ -310,13 +327,13 @@ router.post("/initializeGame", function(req,res){
                     })
                 }
                 for (i = 0; i < 0; i++) {
-                    var carID = car._id;
+                    var carNo= car.carNumber;
                     var amount= 500;
                     var type= "Jewel";
                     var newJewel = {
                         gameID: gameID,
                         trainID: trainID,
-                        carID: carID,
+                        car: carNo,
                         amount: amount,
                         type: type,
                     }
@@ -350,13 +367,13 @@ router.post("/initializeGame", function(req,res){
                 console.log(car);
                 for (i = 0; i < 1; i++) {
 
-                    var carID = car._id;
+                    var carNo= car.carNumber;
                     var amount= 250+Math.floor(Math.random()*5)*50;
                     var type= "Purse";
                     var newPurse = {
                         gameID: gameID,
                         trainID: trainID,
-                        carID: carID,
+                        car: carNo,
                         amount: amount,
                         type: type,
                     }
@@ -369,13 +386,13 @@ router.post("/initializeGame", function(req,res){
                     })
                 }
                 for (i = 0; i < 0; i++) {
-                    var carID = car._id;
+                    var carNo= car.carNumber;
                     var amount= 500;
                     var type= "Jewel";
                     var newJewel = {
                         gameID: gameID,
                         trainID: trainID,
-                        carID: carID,
+                        car: carNo,
                         amount: amount,
                         type: type,
                     }
@@ -409,13 +426,13 @@ router.post("/initializeGame", function(req,res){
                 console.log(car);
                 for (i = 0; i < 0; i++) {
 
-                    var carID = car._id;
+                    var carNo= car.carNumber;
                     var amount= 250+Math.floor(Math.random()*5)*50;
                     var type= "Purse";
                     var newPurse = {
                         gameID: gameID,
                         trainID: trainID,
-                        carID: carID,
+                        car: carNo,
                         amount: amount,
                         type: type,
                     }
@@ -428,13 +445,13 @@ router.post("/initializeGame", function(req,res){
                     })
                 }
                 for (i = 0; i < 3; i++) {
-                    var carID = car._id;
+                    var carNo= car.carNumber;
                     var amount= 500;
                     var type= "Jewel";
                     var newJewel = {
                         gameID: gameID,
                         trainID: trainID,
-                        carID: carID,
+                        car: carNo,
                         amount: amount,
                         type: type,
                     }
@@ -451,7 +468,7 @@ router.post("/initializeGame", function(req,res){
           }
 
           //CAR 6
-          if(noChar=6){
+          if(noChar==6){
               carNumber = 5;
               var car = {
                   gameID: gameID,
@@ -469,13 +486,13 @@ router.post("/initializeGame", function(req,res){
                 console.log(car);
                 for (i = 0; i < 1; i++) {
 
-                    var carID = car._id;
+                    var carNo= car.carNumber;
                     var amount= 250+Math.floor(Math.random()*5)*50;
                     var type= "Purse";
                     var newPurse = {
                         gameID: gameID,
                         trainID: trainID,
-                        carID: carID,
+                        car: carNo,
                         amount: amount,
                         type: type,
                     }
@@ -488,13 +505,13 @@ router.post("/initializeGame", function(req,res){
                     })
                 }
                 for (i = 0; i < 1; i++) {
-                    var carID = car._id;
+                    var carNo= car.carNumber;
                     var amount= 500;
                     var type= "Jewel";
                     var newJewel = {
                         gameID: gameID,
                         trainID: trainID,
-                        carID: carID,
+                        car: carNo,
                         amount: amount,
                         type: type,
                     }

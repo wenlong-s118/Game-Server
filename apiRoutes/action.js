@@ -24,9 +24,13 @@ router.post("/board", function(req, res){
         res.status(200).send('OK');
     })
 })
+//draw
+
+//useWhisky
 
 //punch
-router.post("/punch", function(req,res){
+//original punch route is deprecated...
+router.post("/punchByID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     //can choose loot
     //character who gets punched
@@ -40,6 +44,42 @@ router.post("/punch", function(req,res){
             })
             foundCharacter.lootamount-=foundLoot.amount;
             foundCharacter.save();
+            foundLoot.save();
+            res.status(200).send('OK');
+        })
+    })
+});
+
+router.post("/punchByName", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    var agressorName = req.body.agressorName;
+    var victimName = req.body.victimName;
+    var lootType = req.body.lootType;
+    var lootAmount = req.body.lootAmount;
+    var newCar = req.body.newCar;
+    Character.findOne({gameID:gameID, character:victimName}, function(err, foundVictim){
+        Loot.findOne({characterID:foundVictim._id,}, function(err, foundLoot){
+            foundLoot.characterID = null;
+            Car.findOne({gameID:gameID, carNumber:foundVictim.car}, function(err,foundCar){
+                if(agressorName === "Cheyenne"){
+                    Character.findOne({gameID:gameID, character:agressorName}, function(err, foundAgressor){
+                        foundLoot.characterID = foundAgressor._id;
+                    })
+                }
+                else{
+                    foundLoot.carID = foundCar._id;
+                    foundLoot.car = foundVictim.car;
+                    foundLoot.onRoof = foundVictim.onRoof
+                }
+
+            })
+            if(victimName === "Shotgun" && foundLoot.type === "Strongbox"){
+                foundVictim.onStageCoach = false;
+                foundLoot.onStageCoach = true;
+            }
+            foundVictim.car = newCar;
+            foundVictim.lootamount-=foundLoot.amount;
+            foundVictim.save();
             foundLoot.save();
             res.status(200).send('OK');
         })
