@@ -139,7 +139,7 @@ router.post("/generalMovementByName", function(req, res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     //character who moves
     var characterName = req.body.characterName;
-    var carNo = req.body.carNo;
+    var carNumber = req.body.carNumber;
     var onRoof = req.body.onRoof;
     Character.findOne({gameID: gameID, characterName:characterName}, function(err, foundCharacter){
         foundCharacter.car = carNo;
