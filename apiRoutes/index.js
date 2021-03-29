@@ -28,20 +28,20 @@ router.post("/initializeGame", function(req,res){
         console.log(game._id);
         var gameID = game._id;
         var cardsPlayed = [];
-        var newRound = {
-          gameID : gameID,
-          roundType: 'normal',
-          turnsInRound: 4,
-          cardIsFaceUp: true,
-          cardsPlayed:cardsPlayed,
-          phase: 'scheming',
-        };
-
-        Round.create(newRound, function(err, round){
-          if (err){
-              console.log(err);
-          }
-        });
+        // var newRound = {
+        //   gameID : gameID,
+        //   roundType: 'normal',
+        //   turnsInRound: 4,
+        //   cardIsFaceUp: true,
+        //   cardsPlayed:cardsPlayed,
+        //   phase: 'scheming',
+        // };
+        //
+        // Round.create(newRound, function(err, round){
+        //   if (err){
+        //       console.log(err);
+        //   }
+        // });
         var stagePosition = noChar;
         var newStageCoach = {gameID:gameID, car:stagePosition};
         StageCoach.create(newStageCoach, function(err,stageCoach){
