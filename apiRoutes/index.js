@@ -49,6 +49,7 @@ router.post("/initializeGame", function(req,res){
                 gameID: game._id,
                 character: "Shotgun",
                 onRoof: true,
+                lootamount:1000,
                 onStageCoach: true,
             }
             Character.create(newShotgun, function(err, shotgun){

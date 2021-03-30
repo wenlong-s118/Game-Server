@@ -9,7 +9,7 @@ const express        = require("express"),
 
 //train routes
 
-
+//deprecated
 router.get("/trainCars/:trainID", function(req,res){
     var trainID = mongoose.Types.ObjectId(req.params.trainID);
 
@@ -17,6 +17,7 @@ router.get("/trainCars/:trainID", function(req,res){
       return res.send(JSON.stringify(cars));
     })
 });
+//deprecated
 router.put("/trainLoot", function(req,res){
     var trainID = mongoose.Types.ObjectId(req.body.trainID);
     Loot.find({trainID:trainID}).lean().exec(function(err, loots){

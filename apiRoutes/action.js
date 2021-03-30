@@ -9,7 +9,9 @@ const express        = require("express"),
       Round          = require("../models/round"),
       Train          = require("../models/train"),
       Turn           = require("../models/turn"),
-      User           = require("../models/user");
+      User           = require("../models/user"),
+      StageCoach     = require("../models/stagecoach");
+
 
 
 //board train: horse attack
@@ -25,8 +27,10 @@ router.post("/board", function(req, res){
     })
 })
 //draw
+//Three cards change to inHand true, inDeck false
 
 //useWhisky
+
 
 //punch
 //original punch route is deprecated...
@@ -58,29 +62,34 @@ router.post("/punchByName", function(req,res){
     var lootAmount = req.body.lootAmount;
     var newCar = req.body.newCar;
     Character.findOne({gameID:gameID, character:victimName}, function(err, foundVictim){
-        Loot.findOne({characterID:foundVictim._id,}, function(err, foundLoot){
-            foundLoot.characterID = null;
+        Loot.findOne({characterID:foundVictim._id, type:lootType, amount:lootAmount}, function(err, foundLoot){
             Car.findOne({gameID:gameID, carNumber:foundVictim.car}, function(err,foundCar){
                 if(agressorName === "Cheyenne"){
                     Character.findOne({gameID:gameID, character:agressorName}, function(err, foundAgressor){
+                        console.log(foundAgressor)
                         foundLoot.characterID = foundAgressor._id;
+                        foundLoot.save();
+
                     })
                 }
                 else{
+                    foundLoot.characterID = null;
                     foundLoot.carID = foundCar._id;
                     foundLoot.car = foundVictim.car;
                     foundLoot.onRoof = foundVictim.onRoof
+                    foundLoot.save();
+
                 }
 
             })
             if(victimName === "Shotgun" && foundLoot.type === "Strongbox"){
                 foundVictim.onStageCoach = false;
                 foundLoot.onStageCoach = true;
+                foundLoot.onRoof = true;
             }
             foundVictim.car = newCar;
             foundVictim.lootamount-=foundLoot.amount;
             foundVictim.save();
-            foundLoot.save();
             res.status(200).send('OK');
         })
     })
@@ -90,13 +99,17 @@ router.post("/punchByName", function(req,res){
 router.post("/steal", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     //character who steals
-    var thiefID = mongoose.Types.ObjectId(req.body.thiefID);
+    var thiefName = req.body.thiefName;
     var lootName = req.body.lootName;
-    Character.findById(thiefID, function(err, foundCharacter){
-        Loot.findOne({type:lootName}, function(err, foundLoot){
+    var lootAmount = req.body.lootAmount
+    Character.findOne({character:thiefName, gameID:gameID}, function(err, foundCharacter){
+        console.log(foundCharacter);
+        Loot.findOne({type:lootName, amount:lootAmount, gameID:gameID}, function(err, foundLoot){
+            console.log(foundLoot);
             foundLoot.characterID = foundCharacter._id;
-            foundLoot.trainID = null;
-            foundCharacter.lootamount+=foundLoot.amount;
+            foundLoot.carID = null;
+            foundLoot.car = null;
+            foundCharacter.lootamount=foundCharacter.lootamount+foundLoot.amount;
             foundCharacter.save();
             foundLoot.save();
             res.status(200).send('OK');
@@ -115,11 +128,42 @@ router.post("/shoot", function(req,res){
 
     Card.findOne({characterID: agressorID, isBullet:true}, function(err, foundCard){
         foundCard.characterID = victimID;
-        foundCard.inHand = true;
+        foundCard.isHostile = true;
         res.status(200).send('OK');
     })
 
 })
+
+router.post("/shootByName", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    var agressorName = req.body.agressorName;
+    var victimName = req.body.victimName;
+    Character.findOne({gameID: gameID, character:agressorName}, function(err, foundAgressor){
+        Character.findOne({gameID: gameID, character:victimName}, function(err, foundVictim){
+            Card.findOne({characterID: foundAgressor._id, isBullet:true}, function(err, foundCard){
+                if(agressorName==="Marshal"){
+                    foundVictim.onRoof = true;
+                    foundVictim.save();
+                }
+                if(agressorName==="Shotgun"){
+                    StageCoach.findOne({gameID:gameID}, function(err, foundStageCoach){
+                        foundVictim.car = foundStageCoach.car;
+                        foundVictim.save();
+                    })
+
+                }
+                foundCard.characterID = foundVictim._id;
+                foundCard.isHostile = true;
+                foundCard.save();
+
+                res.status(200).send('OK');
+            })
+        })
+    })
+
+
+})
+
 //generalMovement
 router.post("/generalMovement", function(req, res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);

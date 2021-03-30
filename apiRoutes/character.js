@@ -8,25 +8,45 @@ const express        = require("express"),
       Loot           = require("../models/loot"),
       Character     = require("../models/character");
 
-//car routes
-
+//character lootByID routes deprecated
 router.get("/loot/:characterID", function(req,res){
     var characterID = mongoose.Types.ObjectId(req.params.characterID);
     Loot.find({characterID:characterID}).lean().exec(function(err, loots){
       var response = {
-          characters: characters
+          loots: loots
       };
       return res.send(JSON.stringify(response));
     })
 
 });
-
 router.get("/lootAmount/:characterID", function(req, res){
     var characterID = mongoose.Types.ObjectId(req.params.characterID);
     Character.findById(characterID, 'lootamount').lean().exec(function(err, lootAmount){
       return res.send(JSON.stringify(lootAmount));
     })
 });
+
+router.get("/loot/:gameID/:characterName", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    var characterName = req.params.characterName;
+    Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
+        Loot.find({characterID:foundCharacter._id}).lean().exec(function(err, loots){
+            var response = {
+                loots: loots
+            };
+            return res.send(JSON.stringify(response));
+        })
+    })
+});
+
+router.get("/lootAmount/:gameID/:characterName", function(req, res){
+  var gameID = mongoose.Types.ObjectId(req.params.gameID);
+  var characterName = req.params.characterName;
+    Character.findOne({gameID:gameID, character:characterName}, 'lootamount').lean().exec(function(err, lootAmount){
+      return res.send(JSON.stringify(lootAmount));
+    })
+});
+
 //deprecated characterPositionById
 router.get("/positionById/:characterID", function(req,res){
     var characterID = mongoose.Types.ObjectId(req.params.characterID);

@@ -185,6 +185,7 @@ router.post("/selectcharacter", function(req, res){
                   lobbyID: foundUser.lobbyID,
                   userID:userID,
                   character:characterName,
+                  lootamount:0,
                   turnNumber:playOrder
               }
               Character.create(newCharacter, function(err, character){
