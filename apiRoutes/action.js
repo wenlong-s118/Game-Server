@@ -100,11 +100,11 @@ router.post("/steal", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     //character who steals
     var thiefName = req.body.thiefName;
-    var lootName = req.body.lootName;
+    var lootType = req.body.lootType;
     var lootAmount = req.body.lootAmount
     Character.findOne({character:thiefName, gameID:gameID}, function(err, foundCharacter){
         console.log(foundCharacter);
-        Loot.findOne({type:lootName, amount:lootAmount, gameID:gameID}, function(err, foundLoot){
+        Loot.findOne({type:lootType, amount:lootAmount, gameID:gameID}, function(err, foundLoot){
             console.log(foundLoot);
             foundLoot.characterID = foundCharacter._id;
             foundLoot.carID = null;
