@@ -8,7 +8,8 @@ var lootSchema = new mongoose.Schema({
   type: String,
   car: Number,
   onRoof: Boolean,
-  onStageCoach: Boolean
+  onStageCoach: Boolean,
+  halfDrunk: Boolean
 });
 
 module.exports= mongoose.model("Loot", lootSchema);

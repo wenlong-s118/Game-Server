@@ -33,6 +33,7 @@ router.post("/playAction", function(req,res){
           }
           actionStack.push(newCard);
           foundCard.inHand = false;
+          foundCard.
           foundCard.save();
           foundRound.save();
       })

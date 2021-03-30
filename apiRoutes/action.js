@@ -28,9 +28,67 @@ router.post("/board", function(req, res){
 })
 //draw
 //Three cards change to inHand true, inDeck false
+router.post("/draw", function(req, res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    var characterName = req.body.characterName;
+    Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
+        var cards = Card.find({characterID: foundCharacter._id, inDeck: true}).limit(3).exec(function(err, foundCards){
+            foundCards.forEach(function(foundCard){
+                foundCard.inDeck = false;
+                foundCard.inHand = true;
+                foundCard.save();
+            })
+        });
+    })
+    res.status(200).send('OK');
+})
 
-//useWhisky
+router.post("/playActionCard", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    var characterName = req.body.characterName;
+    var cardName = req.body.cardName;
+    Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
+        Card.findOne({characterID: foundCharacter._id, inHand: true, card:cardName}, function(err, foundCard){
+            foundCard.inHand= false;
+            foundCard.actionStack = true;
+            foundCard.save();
+            Round.findOne({gameID:gameID}, function(err, foundRound){
+                console.log(foundRound);
+                console.log(foundRound.cardsPlayed);
+                const actionStack = foundRound.cardsPlayed;
 
+                var newCard = {
+                    id: foundCard._id,
+                    character: foundCard.character,
+                    card: foundCard.card
+                }
+                actionStack.push(newCard);
+                foundRound.save();
+            })
+        })
+    })
+    res.status(200).send('OK');
+})
+//updateWhisky:
+router.post("/updateWhisky", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    var characterName = req.body.characterName;
+    var whiskyType = req.body.whiskyType;
+    Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
+        Loot.findOne({characterID:foundCharacter._id, type:whiskyType}, function(err, foundLoot){
+            if(foundLoot.halfDrunk==true){
+                console.log("haha");
+                Loot.findByIdAndRemove(foundLoot._id).exec();
+            }
+            else{
+                foundLoot.halfDrunk = true;
+                foundLoot.save();
+            }
+
+        })
+    })
+    res.status(200).send('OK');
+})
 
 //punch
 //original punch route is deprecated...
