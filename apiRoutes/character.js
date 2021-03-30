@@ -26,7 +26,7 @@ router.get("/lootAmount/:characterID", function(req, res){
     })
 });
 
-router.get("/loot/:gameID/:characterName", function(req,res){
+router.get("/lootByName/:gameID/:characterName", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var characterName = req.params.characterName;
     Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
@@ -39,7 +39,7 @@ router.get("/loot/:gameID/:characterName", function(req,res){
     })
 });
 
-router.get("/lootAmount/:gameID/:characterName", function(req, res){
+router.get("/lootAmountByName/:gameID/:characterName", function(req, res){
   var gameID = mongoose.Types.ObjectId(req.params.gameID);
   var characterName = req.params.characterName;
     Character.findOne({gameID:gameID, character:characterName}, 'lootamount').lean().exec(function(err, lootAmount){
