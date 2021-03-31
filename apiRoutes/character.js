@@ -97,10 +97,8 @@ router.get("/bulletsShot/:gameID/:characterName", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var characterName = mongoose.Types.ObjectId(req.params.characterName);
     var count = Card.find({character:characterName, gameID:gameID, isBullet:true, isHostile:true},).count();
-    var characterCount = {
-        count: count
-    };
-    return res.send(JSON.stringify(characterCount));
+    var characterCount = count;
+    return res.send(JSON.stringify(count));
 })
 //No bullets left
 //6- No bullets shot
@@ -108,9 +106,8 @@ router.get("/bulletsLeft/:gameID/:characterName", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var characterName = mongoose.Types.ObjectId(req.params.characterName);
     var count = 6-Card.find({character:characterName, gameID:gameID, isBullet:true, isHostile:true},).count();
-    var characterCount = {
-        count: count
-    };
+    var characterCount = count;
+
     return res.send(JSON.stringify(characterCount));
 })
 

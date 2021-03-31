@@ -27,9 +27,7 @@ router.get("/allReady/:sessionID", async function(req,res){
     if (usersReady+1==usersPresent){
         answer = true;
     }
-    var response = {
-        allReady: answer
-    }
+    var response = answer;
     return res.send(JSON.stringify(response));
 
 });

@@ -21,8 +21,9 @@ router.post("/next", function(req, res){
     Game.findById(gameID, function(err, foundGame){
         foundGame.playerIndex = playerIndex;
         foundGame.save();
+        res.status(200).send('OK');
     })
-    res.status(200).send('OK');
+
 })
 
 router.post("/endOfTurn", function(req, res){
@@ -34,7 +35,9 @@ router.post("/endOfTurn", function(req, res){
         //handle switch turns start index at back
         foundGame.playerIndex = 0;
         foundGame.save();
+        res.status(200).send('OK');
     })
+
 })
 //deprecated: turn object to be removed: only turn number matters
 router.get("/currentTurn", function(req,res){
@@ -49,9 +52,8 @@ router.get("/currentTurn", function(req,res){
             //return turn type
 
             Turn.findOne({roundID:foundRound._id, turnNumber:turnIndex}, function(err, foundTurn){
-                var turnType = {
-                    turn: foundTurn.turnType
-                };
+                var turnType = foundTurn.turnType;
+
                 return res.send(JSON.stringify(turnType));
             })
 
@@ -68,10 +70,7 @@ router.get("/currentTurnIndex", function(req,res){
     Game.findById(gameID, function(err, foundGame){
         var turnIndex = foundGame.turnIndex;
 
-            var turn = {
-                turn: turnIndex
-            };
-            return res.send(JSON.stringify(turn));
+        return res.send(JSON.stringify(turnIndex));
 
     })
 })
