@@ -58,8 +58,7 @@ router.post("/playActionCard", function(req,res){
                 const actionStack = foundRound.cardsPlayed;
 
                 var newCard = {
-                    id: foundCard._id,
-                    character: foundCard.character,
+                    cardID: foundCard._id,
                     card: foundCard.card
                 }
                 actionStack.push(newCard);
