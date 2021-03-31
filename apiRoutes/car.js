@@ -22,16 +22,22 @@ router.get("/carLoot/:carID", function(req,res){
 router.get("/lootInCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var carNo = mongoose.Types.ObjectId(req.params.carNo);
-    Loot.find({gameID:gameID, carNo:carNo, onRoof:false}).lean().exec(function(err, foundCharacters){
-        return res.send(JSON.stringify(foundCharacters));
+    Loot.find({gameID:gameID, carNo:carNo, onRoof:false}).lean().exec(function(err, foundLoots){
+        var response = {
+            loots: foundLoots;
+        }
+        return res.send(JSON.stringify(response));
     });
 })
 
 router.get("/lootOnRoofCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var carNo = mongoose.Types.ObjectId(req.params.carNo);
-    Loot.find({gameID:gameID, carNo:carNo, onRoof:true}).lean().exec(function(err, foundCharacters){
-        return res.send(JSON.stringify(foundCharacters));
+    Loot.find({gameID:gameID, carNo:carNo, onRoof:true}).lean().exec(function(err, foundLoots){
+        var response = {
+            loots: foundLoots;
+        }
+        return res.send(JSON.stringify(response));
     });
 });
 
@@ -40,7 +46,10 @@ router.get("/charactersInCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var carNo = mongoose.Types.ObjectId(req.params.carNo);
     Character.find({gameID:gameID, carNo:carNo, onRoof:false}).lean().exec(function(err, foundCharacters){
-        return res.send(JSON.stringify(foundCharacters));
+        var response = {
+            characters: foundCharacters;
+        }
+        return res.send(JSON.stringify(response));
     });
 });
 
@@ -48,7 +57,10 @@ router.get("/charactersOnRoofCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var carNo = mongoose.Types.ObjectId(req.params.carNo);
     Character.find({gameID:gameID, carNo:carNo, onRoof:true}).lean().exec(function(err, foundCharacters){
-        return res.send(JSON.stringify(foundCharacters));
+        var response = {
+            characters: foundCharacters;
+        }
+        return res.send(JSON.stringify(response));
     });
 });
 
@@ -56,7 +68,10 @@ router.get("/charactersAtCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var carNo = mongoose.Types.ObjectId(req.params.carNo);
     Character.find({gameID:gameID, carNo:carNo}).lean().exec(function(err, foundCharacters){
-        return res.send(JSON.stringify(foundCharacters));
+        var response = {
+            characters: foundCharacters;
+        }
+        return res.send(JSON.stringify(response));
     });
 });
 

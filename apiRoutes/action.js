@@ -13,6 +13,7 @@ const express        = require("express"),
       StageCoach     = require("../models/stagecoach");
 
 
+//
 
 //board train: horse attack
 router.post("/board", function(req, res){
@@ -42,7 +43,7 @@ router.post("/draw", function(req, res){
     })
     res.status(200).send('OK');
 })
-
+//play action card
 router.post("/playActionCard", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var characterName = req.body.characterName;
