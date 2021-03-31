@@ -13,7 +13,7 @@ router.get("/loot/:characterID", function(req,res){
     var characterID = mongoose.Types.ObjectId(req.params.characterID);
     Loot.find({characterID:characterID}).lean().exec(function(err, loots){
       var response = {
-          "loots": loots
+          loots: loots
       };
       return res.send(JSON.stringify(response));
     })
@@ -32,7 +32,7 @@ router.get("/lootByName/:gameID/:characterName", function(req,res){
     Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
         Loot.find({characterID:foundCharacter._id}).lean().exec(function(err, loots){
             var response = {
-                "loots": loots
+                loots: loots
             };
             return res.send(JSON.stringify(response));
         })
@@ -85,7 +85,7 @@ router.get("/allCharacters/:gameID", function(req,res){
     var gameID = req.params.gameID;
     Character.find({gameID:gameID}).lean().exec(function(err, characters){
       var response = {
-        "characters" : characters
+        characters : characters
       }
       return res.send(JSON.stringify(response));
     })
