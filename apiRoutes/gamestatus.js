@@ -3,21 +3,23 @@ const express        = require("express"),
       mongoose       = require("mongoose"),
       Card           = require("../models/card"),
       User           = require('../models/user'),
-      Game           = require('../models/game')
+      Game           = require('../models/game'),
+      Lobby          = require("../models/lobby");
 
 router.post("/start", function(req, res){
-    var gameID = mongoose.Types.ObjectId(req.body.gameID);
-    Game.findById(gameID, function(err, foundGame){
-        foundGame.started = true;
-        foundGame.save();
+    var sessionID = req.body.sessionID;
+    Lobby.findOne({sessionID:sessionID}, function(err, foundLobby){
+        foundLobby.started = true;
+        foundLobby.save();
+        res.status(200).send('OK');
     })
-    res.status(200).send('OK');
+
 
 })
 
-router.get("/started/:gameID", function(req,res){
-    var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    Game.findById(gameID,'started').lean().exec(function(err, started){
+router.get("/started/:sessionID", function(req,res){
+    var sessionID = req.params.sessionID;
+    Lobby.findOne({sessionID:sessionID},'started').lean().exec(function(err, started){
         return res.send(JSON.stringify(started));
     })
 
