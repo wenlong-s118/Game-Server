@@ -71,9 +71,7 @@ router.get("/currentRoundNumber/:gameID", function(req,res){
     //find game to get roundID: roundIndex, gameID
     Game.findById(gameID, function(err, foundGame){
         var roundIndex = foundGame.roundIndex;
-        var roundNumber = {
-            roundNumber: roundIndex
-        };
+        var roundNumber = roundIndex;
         return res.send(JSON.stringify(roundNumber));
 
     })
