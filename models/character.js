@@ -9,7 +9,9 @@ var characterSchema = new mongoose.Schema({
   car: Number,
   onRoof: Boolean,
   onStageCoach: Boolean,
-  turnNumber: Number
+  turnNumber: Number,
+  boarded: Boolean,
+  isUser: Boolean
 });
 
 module.exports= mongoose.model("Character", characterSchema);

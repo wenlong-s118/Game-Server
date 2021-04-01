@@ -33,7 +33,8 @@ router.post("/", function(req,res){
         var newUser = {
             lobbyID: lobby._id,
             sessionID:sessionID,
-            username:username
+            username:username,
+            isUser:true
         }
         //user created
         User.create(newUser, function(err, user){

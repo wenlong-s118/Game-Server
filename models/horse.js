@@ -1,10 +1,10 @@
 var mongoose = require("mongoose");
 
-var characterSchema = new mongoose.Schema({
+var horseSchema = new mongoose.Schema({
     gameID: { type: mongoose.Schema.Types.ObjectId, ref: "Game"},
     horse: String,
     car: Number,
-    onRoof: Boolean,
+    onStageCoach: Boolean
 });
 
-module.exports= mongoose.model("Character", characterSchema);
+module.exports= mongoose.model("Horse", horseSchema);

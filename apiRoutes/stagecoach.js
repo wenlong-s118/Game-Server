@@ -8,34 +8,49 @@ const express        = require("express"),
       Loot           = require("../models/loot"),
       StageCoach     = require("../models/stagecoach");
 
-router.get("/stageLoot/:stageID", function(req,res){
-    var carID = mongoose.Types.ObjectId(req.params.carID);
-    Loot.find({carID:carID}).lean().exec(function(err, loots){
-      return res.send(JSON.stringify(loots));
-    })
-
-});
-
-router.get("charactersInStage/:gameID", function(req,res){
+//Loot in Car or on car roof by car number
+router.get("/lootInStageCoach/:gameID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    Character.find({gameID:gameID, stageCoach:true, onRoof:false}).lean().exec(function(err, foundCharacters){
-        return res.send(JSON.stringify(foundCharacters));
+    Loot.find({gameID:gameID, onStageCoach:true, onRoof:false}).lean().exec(function(err, foundLoots){
+        var response = {
+            loots: foundLoots
+        }
+        return res.send(JSON.stringify(response));
+    });
+})
+
+router.get("/lootOnRoofStageCoach/:gameID", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    Loot.find({gameID:gameID, onStageCoach:true, onRoof:true}).lean().exec(function(err, foundLoots){
+        var response = {
+            loots: foundLoots
+        }
+        return res.send(JSON.stringify(response));
     });
 });
 
-router.get("charactersOnRoofStage/:gameID", function(req,res){
+
+router.get("/charactersInStageCoach/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    Character.find({gameID:gameID, stageCoach:true, onRoof:true}).lean().exec(function(err, foundCharacters){
-        return res.send(JSON.stringify(foundCharacters));
+    Character.find({gameID:gameID, onStageCoach:true, onRoof:false}).lean().exec(function(err, foundCharacters){
+        var response = {
+            characters: foundCharacters
+        }
+        return res.send(JSON.stringify(response));
     });
 });
 
-router.get("charactersAtStage/:gameID", function(req,res){
+router.get("/charactersOnRoofStageCoach/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    Character.find({gameID:gameID, stageCoach:true}).lean().exec(function(err, foundCharacters){
-        return res.send(JSON.stringify(foundCharacters));
+    var carNo = mongoose.Types.ObjectId(req.params.carNo);
+    Character.find({gameID:gameID, onStageCoach:true, onRoof:true}).lean().exec(function(err, foundCharacters){
+        var response = {
+            characters: foundCharacters
+        }
+        return res.send(JSON.stringify(response));
     });
 });
+
 
 
 

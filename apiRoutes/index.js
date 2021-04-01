@@ -228,7 +228,11 @@ router.post("/initializeGame", function(req,res){
                     })
 
                 }
+                if(noChar==1){
+                    res.status(200).send('OK');
+                }
               })
+
           }
           //CAR 2
           if (noChar>=2){
@@ -287,7 +291,11 @@ router.post("/initializeGame", function(req,res){
                     })
 
                 }
+                if(noChar==2){
+                    res.status(200).send('OK');
+                }
               })
+
           }
 
           //CAR 3
@@ -347,7 +355,11 @@ router.post("/initializeGame", function(req,res){
                     })
 
                 }
+                if(noChar==3){
+                    res.status(200).send('OK');
+                }
               })
+
           }
           //CAR 4
           if(noChar>=4){
@@ -406,7 +418,11 @@ router.post("/initializeGame", function(req,res){
                     })
 
                 }
+                if(noChar==4){
+                    res.status(200).send('OK');
+                }
               })
+
           }
           //CAR 5
           if(noChar>=5){
@@ -465,7 +481,11 @@ router.post("/initializeGame", function(req,res){
                     })
 
                 }
+                if(noChar==5){
+                    res.status(200).send('OK');
+                }
               })
+
           }
 
           //CAR 6
@@ -522,16 +542,20 @@ router.post("/initializeGame", function(req,res){
                       }
 
                       console.log(jewel);
+
                     })
 
                 }
+                if(noChar==6){
+                    res.status(200).send('OK');
+                }
               })
+
           }
 
 
 
         })
-        res.status(200).send('OK');
     });
 
 });

@@ -10,6 +10,7 @@ const express        = require("express"),
       Train          = require("../models/train"),
       Turn           = require("../models/turn"),
       User           = require("../models/user"),
+      Horse           = require("../models/horse"),
       StageCoach     = require("../models/stagecoach");
 
 
@@ -23,6 +24,7 @@ router.post("/board", function(req, res){
     Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
         foundCharacter.car = carNumber;
         foundCharacter.onRoof = false;
+        foundCharacter.boarded = true;
         foundCharacter.save();
         res.status(200).send('OK');
     })
@@ -222,7 +224,7 @@ router.post("/shootByName", function(req,res){
 
 })
 
-//generalMovement
+//generalMovement: Deprecated
 router.post("/generalMovement", function(req, res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     //character who moves
@@ -243,17 +245,62 @@ router.post("/generalMovementByName", function(req, res){
     var characterName = req.body.characterName;
     var carNumber = req.body.carNumber;
     var onRoof = req.body.onRoof;
+    var onStageCoach = req.body.onStageCoach;
     Character.findOne({gameID: gameID, character:characterName}, function(err, foundCharacter){
         if(err){
           console.log(err);
         }
-        foundCharacter.car = carNumber;
-        foundCharacter.onRoof = onRoof;
-        foundCharacter.save();
-        res.status(200).send('OK');
+
+        if(onStageCoach){
+          foundCharacter.onStageCoach = true;
+          foundCharacter.car = null;
+          foundCharacter.onRoof = onRoof;
+          foundCharacter.save();
+          res.status(200).send('OK');
+        }else{
+          foundCharacter.car = carNumber;
+          foundCharacter.onRoof = onRoof;
+          foundCharacter.save();
+          res.status(200).send('OK');
+        }
+
     })
 
 })
 //ride horse: also for stage coach access
+router.post("/rideHorse", function(req, res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    //character who moves
+    var characterName = req.body.characterName;
+    var horseName = req.body.characterName;
+    var carNumber = req.body.carNumber;
+    var onRoof = req.body.onRoof;
+    var onStageCoach = req.body.onStageCoach;
+    Character.findOne({gameID: gameID, character:characterName}, function(err, foundCharacter){
+        Horse.findOne({gameID: gameID, horse:horseName}, function(err, foundHorse){
+            if(err){
+              console.log(err);
+            }
 
+            if(onStageCoach){
+              foundCharacter.onStageCoach = true;
+              foundCharacter.car = null;
+              foundCharacter.onRoof = onRoof;
+              foundCharacter.save();
+              foundHorse.onStageCoach = true;
+              foundHorse.car = null;
+              foundHorse.save();
+              res.status(200).send('OK');
+            }else{
+              foundCharacter.car = carNumber;
+              foundCharacter.onRoof = onRoof;
+              foundCharacter.save();
+              foundHorse.car = carNumber;
+              foundCharacter.save();
+              res.status(200).send('OK');
+            }
+        })
+    })
+
+})
 module.exports = router;

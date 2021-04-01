@@ -91,6 +91,17 @@ router.get("/allCharacters/:gameID", function(req,res){
     })
 });
 
+router.get("/allPlayerCharacters/:gameID", function(req,res){
+    var gameID = req.params.gameID;
+    Character.find({gameID:gameID, isPlayer:true}).lean().exec(function(err, characters){
+      var response = {
+        characters : characters
+      }
+      return res.send(JSON.stringify(response));
+    })
+});
+
+
 //No bullets shot
 //query charactername, gameid, isBullet=true, isHostile=true
 router.get("/bulletsShot/:gameID/:characterName", function(req,res){
