@@ -6,7 +6,8 @@ const express        = require("express"),
       Car            = require("../models/car"),
       Train          = require("../models/train"),
       Loot           = require("../models/loot"),
-      StageCoach     = require("../models/stagecoach");
+      StageCoach     = require("../models/stagecoach"),
+      Horse          = require("../models/horse");
 
 //Loot in Car or on car roof by car number
 router.get("/lootInStageCoach/:gameID", function(req,res){
@@ -42,7 +43,6 @@ router.get("/charactersInStageCoach/:gameID/:carNo", function(req,res){
 
 router.get("/charactersOnRoofStageCoach/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    var carNo = mongoose.Types.ObjectId(req.params.carNo);
     Character.find({gameID:gameID, onStageCoach:true, onRoof:true}).lean().exec(function(err, foundCharacters){
         var response = {
             characters: foundCharacters
@@ -51,6 +51,15 @@ router.get("/charactersOnRoofStageCoach/:gameID/:carNo", function(req,res){
     });
 });
 
+router.get("/horsesAtStageCoach/:gameID/:carNo", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    Horse.find({gameID:gameID, onStageCoach:true}).lean().exec(function(err, foundHorses){
+        var response = {
+            horses: foundHorses
+        }
+        return res.send(JSON.stringify(response));
+    });
+});
 
 
 

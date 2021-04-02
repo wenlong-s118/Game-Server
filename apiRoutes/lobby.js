@@ -5,6 +5,7 @@ const express        = require("express"),
       Game           = require("../models/game"),
       User           = require("../models/user"),
       Character      = require("../models/character"),
+      Horse          = require("../models/horse"),
       Card           = require("../models/card");
 
 //create Lobby
@@ -221,6 +222,19 @@ router.post("/updateCharactersToGame", function(req,res){
           console.log(foundLobby);
             Character.find({lobbyID:foundLobby._id}, function(err, foundCharacters){
                 foundCharacters.forEach(function(foundCharacter){
+                    var concatenator = "JR";
+                    var horseName = foundCharacter.character.concat(concatenator)
+                    var newHorse = {
+                        gameID: foundGame._id,
+                        horse: horseName
+                    }
+                    Horse.create(newHorse, function(err, horse){
+                        if(err){
+                            console.log(err);
+                        }
+                        console.log(horse);
+                    })
+
                     var card = "String";
                     var inHand= false;
                     var inDeck = false;

@@ -29,6 +29,28 @@ router.post("/board", function(req, res){
         res.status(200).send('OK');
     })
 })
+
+//board horse extension:
+router.post("/boardHorseExtension", function(req, res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    var carNumber = req.body.carNumber;
+    var characterName = req.body.characterName;
+    var concatenator = "JR";
+    var horseName = req.body.characterName.concat(concatenator);
+
+    Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
+        Horse.findOne({gameID:gameID, horse:horseName}, function(err, foundHorse){
+            foundHorse.car = carNumber
+
+            foundCharacter.car = carNumber;
+            foundCharacter.onRoof = false;
+            foundCharacter.boarded = true;
+            foundCharacter.save();
+            foundHorse.save();
+            res.status(200).send('OK');
+        })
+    })
+})
 //draw
 //Three cards change to inHand true, inDeck false
 router.post("/draw", function(req, res){
