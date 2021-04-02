@@ -18,28 +18,28 @@ router.get("/gameID/:id", function(req,res){
       return res.send(JSON.stringify(gameID));
     })
 });
-
+//pointless to deprecate
 router.get("/trainID/:gameID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     Train.find({gameID:gameID},'_id').lean().exec(function(err, trainID){
       return res.send(JSON.stringify(trainID));
     })
 });
-
+//pointless to deprecate
 router.get("/stageCoachID/:gameID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     Train.find({gameID:gameID},'_id').lean().exec(function(err, stageCoachID){
       return res.send(JSON.stringify(stageCoachID));
     })
 });
-
+//pointless to deprecate
 router.get("/roundID/:gameID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     Round.find({gameID:gameID},'_id').lean().exec(function(err, roundID){
       return res.send(JSON.stringify(roundID));
     })
 });
-
+//pointless to deprecate
 router.get("/characterID/:gameID/:name", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var name = req.body.name;

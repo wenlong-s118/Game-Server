@@ -40,32 +40,32 @@ router.post("/endOfTurn", function(req, res){
 
 })
 //deprecated: turn object to be removed: only turn number matters
-router.get("/currentTurn", function(req,res){
+// router.get("/currentTurn", function(req,res){
+//     //returns turnType
+//     var gameID = mongoose.Types.ObjectId(req.body.gameID);
+//     //find game to get roundID: roundIndex, gameID
+//     Game.findById(gameID, function(err, foundGame){
+//         var roundIndex = foundGame.roundIndex;
+//         var turnIndex = foundGame.turnIndex;
+//         Round.findOne({gameID:gameID, roundNumber:roundIndex}, function(err, foundRound){
+//             //find turn by roundID and turnIndex
+//             //return turn type
+//
+//             Turn.findOne({roundID:foundRound._id, turnNumber:turnIndex}, function(err, foundTurn){
+//                 var turnType = foundTurn.turnType;
+//
+//                 return res.send(JSON.stringify(turnType));
+//             })
+//
+//         })
+//     })
+//
+//
+// })
+
+router.get("/currentTurnIndex/:gameID", function(req,res){
     //returns turnType
-    var gameID = mongoose.Types.ObjectId(req.body.gameID);
-    //find game to get roundID: roundIndex, gameID
-    Game.findById(gameID, function(err, foundGame){
-        var roundIndex = foundGame.roundIndex;
-        var turnIndex = foundGame.turnIndex;
-        Round.findOne({gameID:gameID, roundNumber:roundIndex}, function(err, foundRound){
-            //find turn by roundID and turnIndex
-            //return turn type
-
-            Turn.findOne({roundID:foundRound._id, turnNumber:turnIndex}, function(err, foundTurn){
-                var turnType = foundTurn.turnType;
-
-                return res.send(JSON.stringify(turnType));
-            })
-
-        })
-    })
-
-
-})
-
-router.get("/currentTurnIndex", function(req,res){
-    //returns turnType
-    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
     //find game to get roundID: roundIndex, gameID
     Game.findById(gameID, function(err, foundGame){
         var turnIndex = foundGame.turnIndex;
