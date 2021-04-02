@@ -35,7 +35,6 @@ router.post("/", function(req,res){
             lobbyID: lobby._id,
             sessionID:sessionID,
             username:username,
-            isUser:true
         }
         //user created
         User.create(newUser, function(err, user){
@@ -188,7 +187,8 @@ router.post("/selectcharacter", function(req, res){
                   userID:userID,
                   character:characterName,
                   lootamount:0,
-                  turnNumber:playOrder
+                  turnNumber:playOrder,
+                  isUser:true
               }
               Character.create(newCharacter, function(err, character){
                   if (err){

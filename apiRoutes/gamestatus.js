@@ -28,9 +28,9 @@ router.get("/started/:sessionID", function(req,res){
 
 router.get("/allAboard/:gameID", async function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    var allCharacters = await Character.count({gameID: gameID, isPlayer:true});
+    var allCharacters = await Character.count({gameID: gameID, isUser:true});
     console.log(allCharacters);
-    var charactersAboard = await Character.count({gameID: gameID, isPlayer:true, boarded:true});
+    var charactersAboard = await Character.count({gameID: gameID, isUser:true, boarded:true});
     console.log(charactersAboard);
     var answer = false;
     if (allCharacters==charactersAboard){

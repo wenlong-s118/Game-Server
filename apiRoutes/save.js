@@ -8,7 +8,17 @@ const express        = require("express"),
       Horse          = require("../models/horse"),
       Card           = require("../models/card");
 
-router.get("/actionStack/:gameID", function(req,res){
+router.post("/save/:gameID/:username", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    Round.find({gameID:gameID}, 'cardsPlayed').lean().exec(function(err, cardsPlayed){
+        return res.send(JSON.stringify(cardsPlayed));
+    })
+})
+router.get("/allSavedGames/:username", function(req,res){
+
+})
+
+router.post("/load/:userName/:gameID/:currentSessionID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     Round.find({gameID:gameID}, 'cardsPlayed').lean().exec(function(err, cardsPlayed){
         return res.send(JSON.stringify(cardsPlayed));

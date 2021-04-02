@@ -93,7 +93,7 @@ router.get("/allCharacters/:gameID", function(req,res){
 
 router.get("/allPlayerCharacters/:gameID", function(req,res){
     var gameID = req.params.gameID;
-    Character.find({gameID:gameID, isPlayer:true}).lean().exec(function(err, characters){
+    Character.find({gameID:gameID, isUser:true}).lean().exec(function(err, characters){
       var response = {
         characters : characters
       }
@@ -126,7 +126,7 @@ router.get("/nameByIndex/:gameID/:index", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var index = req.params.index;
     Character.findOne({gameID:gameID, turnNumber:index},'character').lean().exec(function(err, foundCharacter){
-        
+
         return res.send(JSON.stringify(foundCharacter));
     })
 })
