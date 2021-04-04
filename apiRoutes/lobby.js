@@ -8,6 +8,8 @@ const express        = require("express"),
       Horse          = require("../models/horse"),
       Card           = require("../models/card");
 
+
+
 //create Lobby
 //creates lobby with first user
 //creates first character
@@ -139,6 +141,17 @@ router.post("/leave", function(req,res){
 
 
 
+})
+
+router.get("/charactersAvailable/:sessionID", function(req, res){
+    var sessionID = req.params.sessionID;
+    Lobby.findOne({'sessionID':sessionID}, function(err, foundLobby){
+      var charactersAvailable = foundLobby.charactersAvailable;
+      var response = {
+          charactersAvailable: charactersAvailable
+      };
+      return res.send(JSON.stringify(response));
+    })
 })
 
 //select character
