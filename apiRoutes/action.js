@@ -294,7 +294,7 @@ router.post("/rideHorse", function(req, res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     //character who moves
     var characterName = req.body.characterName;
-    var horseName = req.body.characterName;
+    var horseName = req.body.horseName;
     var carNumber = req.body.carNumber;
     var onRoof = req.body.onRoof;
     var onStageCoach = req.body.onStageCoach;

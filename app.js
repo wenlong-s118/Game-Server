@@ -36,6 +36,7 @@ var apiTurnRoutes  = require("./apiRoutes/turn");
 var apiGameStatusRoutes  = require("./apiRoutes/gamestatus");
 var apiLobbyStatusRoutes  = require("./apiRoutes/lobbystatus");
 var apiRoundGenerationRoutes  = require("./apiRoutes/generateround");
+var apiSaveRoutes  = require("./apiRoutes/save");
 
 
 mongoose.connect('mongodb+srv://Hexanome-14:COMP361D2@cluster0.jxfnz.mongodb.net/<coltDB>?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false});
@@ -71,6 +72,7 @@ app.use("/turn", apiTurnRoutes);
 app.use("/gamestatus", apiGameStatusRoutes);
 app.use("/lobbystatus", apiLobbyStatusRoutes);
 app.use("/generateRounds", apiRoundGenerationRoutes);
+app.use("/", apiSaveRoutes);
 
 
 app.get("/", function(req,res){

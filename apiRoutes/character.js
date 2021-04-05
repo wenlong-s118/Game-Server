@@ -4,6 +4,7 @@ const express        = require("express"),
       Lobby          = require("../models/lobby"),
       Game           = require("../models/game"),
       Car            = require("../models/car"),
+      Card            = require("../models/card"),
       Train          = require("../models/train"),
       Loot           = require("../models/loot"),
       Character     = require("../models/character");
@@ -38,6 +39,34 @@ router.get("/lootByName/:gameID/:characterName", function(req,res){
         })
     })
 });
+
+router.get("/hand/:gameID/:characterName", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    var characterName = req.params.characterName;
+    Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
+        Card.find({characterID:foundCharacter._id, inHand:true}).lean().exec(function(err, cards){
+            var response = {
+                hand: cards
+            };
+            return res.send(JSON.stringify(response));
+        })
+    })
+});
+
+router.get("/deck/:gameID/:characterName", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    var characterName = req.params.characterName;
+    Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
+        Card.find({characterID:foundCharacter._id, inDeck:true}).lean().exec(function(err, cards){
+            var response = {
+                deck: cards
+            };
+            return res.send(JSON.stringify(response));
+        })
+    })
+});
+
+
 
 router.get("/lootAmountByName/:gameID/:characterName", function(req, res){
   var gameID = mongoose.Types.ObjectId(req.params.gameID);

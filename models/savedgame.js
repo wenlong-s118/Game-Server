@@ -4,8 +4,7 @@ var savedGameSchema = new mongoose.Schema({
   userName: String,
   sessionID: String,
   lobbbyID: {type: mongoose.Schema.Types.ObjectId, ref: "Lobby"},
-
-  currentPlayer: Number,
+  gameID:{type: mongoose.Schema.Types.ObjectId, ref: "Game"}
 
 });
 
