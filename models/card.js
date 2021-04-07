@@ -9,7 +9,8 @@ var cardSchema = new mongoose.Schema({
   inDeck: Boolean,
   actionStack: Boolean,
   isBullet: Boolean,
-  isHostile: Boolean
+  isHostile: Boolean,
+  order: Number
 });
 
 module.exports= mongoose.model("Card", cardSchema);

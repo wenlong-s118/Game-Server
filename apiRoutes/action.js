@@ -68,7 +68,8 @@ router.post("/draw", function(req, res){
     res.status(200).send('OK');
 })
 //play action card
-router.post("/playActionCard", function(req,res){
+//old route soon deprecated
+router.post("/playActionCardOld", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var characterName = req.body.characterName;
     var cardName = req.body.cardName;
@@ -93,6 +94,27 @@ router.post("/playActionCard", function(req,res){
     })
     res.status(200).send('OK');
 })
+router.post("/playActionCard", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    var characterName = req.body.characterName;
+    var cardName = req.body.cardName;
+    Game.findById(gameID,function(err, foundGame){
+        Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
+            Card.findOne({characterID: foundCharacter._id, inHand: true, card:cardName}, function(err, foundCard){
+                foundCard.inHand= false;
+                foundCard.actionStack = true;
+                foundCard.order = foundGame.cardInStackIndex;
+                foundCard.save();
+                foundGame.cardInStackIndex++;
+                foundGame.save();
+                res.status(200).send('OK');
+            })
+        })
+    })
+
+
+})
+
 //updateWhisky:
 router.post("/updateWhisky", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
