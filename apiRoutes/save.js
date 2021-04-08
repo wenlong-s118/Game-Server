@@ -71,6 +71,7 @@ router.post("/load", function(req,res){
                 })
                 foundGame.sessionID = currentSession;
                 foundLobby.sessionID = currentSession;
+                foundGame.loaded = true;
                 foundLobby.save();
                 foundGame.save();
                 res.status(200).send('OK');

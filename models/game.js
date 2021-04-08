@@ -9,7 +9,8 @@ var gameSchema = new mongoose.Schema({
   phase: String,
   currentPlayer: {type: mongoose.Schema.Types.ObjectId, ref: "Character"},
   noChar: Number,
-  cardInStackIndex: Number
+  cardInStackIndex: Number,
+  loaded: Boolean
 });
 
 
