@@ -280,8 +280,8 @@ router.post("/shoot", function(req,res){
     })
 
 })
-
-router.post("/shootByName", function(req,res){
+//deprecated route: neutral bullets meant to be shared...
+router.post("/shootByNameOld", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var agressorName = req.body.agressorName;
     var victimName = req.body.victimName;
@@ -311,7 +311,7 @@ router.post("/shootByName", function(req,res){
 
 })
 
-router.post("/shootByNameNew", function(req,res){
+router.post("/shootByName", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var agressorName = req.body.agressorName;
     var victimName = req.body.victimName;
