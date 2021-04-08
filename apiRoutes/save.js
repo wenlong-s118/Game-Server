@@ -17,7 +17,7 @@ router.post("/save", function(req,res){
             var newSavedGame = {
               userName: username,
               sessionID: sessionID,
-              lobbbyID: foundLobby._id,
+              lobbyID: foundLobby._id,
               gameID: foundGame._id
             }
             SavedGame.create(newSavedGame, function(err, savedGame){
@@ -56,6 +56,28 @@ router.post("/load", function(req,res){
         });
     });
 });
+
+router.post("/loadNew", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    var currentSession = req.body.currentSessionID;
+    SavedGame.findOne({gameID:gameID},function(err, foundSavedGame){
+        Game.findById(gameID, function(err, foundGame){
+            Lobby.findOne({sessionID:foundGame.sessionID}, function(err, foundLobby){
+                User.find({sessionID:foundGame.sessionID}, function(err, foundUsers){
+                    foundUsers.forEach(function(foundUser){
+                        foundUser.sessionID = currentSession;
+                        foundUser.save();
+                    })
+                })
+                foundGame.sessionID = currentSession;
+                foundLobby.sessionID = currentSession;
+                foundLobby.save();
+                foundGame.save();
+                res.status(200).send('OK');
+            });
+        });
+    });
+})
 
 
 module.exports = router;

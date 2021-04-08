@@ -222,6 +222,49 @@ router.post("/steal", function(req,res){
 
 
 });
+router.post("/drop", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    var victimName = req.body.victimName;
+    var lootType = req.body.lootType;
+    var lootAmount = req.body.lootAmount;
+    var newCar = req.body.newCar;
+    Character.findOne({gameID:gameID, character:victimName}, function(err, foundVictim){
+        Loot.findOne({characterID:foundVictim._id, type:lootType, amount:lootAmount}, function(err, foundLoot){
+            Car.findOne({gameID:gameID, carNumber:foundVictim.car}, function(err,foundCar){
+                foundLoot.characterID = null;
+                foundLoot.carID = foundCar._id;
+                foundLoot.car = foundVictim.car;
+                foundLoot.onRoof = foundVictim.onRoof
+                foundLoot.save();
+            })
+
+            foundVictim.car = newCar;
+            foundVictim.lootamount-=foundLoot.amount;
+            foundVictim.save();
+            res.status(200).send('OK');
+        })
+    })
+});
+router.post("/spawnStrongBox", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    var carNo = req.body.carNo;
+    var amount= 1000;
+    var type= "Strongbox";
+    var newStrongbox = {
+        gameID: gameID,
+        car: carNo,
+        amount: amount,
+        type: type,
+    }
+    Loot.create(newStrongbox, function(err, strongbox){
+        if (err){
+            console.log(err);
+        }
+
+        console.log(strongbox);
+        res.status(200).send('OK');
+    })
+})
 //shoot: need to update
 router.post("/shoot", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
@@ -261,6 +304,50 @@ router.post("/shootByName", function(req,res){
                 foundCard.save();
 
                 res.status(200).send('OK');
+            })
+        })
+    })
+
+
+})
+
+router.post("/shootByNameNew", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    var agressorName = req.body.agressorName;
+    var victimName = req.body.victimName;
+    var realAgressorName;
+    if(agressorName==="Marshal"|| agressorName==="Shotgun"){
+      realAgressorName="Neutral"
+    }
+    else{
+      realAgressorName=agressorName;
+    }
+    Character.findOne({gameID: gameID, character:realAgressorName}, function(err, foundAgressor){
+        Character.findOne({gameID: gameID, character:victimName}, function(err, foundVictim){
+            Card.findOne({characterID: foundAgressor._id, isBullet:true}, function(err, foundCard){
+                if(foundCard){
+                    if(agressorName==="Marshal"){
+                        foundVictim.onRoof = true;
+                        foundVictim.save();
+                    }
+                    if(agressorName==="Shotgun"){
+                        StageCoach.findOne({gameID:gameID}, function(err, foundStageCoach){
+                            foundVictim.car = foundStageCoach.car;
+                            foundVictim.save();
+                        })
+
+                    }
+                    foundCard.characterID = foundVictim._id;
+                    foundCard.isHostile = true;
+                    foundCard.save();
+
+                    res.status(200).send('OK');
+                }
+                else{
+                  res.status(500).send("No bullets left!");
+                }
+
+
             })
         })
     })

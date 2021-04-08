@@ -11,7 +11,8 @@ var characterSchema = new mongoose.Schema({
   onStageCoach: Boolean,
   turnNumber: Number,
   boarded: Boolean,
-  isUser: Boolean
+  isUser: Boolean,
+  invisible: Boolean
 });
 
 module.exports= mongoose.model("Character", characterSchema);

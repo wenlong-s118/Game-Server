@@ -42,6 +42,37 @@ router.post("/initializeGame", function(req,res){
         //       console.log(err);
         //   }
         // });
+        var newNeutral = {
+            gameID: game._id,
+            character: "Neutral",
+            invisible: true
+        }
+        Character.create(newNeutral, function(err, neutral){
+            if (err){
+                console.log(err);
+            }
+            for(i=0; i< 16; i++){
+              var card = "Bullet";
+              var newCard = {
+                  gameID: game._id,
+                  characterID: neutral._id,
+                  character: "Neutral",
+                  card: card,
+                  isBullet: true,
+              }
+              Card.create(newCard, function(err, card){
+                  if (err){
+                      console.log(err);
+                  }
+                  console.log(card);
+              })
+            }
+
+
+            console.log(neutral);
+
+        })
+
         var stagePosition = noChar;
         var newStageCoach = {gameID:gameID, car:stagePosition};
         StageCoach.create(newStageCoach, function(err,stageCoach){
@@ -56,22 +87,22 @@ router.post("/initializeGame", function(req,res){
                 if (err){
                     console.log(err);
                 }
-                for(i=0; i< 3; i++){
-                  var card = "Bullet";
-                  var newCard = {
-                      gameID: game._id,
-                      characterID: shotgun._id,
-                      character: shotgun.character,
-                      card: card,
-                      isBullet: true,
-                  }
-                  Card.create(newCard, function(err, card){
-                      if (err){
-                          console.log(err);
-                      }
-                      console.log(card);
-                  })
-                }
+                // for(i=0; i< 3; i++){
+                //   var card = "Bullet";
+                //   var newCard = {
+                //       gameID: game._id,
+                //       characterID: shotgun._id,
+                //       character: "Neutral",
+                //       card: card,
+                //       isBullet: true,
+                //   }
+                //   Card.create(newCard, function(err, card){
+                //       if (err){
+                //           console.log(err);
+                //       }
+                //       console.log(card);
+                //   })
+                // }
                 var amount= 1000;
                 var type= "Strongbox";
                 var newStrongbox = {
@@ -126,7 +157,6 @@ router.post("/initializeGame", function(req,res){
             var type= "Strongbox";
             var newStrongbox = {
                 gameID: gameID,
-                trainID: trainID,
                 car: carNo,
                 amount: amount,
                 type: type,
@@ -150,22 +180,22 @@ router.post("/initializeGame", function(req,res){
                 if (err){
                     console.log(err);
                 }
-                for(i=0; i< 13; i++){
-                  var card = "Bullet";
-                  var newCard = {
-                      gameID: game._id,
-                      characterID: marshal._id,
-                      character: marshal.character,
-                      card: card,
-                      isBullet: true,
-                  }
-                  Card.create(newCard, function(err, card){
-                      if (err){
-                          console.log(err);
-                      }
-                      console.log(card);
-                  })
-                }
+                // for(i=0; i< 13; i++){
+                //   var card = "Bullet";
+                //   var newCard = {
+                //       gameID: game._id,
+                //       characterID: marshal._id,
+                //       character: Neutral,
+                //       card: card,
+                //       isBullet: true,
+                //   }
+                //   Card.create(newCard, function(err, card){
+                //       if (err){
+                //           console.log(err);
+                //       }
+                //       console.log(card);
+                //   })
+                // }
                 console.log(marshal);
             })
           })
