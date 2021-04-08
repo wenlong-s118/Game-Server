@@ -41,7 +41,7 @@ router.get("/allAboard/:gameID", async function(req,res){
 
 });
 
-router.get("/isReady/:sessionID", function(req, res){
+router.get("/isLoaded/:sessionID", function(req, res){
     var sessionID = req.params.sessionID;
     Game.findOne({sessionID:sessionID}).lean().exec(function(err, foundGame){
         if(foundGame.loaded == true){

@@ -102,7 +102,7 @@ router.get("/positionById/:characterID", function(req,res){
 router.get("/positionByName/:gameID/:characterName", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var characterName = req.params.characterName;
-    Character.findOne({gameID:gameID, character:characterName}, 'car onRoof').lean().exec(function(err, position){
+    Character.findOne({gameID:gameID, character:characterName}, 'car onRoof onStageCoach').lean().exec(function(err, position){
         return res.send(JSON.stringify(position));
     })
 
