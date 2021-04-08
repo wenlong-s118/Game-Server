@@ -7,7 +7,21 @@ const express        = require("express"),
       Card            = require("../models/card"),
       Train          = require("../models/train"),
       Loot           = require("../models/loot"),
+      Hostage          = require("../models/hostage"),
       Character     = require("../models/character");
+
+router.get("/hostages/:gameID/:characterName", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    var characterName = req.params.characterName;
+    Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
+        Hostage.find({characterID:foundCharacter._id}).lean().exec(function(err, hostages){
+            var response = {
+                hostages: hostages
+            };
+            return res.send(JSON.stringify(response));
+        })
+    })
+});
 
 //character lootByID routes deprecated
 router.get("/loot/:characterID", function(req,res){

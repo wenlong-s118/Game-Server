@@ -11,6 +11,7 @@ const express        = require("express"),
       Turn           = require("../models/turn"),
       User           = require("../models/user"),
       Horse           = require("../models/horse"),
+      Hostage          = require("../models/hostage"),
       StageCoach     = require("../models/stagecoach");
 
 
@@ -222,6 +223,26 @@ router.post("/steal", function(req,res){
 
 
 });
+
+router.post("/kidnap", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID);
+    //character who steals
+    var kidnapperName = req.body.kidnapperName;
+    var hostageName = req.body.hostageName;
+    Character.findOne({character:kidnapperName, gameID:gameID}, function(err, foundCharacter){
+        console.log(foundCharacter);
+        Hostage.findOne({hostage:hostageName, onStageCoach:true, gameID:gameID}, function(err, foundHostage){
+            console.log(foundHostage);
+            foundHostage.characterID = foundCharacter._id;
+            foundHostage.onStageCoach = false;
+            foundHostage.save();
+            res.status(200).send('OK');
+        })
+    })
+
+
+});
+
 router.post("/drop", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var victimName = req.body.victimName;
