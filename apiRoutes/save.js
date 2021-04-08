@@ -41,7 +41,7 @@ router.get("/allSavedGames/:username", function(req,res){
     })
 })
 
-router.post("/load", function(req,res){
+router.post("/loadOld", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var currentSession = req.body.currentSessionID;
     SavedGame.findOne({gameID:gameID},function(err, foundSavedGame){
@@ -57,7 +57,7 @@ router.post("/load", function(req,res){
     });
 });
 
-router.post("/loadNew", function(req,res){
+router.post("/load", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var currentSession = req.body.currentSessionID;
     SavedGame.findOne({gameID:gameID},function(err, foundSavedGame){
