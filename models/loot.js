@@ -9,7 +9,8 @@ var lootSchema = new mongoose.Schema({
   car: Number,
   onRoof: Boolean,
   onStageCoach: Boolean,
-  halfDrunk: Boolean
+  halfDrunk: Boolean,
+  isFull: Boolean
 });
 
 module.exports= mongoose.model("Loot", lootSchema);

@@ -37,7 +37,7 @@ router.post("/boardHorseExtension", function(req, res){
     var carNumber = req.body.carNumber;
     var characterName = req.body.characterName;
     var concatenator = "JR";
-    var horseName = req.body.characterName.concat(concatenator);
+    var horseName = characterName.concat(concatenator);
 
     Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
         Horse.findOne({gameID:gameID, horse:horseName}, function(err, foundHorse){
@@ -448,7 +448,7 @@ router.post("/rideHorse", function(req, res){
               foundCharacter.onRoof = onRoof;
               foundCharacter.save();
               foundHorse.car = carNumber;
-              foundCharacter.save();
+              foundHorse.save();
               res.status(200).send('OK');
             }
         })

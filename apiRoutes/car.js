@@ -22,8 +22,8 @@ router.get("/carLoot/:carID", function(req,res){
 //Loot in Car or on car roof by car number
 router.get("/lootInCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    var carNo = mongoose.Types.ObjectId(req.params.carNo);
-    Loot.find({gameID:gameID, car:carNo, onRoof:false}).lean().exec(function(err, foundLoots){
+    var carNo = req.params.carNo;
+    Loot.find({gameID:gameID, car:carNo, onRoof:{$ne: true}}).lean().exec(function(err, foundLoots){
         var response = {
             loots: foundLoots
         }
@@ -33,7 +33,7 @@ router.get("/lootInCar/:gameID/:carNo", function(req,res){
 
 router.get("/lootOnRoofCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    var carNo = mongoose.Types.ObjectId(req.params.carNo);
+    var carNo = req.params.carNo;
     Loot.find({gameID:gameID, car:carNo, onRoof:true}).lean().exec(function(err, foundLoots){
         var response = {
             loots: foundLoots

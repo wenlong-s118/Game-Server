@@ -258,8 +258,26 @@ router.post("/initializeGame", function(req,res){
                     })
 
                 }
-                if(noChar==1){
-                    res.status(200).send('OK');
+                for (i = 0; i < 1; i++) {
+                    var carNo= car.carNumber;
+                    var amount= 1000;
+                    var type= "Strongbox";
+                    var newStrongbox = {
+                        gameID: gameID,
+                        car: carNo,
+                        amount: amount,
+                        type: type,
+                    }
+                    Loot.create(newStrongbox, function(err, strongbox){
+                        if (err){
+                            console.log(err);
+                        }
+
+                        console.log(strongbox);
+                    })
+                    if(noChar==1){
+                        res.status(200).send('OK');
+                    }
                 }
               })
 
