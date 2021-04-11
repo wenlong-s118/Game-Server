@@ -118,10 +118,13 @@ router.get("/currentRound/:gameID", function(req,res){
         var roundIndex = foundGame.roundIndex;
         var turnIndex = foundGame.turnIndex;
         Round.findOne({gameID:gameID, roundNumber:roundIndex}, function(err, foundRound){
-            //find round by gameID
-            //return round type
-            var roundType = foundRound.roundType;
-            return res.send(JSON.stringify(roundType));
+            if(foundRound){
+                //find round by gameID
+                //return round type
+                var roundType = foundRound.roundType;
+                return res.send(JSON.stringify(roundType));
+            }
+
 
         })
     })
