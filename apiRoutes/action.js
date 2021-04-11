@@ -129,12 +129,14 @@ router.post("/updateWhisky", function(req,res){
             }
             else{
                 foundLoot.halfDrunk = true;
+                foundLoot.isFull = false;
                 foundLoot.save();
             }
+            res.status(200).send('OK');
 
         })
     })
-    res.status(200).send('OK');
+
 })
 
 //punch

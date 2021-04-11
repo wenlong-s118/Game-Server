@@ -31,7 +31,9 @@ var apiTrainRoutes = require("./apiRoutes/train");
 var apiCarRoutes = require("./apiRoutes/car");
 var apiStageCoachRoutes = require("./apiRoutes/stagecoach");
 var apiCharacterRoutes = require("./apiRoutes/character");
+var apiHorseRoutes = require("./apiRoutes/horse");
 var apiActionRoutes  = require("./apiRoutes/action");
+var apiActionRoutesTwo  = require("./apiRoutes/action2");
 var apiRoundRoutes  = require("./apiRoutes/round");
 var apiTurnRoutes  = require("./apiRoutes/turn");
 var apiGameStatusRoutes  = require("./apiRoutes/gamestatus");
@@ -41,7 +43,7 @@ var apiSaveRoutes  = require("./apiRoutes/save");
 var apiHostageGenerationRoutes  = require("./apiRoutes/generatehostage");
 
 
-mongoose.connect('mongodb+srv://Hexanome-14:COMP361D2@cluster0.jxfnz.mongodb.net/<coltDB>?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect('mongodb+srv://Hexanome-14:COMP361D2@cluster0.jxfnz.mongodb.net/<coltDBTest>?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false});
 app.use(express.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -68,7 +70,9 @@ app.use("/lobby", apiLobbyRoutes);
 app.use("/train", apiTrainRoutes);
 app.use("/car", apiCarRoutes);
 app.use("/character", apiCharacterRoutes);
+app.use("/horse", apiHorseRoutes);
 app.use("/action", apiActionRoutes);
+app.use("/action", apiActionRoutesTwo);
 app.use("/round", apiRoundRoutes);
 app.use("/turn", apiTurnRoutes);
 app.use("/gamestatus", apiGameStatusRoutes);

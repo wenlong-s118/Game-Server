@@ -46,7 +46,7 @@ router.get("/lootOnRoofCar/:gameID/:carNo", function(req,res){
 router.get("/charactersInCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var carNo = mongoose.Types.ObjectId(req.params.carNo);
-    Character.find({gameID:gameID, car:carNo, onRoof:false}).lean().exec(function(err, foundCharacters){
+    Character.find({gameID:gameID, car:carNo, onRoof:{$ne: true}}).lean().exec(function(err, foundCharacters){
         var response = {
             characters: foundCharacters
         }

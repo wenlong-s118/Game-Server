@@ -260,20 +260,23 @@ router.post("/initializeGame", function(req,res){
                 }
                 for (i = 0; i < 1; i++) {
                     var carNo= car.carNumber;
-                    var amount= 1000;
-                    var type= "Strongbox";
-                    var newStrongbox = {
+                    var type= "OldWhisky";
+                    var halfDrunk= false;
+                    var isFull= true;
+                    var newOldWhisky = {
+                        amount:0,
                         gameID: gameID,
                         car: carNo,
-                        amount: amount,
                         type: type,
+                        halfDrunk: halfDrunk,
+                        isFull: isFull
                     }
-                    Loot.create(newStrongbox, function(err, strongbox){
+                    Loot.create(newOldWhisky, function(err, oldWhisky){
                         if (err){
                             console.log(err);
                         }
 
-                        console.log(strongbox);
+                        console.log(oldWhisky);
                     })
                     if(noChar==1){
                         res.status(200).send('OK');
@@ -299,6 +302,7 @@ router.post("/initializeGame", function(req,res){
                 }
                 console.log(car.carNumber);
                 console.log(car);
+
                 for (i = 0; i < 3; i++) {
 
                     var carNo= car.carNumber;
@@ -339,6 +343,31 @@ router.post("/initializeGame", function(req,res){
                     })
 
                 }
+
+                for (i = 0; i < 1; i++) {
+                    var carNo= car.carNumber;
+                    var type= "Whisky";
+                    var halfDrunk= false;
+                    var isFull= true;
+                    var newWhisky = {
+                        gameID: gameID,
+                        car: carNo,
+                        type: type,
+                        halfDrunk: halfDrunk,
+                        isFull: isFull
+                    }
+                    Loot.create(newWhisky, function(err, whisky){
+                        if (err){
+                            console.log(err);
+                        }
+
+                        console.log(whisky);
+                    })
+                    if(noChar==1){
+                        res.status(200).send('OK');
+                    }
+                }
+
                 if(noChar==2){
                     res.status(200).send('OK');
                 }
@@ -403,6 +432,30 @@ router.post("/initializeGame", function(req,res){
                     })
 
                 }
+                for (i = 0; i < 1; i++) {
+                    var carNo= car.carNumber;
+                    var type= "Whisky";
+                    var halfDrunk= false;
+                    var isFull= true;
+                    var newWhisky = {
+                        amount:0,
+                        gameID: gameID,
+                        car: carNo,
+                        type: type,
+                        halfDrunk: halfDrunk,
+                        isFull: isFull
+                    }
+                    Loot.create(newWhisky, function(err, whisky){
+                        if (err){
+                            console.log(err);
+                        }
+
+                        console.log(whisky);
+                    })
+                    if(noChar==1){
+                        res.status(200).send('OK');
+                    }
+                }
                 if(noChar==3){
                     res.status(200).send('OK');
                 }
@@ -466,6 +519,30 @@ router.post("/initializeGame", function(req,res){
                     })
 
                 }
+                for (i = 0; i < 1; i++) {
+                    var carNo= car.carNumber;
+                    var type= "Whisky";
+                    var halfDrunk= false;
+                    var isFull= true;
+                    var newWhisky = {
+                        amount:0,
+                        gameID: gameID,
+                        car: carNo,
+                        type: type,
+                        halfDrunk: halfDrunk,
+                        isFull: isFull
+                    }
+                    Loot.create(newWhisky, function(err, whisky){
+                        if (err){
+                            console.log(err);
+                        }
+
+                        console.log(whisky);
+                    })
+                    if(noChar==1){
+                        res.status(200).send('OK');
+                    }
+                }
                 if(noChar==4){
                     res.status(200).send('OK');
                 }
@@ -528,6 +605,30 @@ router.post("/initializeGame", function(req,res){
                       console.log(jewel);
                     })
 
+                }
+                for (i = 0; i < 1; i++) {
+                    var carNo= car.carNumber;
+                    var type= "Whisky";
+                    var halfDrunk= false;
+                    var isFull= true;
+                    var newWhisky = {
+                        amount:0,
+                        gameID: gameID,
+                        car: carNo,
+                        type: type,
+                        halfDrunk: halfDrunk,
+                        isFull: isFull
+                    }
+                    Loot.create(newWhisky, function(err, whisky){
+                        if (err){
+                            console.log(err);
+                        }
+
+                        console.log(whisky);
+                    })
+                    if(noChar==1){
+                        res.status(200).send('OK');
+                    }
                 }
                 if(noChar==5){
                     res.status(200).send('OK');
@@ -593,6 +694,30 @@ router.post("/initializeGame", function(req,res){
 
                     })
 
+                }
+                for (i = 0; i < 1; i++) {
+                    var carNo= car.carNumber;
+                    var type= "Whisky";
+                    var halfDrunk= false;
+                    var isFull= true;
+                    var newWhisky = {
+                        amount:0,
+                        gameID: gameID,
+                        car: carNo,
+                        type: type,
+                        halfDrunk: halfDrunk,
+                        isFull: isFull
+                    }
+                    Loot.create(newWhisky, function(err, whisky){
+                        if (err){
+                            console.log(err);
+                        }
+
+                        console.log(whisky);
+                    })
+                    if(noChar==1){
+                        res.status(200).send('OK');
+                    }
                 }
                 if(noChar==6){
                     res.status(200).send('OK');

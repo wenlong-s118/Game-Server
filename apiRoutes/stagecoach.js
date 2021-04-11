@@ -13,7 +13,7 @@ const express        = require("express"),
 //Loot in Car or on car roof by car number
 router.get("/lootInStageCoach/:gameID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    Loot.find({gameID:gameID, onStageCoach:true, onRoof:false}).lean().exec(function(err, foundLoots){
+    Loot.find({gameID:gameID, onStageCoach:true, onRoof:{$ne: true}}).lean().exec(function(err, foundLoots){
         var response = {
             loots: foundLoots
         }
@@ -34,7 +34,7 @@ router.get("/lootOnRoofStageCoach/:gameID", function(req,res){
 
 router.get("/charactersInStageCoach/:gameID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    Character.find({gameID:gameID, onStageCoach:true, onRoof:false}).lean().exec(function(err, foundCharacters){
+    Character.find({gameID:gameID, onStageCoach:true, onRoof:{$ne: true}}).lean().exec(function(err, foundCharacters){
         var response = {
             characters: foundCharacters
         }
