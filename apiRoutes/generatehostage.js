@@ -38,28 +38,31 @@ router.post("/initializeGenerator", function(req, res){
 router.post("/generateHostages", function(req, res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     Game.findById(gameID, function(err, foundGame){
-        var noChar = foundGame.noChar;
-        var noHostages = noChar - 1;
-        HostageGenerator.findOne({gameID:gameID}, function(err, foundHostageGenerator){
-            for(i=0; i<noHostages; i++){
-                var index = Math.floor(Math.random() * foundHostageGenerator.hostagesAvailable.length);
-                var hostage = foundHostageGenerator.hostagesAvailable[index];
-                foundHostageGenerator.hostagesAvailable.splice(index,1);
-                var newHostage = {
-                    gameID: gameID,
-                    hostage: hostage,
-                    onStageCoach: true
-                }
-                Hostage.create(newHostage, function(err, hostage){
-                    if (err){
-                        console.log(err);
+        if(foundGame){
+            var noChar = foundGame.noChar;
+            var noHostages = noChar - 1;
+            HostageGenerator.findOne({gameID:gameID}, function(err, foundHostageGenerator){
+                for(i=0; i<noHostages; i++){
+                    var index = Math.floor(Math.random() * foundHostageGenerator.hostagesAvailable.length);
+                    var hostage = foundHostageGenerator.hostagesAvailable[index];
+                    foundHostageGenerator.hostagesAvailable.splice(index,1);
+                    var newHostage = {
+                        gameID: gameID,
+                        hostage: hostage,
+                        onStageCoach: true
                     }
-                })
-            }
+                    Hostage.create(newHostage, function(err, hostage){
+                        if (err){
+                            console.log(err);
+                        }
+                    })
+                }
 
 
-            foundHostageGenerator.save();
-        })
+                foundHostageGenerator.save();
+            })
+        }
+
 
     })
     res.status(200).send('OK');
