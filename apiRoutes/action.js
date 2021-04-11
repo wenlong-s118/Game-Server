@@ -58,7 +58,7 @@ router.post("/draw", function(req, res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var characterName = req.body.characterName;
     Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
-        if(foundCharacter{
+        if(foundCharacter){
             var cards = Card.find({characterID: foundCharacter._id, inDeck: true}).limit(3).exec(function(err, foundCards){
                 foundCards.forEach(function(foundCard){
                     foundCard.inDeck = false;
