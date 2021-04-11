@@ -44,12 +44,12 @@ router.post("/specialShoot", function(req,res){
 
 })
 
-router.post("/moveHorsesAtCar", function(req, res){
+router.post("/moveHorseAtCar", function(req, res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var oldCarNumber = req.body.oldCarNumber;
     var newCarNumber = req.body.newCarNumber;
 
-    Horse.findOne({gameID: gameID, horse:horseName}, function(err, foundHorse){
+    Horse.findOne({gameID: gameID, car:oldCarNumber}, function(err, foundHorse){
 
         foundHorse.car = newCarNumber;
         foundHorse.save();
