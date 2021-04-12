@@ -59,6 +59,19 @@ router.post("/moveHorseAtCar", function(req, res){
 
 
 })
+router.post("/moveStageCoach", function(req, res){
+    var gameID = mongoose.Types.ObjectId(req.body.gameID)
+
+    StageCoach.findOne({gameID: gameID}, function(err, foundStageCoach){
+        if(car!=0){
+            foundStageCoach.car--;
+            foundHorse.save();
+            res.status(200).send('OK');
+        }
+    })
+
+
+})
 router.post("/removeHorseAtCar", function(req,res){
   var gameID = mongoose.Types.ObjectId(req.body.gameID);
   var carNumber = req.body.carNumber;
