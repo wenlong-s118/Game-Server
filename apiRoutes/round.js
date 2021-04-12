@@ -64,14 +64,18 @@ router.post("/endOfRound", function(req,res){
         foundGame.save();
     })
     Character.find({gameID:gameID}, function(err, foundCharacters){
-        var lastIndex = foundCharacters.length - 1;
+        var lastIndex = foundCharacters.length - 4;
         foundCharacters.forEach(function(foundCharacter){
-            if(foundCharacter.turnNumber==0){
-                foundCharacter.turnNumber--;
-            }else{
-                foundCharacter.turnNumber = lastIndex;
+            if(foundCharacter.turnNumber){
+                if(foundCharacter.turnNumber==0){
+                    foundCharacter.turnNumber = lastIndex;
+
+                }else{
+                    foundCharacter.turnNumber--;
+                }
+                foundCharacter.save();
             }
-            foundCharacter.save();
+
         })
 
     })
