@@ -126,7 +126,7 @@ router.put("/:id", function(req,res){
 
 router.get("/allCharacters/:gameID", function(req,res){
     var gameID = req.params.gameID;
-    Character.find({gameID:gameID, invisible:{$ne:true}}).lean().exec(function(err, characters){
+    Character.find({gameID:gameID, invisible:{$ne:true}}).sort('turnNumber').lean().exec(function(err, characters){
       var response = {
         characters : characters
       }
@@ -136,7 +136,7 @@ router.get("/allCharacters/:gameID", function(req,res){
 
 router.get("/allPlayerCharacters/:gameID", function(req,res){
     var gameID = req.params.gameID;
-    Character.find({gameID:gameID, isUser:true}).lean().exec(function(err, characters){
+    Character.find({gameID:gameID, isUser:true}).sort('turnNumber').lean().exec(function(err, characters){
       var response = {
         characters : characters
       }

@@ -66,7 +66,7 @@ router.post("/endOfRound", function(req,res){
     Character.find({gameID:gameID}, function(err, foundCharacters){
         var lastIndex = foundCharacters.length - 4;
         foundCharacters.forEach(function(foundCharacter){
-            if(foundCharacter.turnNumber){
+            if(foundCharacter.turnNumber!=null){
                 if(foundCharacter.turnNumber==0){
                     foundCharacter.turnNumber = lastIndex;
 
