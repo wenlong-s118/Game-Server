@@ -85,6 +85,7 @@ router.post("/leave", function(req,res){
     var sessionID = req.body.sessionID;
     var username = req.body.username;
     Lobby.findOne({'sessionID':sessionID}, function(err, foundLobby){
+        
         foundLobby.noChar--;
 
 

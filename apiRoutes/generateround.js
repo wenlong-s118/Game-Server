@@ -84,7 +84,7 @@ router.post("/generateRounds", function(req, res){
                             if (err){
                                 console.log(err);
                             }
-                            res.status(200).send('OK');
+
                         })
                     }
                 }
@@ -104,7 +104,6 @@ router.post("/generateRounds", function(req, res){
                             if (err){
                                 console.log(err);
                             }
-                            res.status(200).send('OK');
                         })
                     }
                 }
@@ -120,6 +119,7 @@ router.post("/generateRounds", function(req, res){
                     if (err){
                         console.log(err);
                     }
+                    res.status(200).send('OK');
                 })
                 foundRoundGenerator.save();
             })
