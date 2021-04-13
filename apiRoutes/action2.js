@@ -63,9 +63,9 @@ router.post("/moveStageCoach", function(req, res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID)
 
     StageCoach.findOne({gameID: gameID}, function(err, foundStageCoach){
-        if(car!=0){
+        if(foundStageCoach.car!=0){
             foundStageCoach.car--;
-            foundHorse.save();
+            foundStageCoach.save();
             res.status(200).send('OK');
         }
     })

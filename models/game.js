@@ -10,7 +10,9 @@ var gameSchema = new mongoose.Schema({
   currentPlayer: {type: mongoose.Schema.Types.ObjectId, ref: "Character"},
   noChar: Number,
   cardInStackIndex: Number,
-  loaded: Boolean
+  loaded: Boolean,
+  isStealin: Boolean,
+  isSchemin: Boolean
 });
 
 

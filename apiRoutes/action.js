@@ -388,8 +388,16 @@ router.post("/shootByName", function(req,res){
                     }
                     if(agressorName==="Shotgun"){
                         StageCoach.findOne({gameID:gameID}, function(err, foundStageCoach){
-                            foundVictim.car = foundStageCoach.car;
-                            foundVictim.save();
+                            if(foundVictim.car==0){
+                                foundVictim.car++;
+                                foundVictim.save();
+                            }
+                            else{
+                                foundVictim.car--;
+                                foundVictim.save();
+                            }
+
+
                         })
 
                     }

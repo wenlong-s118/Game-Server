@@ -71,6 +71,12 @@ router.get("/hostagesAtStageCoach/:gameID", function(req,res){
     });
 });
 
+router.get("/position/:gameID", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    StageCoach.findOne({gameID:gameID}, 'car').lean().exec(function(err, position){
+        return res.send(JSON.stringify(position));
+    })
 
+});
 
 module.exports = router;
