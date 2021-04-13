@@ -45,7 +45,7 @@ router.get("/isLoaded/:sessionID", function(req, res){
     var sessionID = req.params.sessionID;
     Game.findOne({sessionID:sessionID}).lean().exec(function(err, foundGame){
       if(err){
-        res.status(500).send(false);
+        return res.status(500).send(false);
       }
       else{
         if(foundGame.loaded == true){
@@ -53,6 +53,7 @@ router.get("/isLoaded/:sessionID", function(req, res){
         }
         else{
           return res.send(JSON.stringify(false));
+        }
       }
     })
 })
