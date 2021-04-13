@@ -85,7 +85,7 @@ router.post("/leave", function(req,res){
     var sessionID = req.body.sessionID;
     var username = req.body.username;
     Lobby.findOne({'sessionID':sessionID}, function(err, foundLobby){
-        
+
         foundLobby.noChar--;
 
 
@@ -223,6 +223,30 @@ router.post("/selectcharacter", function(req, res){
         }
     });
 
+});
+
+
+router.get("/characterInLoaded/:sessionID/:username/:gameID", function(req,res){
+  var sessionID = req.params.sessionID;
+  var username = req.params.username;
+  var gameID = req.params.gameID;
+  User.findOne({username:username, sessionID:sessionID}, function(err, foundUser){
+    if(err){
+      res.status(500).send("Error");
+    }
+    else{
+      console.log("User " + foundUser);
+      Character.findOne({userID:foundUser._id, gameID: gameID}, function(err, foundCharacter){
+        if(err){
+          console.log(err);
+          res.status(500).send("Error");
+        }else{
+          console.log(foundCharacter.character);
+          res.status(200).send(foundCharacter.character);
+        }
+      });
+    }
+  });
 });
 
 

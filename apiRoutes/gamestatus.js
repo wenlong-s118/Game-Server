@@ -44,14 +44,17 @@ router.get("/allAboard/:gameID", async function(req,res){
 router.get("/isLoaded/:sessionID", function(req, res){
     var sessionID = req.params.sessionID;
     Game.findOne({sessionID:sessionID}).lean().exec(function(err, foundGame){
-      if(err){
+      if(foundGame == null){
         return res.status(500).send(false);
+        console.log("Game not found ");
       }
       else{
         if(foundGame.loaded == true){
+            console.log("Is Loaded: true ");
             return res.send(JSON.stringify(true));
         }
         else{
+            console.log("Is Loaded: false ");
           return res.send(JSON.stringify(false));
         }
       }
