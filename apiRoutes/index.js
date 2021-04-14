@@ -12,7 +12,7 @@ const express        = require("express"),
       Turn           = require("../models/turn"),
       User           = require("../models/user");
 
-router.post("/initializeGame", function(req,res){
+router.post("/initializeGame", async function(req,res){
     var sessionID = req.body.sessionID;
     var noChar = req.body.noChar;
     // var round: {type: mongoose.Schema.Types.ObjectId, ref: "Round"};
@@ -20,7 +20,7 @@ router.post("/initializeGame", function(req,res){
     // var currentPlayer: {type: mongoose.Schema.Types.ObjectId, ref: "Character"};
     var newGame = {sessionID: sessionID, noChar:noChar, roundIndex: 0,turnIndex: 0, playerIndex: 0, cardInStackIndex:0, isStealin:false};
 
-    Game.create(newGame, function(err, game){
+    await Game.create(newGame, function(err, game){
         if (err) {
             console.log(err);
             res.redirect("/");

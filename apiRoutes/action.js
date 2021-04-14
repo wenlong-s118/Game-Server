@@ -1,6 +1,7 @@
 const express        = require("express"),
       router         = express.Router(),
       mongoose       = require("mongoose"),
+      random         = require("mongoose-simple-random");
       Card           = require("../models/card"),
       Car           = require("../models/car"),
       Character      = require("../models/character"),
@@ -54,34 +55,39 @@ router.post("/boardHorseExtension", function(req, res){
 })
 //draw
 //draw Init
-router.post("/drawInitial", function(req, res){
+router.post("/drawInitial", async function(req, res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var characterName = req.body.characterName;
-    Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
+    await Character.findOne({gameID:gameID, character:characterName}, async function(err, foundCharacter){
         if(foundCharacter){
             console.log(foundCharacter);
             if(foundCharacter.character==="Doc"){
-                var cards = Card.find({characterID: foundCharacter._id, inDeck: true}).limit(7).exec(function(err, foundCards){
+                await Card.findRandom({characterID: foundCharacter._id, inDeck: true},{},{limit:7}, function(err, foundCards){
+
                     foundCards.forEach(function(foundCard){
                         foundCard.inDeck = false;
                         foundCard.inHand = true;
                         foundCard.save();
+
                     })
+                    res.status(200).send('OK');
                 });
             }else{
-                var cards = Card.find({characterID: foundCharacter._id, inDeck: true}).limit(6).exec(function(err, foundCards){
+                await Card.findRandom({characterID: foundCharacter._id, inDeck: true},{},{limit:7},function(err, foundCards){
                     foundCards.forEach(function(foundCard){
                         foundCard.inDeck = false;
                         foundCard.inHand = true;
                         foundCard.save();
+
                     })
+                    res.status(200).send('OK');
                 });
             }
 
         }
 
     })
-    res.status(200).send('OK');
+
 })
 //Three cards change to inHand true, inDeck false
 router.post("/draw", function(req, res){

@@ -19,7 +19,7 @@ router.post("/initializeGenerator", function(req, res){
         "Teacher",
         "Zealot",
         "OldLady",
-        "PokerPlayer",
+        // "PokerPlayer",
         "Photographer"
     ];
 

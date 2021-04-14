@@ -251,10 +251,10 @@ router.get("/characterInLoaded/:sessionID/:username/:gameID", function(req,res){
 
 
 //update characters to game by session
-router.post("/updateCharactersToGame", function(req,res){
+router.post("/updateCharactersToGame", async function(req,res){
     var sessionID = req.body.sessionID;
 
-    Game.findOne({'sessionID':sessionID}, function(err, foundGame){
+    await Game.findOne({'sessionID':sessionID}, function(err, foundGame){
       console.log(foundGame);
         Lobby.findOne({'sessionID':sessionID}, async function(err, foundLobby){
           console.log(foundLobby);
@@ -430,6 +430,7 @@ router.post("/updateCharactersToGame", function(req,res){
                     console.log(foundCharacter.gameID);
                     foundCharacter.save();
                 });
+
             });
         });
     })
