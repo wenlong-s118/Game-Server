@@ -61,6 +61,7 @@ router.post("/endOfRound", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     Game.findById(gameID, function(err, foundGame){
         foundGame.roundIndex++;
+        foundGame.isStealin = false;
         foundGame.save();
     })
     Character.find({gameID:gameID}, function(err, foundCharacters){

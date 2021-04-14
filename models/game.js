@@ -11,8 +11,7 @@ var gameSchema = new mongoose.Schema({
   noChar: Number,
   cardInStackIndex: Number,
   loaded: Boolean,
-  isStealin: Boolean,
-  isSchemin: Boolean
+  isStealin: Boolean
 });
 
 
