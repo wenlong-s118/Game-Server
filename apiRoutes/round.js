@@ -128,6 +128,8 @@ router.get("/currentRound/:gameID", function(req,res){
                 //return round type
                 var roundType = foundRound.roundType;
                 return res.send(JSON.stringify(roundType));
+            }else{
+                res.status(500).send('No more rounds to go!');
             }
 
 
