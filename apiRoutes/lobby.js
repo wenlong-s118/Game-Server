@@ -55,24 +55,31 @@ router.post("/", function(req,res){
 router.post("/join", function(req,res){
     var sessionID = req.body.sessionID;
     var username = req.body.username;
-    Lobby.findOne({'sessionID':sessionID}, function(err, foundLobby){
-        foundLobby.noChar++;
-        var newUser = {
-            lobbyID:foundLobby._id,
-            sessionID:sessionID,
-            username:username
-        }
-        //user created
-        User.create(newUser, function(err, user){
-            if (err){
-                console.log(err);
+    Lobby.findOne({sessionID:sessionID}, function(err, foundLobby){
+        User.findOne({username:username, sessionID:sessionID}, function(err, foundUser){
+            if(foundUser){
+              res.status(200).send('OK');
+            }else{
+              foundLobby.noChar++;
+              var newUser = {
+                  lobbyID:foundLobby._id,
+                  sessionID:sessionID,
+                  username:username
+              }
+              //user created
+              User.create(newUser, function(err, user){
+                  if (err){
+                      console.log(err);
+                  }
+
+                  console.log(user);
+
+              })
+              foundLobby.save();
+              res.status(200).send('OK');
             }
-
-            console.log(user);
-
         })
-        foundLobby.save();
-        res.status(200).send('OK');
+
     })
 
 
