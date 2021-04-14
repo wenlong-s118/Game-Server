@@ -437,6 +437,19 @@ router.post("/updateCharactersToGame", async function(req,res){
     res.status(200).send('OK');
 
 })
+router.get("/noChar/:sessionID", function(req,res){
+  var sessionID = req.params.sessionID;
+
+  Lobby.findOne({sessionID:sessionID}, function(err, foundLobby){
+    if(err){
+      res.status(500).send("Error");
+    }
+    else{
+      var noChar = foundLobby.noChar;
+      return res.send(JSON.stringify(noChar));
+    }
+  });
+});
 
 
 

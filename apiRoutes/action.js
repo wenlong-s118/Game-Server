@@ -73,7 +73,7 @@ router.post("/drawInitial", async function(req, res){
                     res.status(200).send('OK');
                 });
             }else{
-                await Card.findRandom({characterID: foundCharacter._id, inDeck: true},{},{limit:7},function(err, foundCards){
+                await Card.findRandom({characterID: foundCharacter._id, inDeck: true},{},{limit:6},function(err, foundCards){
                     foundCards.forEach(function(foundCard){
                         foundCard.inDeck = false;
                         foundCard.inHand = true;
