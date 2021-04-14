@@ -54,6 +54,17 @@ router.get("/charactersInCar/:gameID/:carNo", function(req,res){
     });
 });
 
+router.get("/playerCharactersInCar/:gameID/:carNo", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    var carNo = mongoose.Types.ObjectId(req.params.carNo);
+    Character.find({gameID:gameID, car:carNo, isUser:true, onRoof:{$ne: true}}).lean().exec(function(err, foundCharacters){
+        var response = {
+            characters: foundCharacters
+        }
+        return res.send(JSON.stringify(response));
+    });
+});
+
 router.get("/charactersOnRoofCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var carNo = mongoose.Types.ObjectId(req.params.carNo);
@@ -64,8 +75,28 @@ router.get("/charactersOnRoofCar/:gameID/:carNo", function(req,res){
         return res.send(JSON.stringify(response));
     });
 });
+router.get("/playerCharactersOnRoofCar/:gameID/:carNo", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    var carNo = mongoose.Types.ObjectId(req.params.carNo);
+    Character.find({gameID:gameID, car:carNo, isUser:true, onRoof:true}).lean().exec(function(err, foundCharacters){
+        var response = {
+            characters: foundCharacters
+        }
+        return res.send(JSON.stringify(response));
+    });
+});
 
 router.get("/charactersAtCar/:gameID/:carNo", function(req,res){
+    var gameID = mongoose.Types.ObjectId(req.params.gameID);
+    var carNo = mongoose.Types.ObjectId(req.params.carNo);
+    Character.find({gameID:gameID, car:carNo}).lean().exec(function(err, foundCharacters){
+        var response = {
+            characters: foundCharacters
+        }
+        return res.send(JSON.stringify(response));
+    });
+});
+router.get("/playerCharactersAtCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var carNo = mongoose.Types.ObjectId(req.params.carNo);
     Character.find({gameID:gameID, car:carNo}).lean().exec(function(err, foundCharacters){
