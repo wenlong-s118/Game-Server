@@ -261,6 +261,8 @@ router.post("/steal", function(req,res){
     var lootAmount = req.body.lootAmount
     Character.findOne({character:thiefName, gameID:gameID}, function(err, foundCharacter){
         console.log(foundCharacter);
+        console.log(lootType);
+        console.log(lootAmount);
         Loot.findOne({type:lootType, amount:lootAmount, gameID:gameID}, function(err, foundLoot){
           if(err){
             console.log(lootType);
