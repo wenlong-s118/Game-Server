@@ -37,9 +37,8 @@ router.post("/", function(req,res){
             if(foundUser){
               res.status(200).send('OK');
             }else{
-              foundLobby.noChar++;
               var newUser = {
-                  lobbyID:foundLobby._id,
+                  lobbyID:lobby._id,
                   sessionID:sessionID,
                   username:username
               }
@@ -52,7 +51,6 @@ router.post("/", function(req,res){
                   console.log(user);
 
               })
-              foundLobby.save();
               res.status(200).send('OK');
             }
         })
