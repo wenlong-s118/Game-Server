@@ -15,10 +15,15 @@ router.get("/hostages/:gameID/:characterName", function(req,res){
     var characterName = req.params.characterName;
     Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
         Hostage.find({characterID:foundCharacter._id}).lean().exec(function(err, hostages){
+          if(hostages{
             var response = {
                 hostages: hostages
             };
             return res.send(JSON.stringify(response));
+          }
+          else{
+            res.status(500).send("/character/hostages: no hostages for this character")
+          }
         })
     })
 });
