@@ -111,10 +111,16 @@ router.get("/horsesAtCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     var carNo = req.params.carNo;
     Horse.find({gameID:gameID, car:carNo}).lean().exec(function(err, foundHorses){
-        var response = {
-            horses: foundHorses
+        if(foundHorses){
+            var response = {
+                horses: foundHorses
+            }
+            return res.send(JSON.stringify(response));
+        }else{
+            console.log("/horsesAtCar: no horses here");
+            res.status(500).send('/horsesAtCar: no horses here');
         }
-        return res.send(JSON.stringify(response));
+
     });
 });
 

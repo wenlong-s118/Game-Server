@@ -98,6 +98,7 @@ router.post("/drawInitial", async function(req, res){
 router.post("/draw", function(req, res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var characterName = req.body.characterName;
+    console.log("/draw: "+ characterName + ", " + gameID);
     Character.findOne({gameID:gameID, character:characterName}, async function(err, foundCharacter){
         if(foundCharacter){
           await Card.findRandom({characterID: foundCharacter._id, inDeck: true},{},{limit:3}, function(err, foundCards){
@@ -164,8 +165,8 @@ router.post("/playActionCard", function(req,res){
                     })
                 }
                 else{
-                    console.log("Game not there");
-                    res.status(500).send('Card not there');
+                    console.log("character not there");
+                    res.status(500).send('character not there');
                 }
 
             })
@@ -257,7 +258,7 @@ router.post("/punchByName", function(req,res){
     var lootAmount = req.body.lootAmount;
     var newCar = req.body.newCar;
     Character.findOne({gameID:gameID, character:victimName}, function(err, foundVictim){
-        
+
         Loot.findOne({characterID:foundVictim._id, type:lootType, amount:lootAmount}, function(err, foundLoot){
             Car.findOne({gameID:gameID, carNumber:foundVictim.car}, function(err,foundCar){
                 if(agressorName === "Cheyenne"){
