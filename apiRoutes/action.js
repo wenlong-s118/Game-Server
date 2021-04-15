@@ -263,7 +263,7 @@ router.post("/steal", function(req,res){
         console.log(foundCharacter);
         console.log(lootType);
         console.log(lootAmount);
-        Loot.findOne({type:lootType, amount:lootAmount, gameID:gameID}, function(err, foundLoot){
+        Loot.findOne({type:lootType, amount:lootAmount, car: foundCharacter.car, gameID:gameID}, function(err, foundLoot){
           if(err){
             console.log(lootType);
             console.log(lootAmount);

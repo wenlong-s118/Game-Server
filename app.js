@@ -1,7 +1,8 @@
 const express        = require("express"),
       app            = express(),
       mongoose       = require("mongoose"),
-      methodOverride = require("method-override")
+      methodOverride = require("method-override"),
+      seedDB         = require("./seeds"),
       bodyParser = require('body-parser');
 
 const Card = require("./models/card");
@@ -44,7 +45,7 @@ var apiHostageGenerationRoutes  = require("./apiRoutes/generatehostage");
 var apiPhaseRoutes  = require("./apiRoutes/phase");
 
 
-mongoose.connect('mongodb+srv://Hexanome-14:COMP361D2@cluster0.jxfnz.mongodb.net/<coltDBTest>?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect('mongodb+srv://Hexanome-14:COMP361D2@cluster0.jxfnz.mongodb.net/<coltDBSaveTest>?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false});
 app.use(express.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -53,6 +54,8 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
+
+// seedDB();
 
 //Routes assign
 //Browser Routes

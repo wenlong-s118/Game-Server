@@ -239,7 +239,8 @@ router.post("/selectcharacter", function(req, res){
     });
 
 });
-
+//
+// router.get("/")
 
 router.get("/characterInLoaded/:sessionID/:username/:gameID", function(req,res){
   var sessionID = req.params.sessionID;

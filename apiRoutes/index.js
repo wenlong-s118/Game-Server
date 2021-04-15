@@ -350,6 +350,7 @@ router.post("/initializeGame", async function(req,res){
                     var halfDrunk= false;
                     var isFull= true;
                     var newWhisky = {
+                        amount:0,
                         gameID: gameID,
                         car: carNo,
                         type: type,
