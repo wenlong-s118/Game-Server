@@ -155,13 +155,19 @@ router.post("/playActionCard", function(req,res){
             Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
                 if(foundCharacter){
                     Card.findOne({characterID: foundCharacter._id, inHand: true, card:cardName}, function(err, foundCard){
-                        foundCard.inHand= false;
-                        foundCard.actionStack = true;
-                        foundCard.order = foundGame.cardInStackIndex;
-                        foundCard.save();
-                        foundGame.cardInStackIndex++;
-                        foundGame.save();
-                        res.status(200).send('OK');
+                        if(foundCard){
+                          foundCard.inHand= false;
+                          foundCard.actionStack = true;
+                          foundCard.order = foundGame.cardInStackIndex;
+                          foundCard.save();
+                          foundGame.cardInStackIndex++;
+                          foundGame.save();
+                          res.status(200).send('OK');
+                        }else{
+                            console.log("Card not there");
+                            res.status(500).send('Card not there');
+                        }
+
                     })
                 }
                 else{
@@ -186,6 +192,9 @@ router.post("/updateWhisky", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var characterName = req.body.characterName;
     var whiskyType = req.body.whiskyType;
+    console.log(gameID);
+    console.log(characterName);
+    console.log(whiskyType);
     Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
         if(foundLoot){
             Loot.findOne({characterID:foundCharacter._id, type:whiskyType}, function(err, foundLoot){
