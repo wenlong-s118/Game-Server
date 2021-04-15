@@ -87,7 +87,7 @@ router.post("/drawInitial", async function(req, res){
         }
         else{
 
-            res.status(500).send("Character not found");
+            res.status(500).send("/drawInitial:Character not found");
 
         }
 
@@ -112,7 +112,7 @@ router.post("/draw", function(req, res){
           });
 
         }else{
-          res.status(500).send("Character not found");
+          res.status(500).send("/draw:Character not found");
         }
 
     })
@@ -257,6 +257,7 @@ router.post("/punchByName", function(req,res){
     var lootAmount = req.body.lootAmount;
     var newCar = req.body.newCar;
     Character.findOne({gameID:gameID, character:victimName}, function(err, foundVictim){
+        
         Loot.findOne({characterID:foundVictim._id, type:lootType, amount:lootAmount}, function(err, foundLoot){
             Car.findOne({gameID:gameID, carNumber:foundVictim.car}, function(err,foundCar){
                 if(agressorName === "Cheyenne"){
