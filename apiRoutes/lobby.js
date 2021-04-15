@@ -313,9 +313,9 @@ router.post("/updateCharactersToGame", async function(req,res){
                       })
                     }
 
-                    // inDeck = true;
-                    // isBullet = false;
-                    // card = "Marshal";
+                    inDeck = true;
+                    isBullet = false;
+                    card = "Marshal";
                     // var newMarshalCard = {
                     //     gameID: foundGame._id,
                     //     characterID: foundCharacter._id,
