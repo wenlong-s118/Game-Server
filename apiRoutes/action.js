@@ -344,6 +344,9 @@ router.post("/kidnap", function(req,res){
     //character who steals
     var kidnapperName = req.body.kidnapperName;
     var hostageName = req.body.hostageName;
+    console.log(gameID);
+    console.log(kidnapperName);
+    console.log(hostageName);
     Character.findOne({character:kidnapperName, gameID:gameID}, function(err, foundCharacter){
         console.log(foundCharacter);
         Hostage.findOne({hostage:hostageName, onStageCoach:true, gameID:gameID}, function(err, foundHostage){
