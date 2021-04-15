@@ -169,7 +169,7 @@ router.post("/playActionCard", function(req,res){
                 }
 
             })
-            
+
         }else{
             console.log("Game not there");
             res.status(500).send('Game not there');
@@ -398,35 +398,35 @@ router.post("/shoot", function(req,res){
 
 })
 //deprecated route: neutral bullets meant to be shared...
-router.post("/shootByNameOld", function(req,res){
-    var gameID = mongoose.Types.ObjectId(req.body.gameID);
-    var agressorName = req.body.agressorName;
-    var victimName = req.body.victimName;
-    Character.findOne({gameID: gameID, character:agressorName}, function(err, foundAgressor){
-        Character.findOne({gameID: gameID, character:victimName}, function(err, foundVictim){
-            Card.findOne({characterID: foundAgressor._id, isBullet:true}, function(err, foundCard){
-                if(agressorName==="Marshal"){
-                    foundVictim.onRoof = true;
-                    foundVictim.save();
-                }
-                if(agressorName==="Shotgun"){
-                    StageCoach.findOne({gameID:gameID}, function(err, foundStageCoach){
-                        foundVictim.car = foundStageCoach.car;
-                        foundVictim.save();
-                    })
-
-                }
-                foundCard.characterID = foundVictim._id;
-                foundCard.isHostile = true;
-                foundCard.save();
-
-                res.status(200).send('OK');
-            })
-        })
-    })
-
-
-})
+// router.post("/shootByNameOld", function(req,res){
+//     var gameID = mongoose.Types.ObjectId(req.body.gameID);
+//     var agressorName = req.body.agressorName;
+//     var victimName = req.body.victimName;
+//     Character.findOne({gameID: gameID, character:agressorName}, function(err, foundAgressor){
+//         Character.findOne({gameID: gameID, character:victimName}, function(err, foundVictim){
+//             Card.findOne({characterID: foundAgressor._id, isBullet:true}, function(err, foundCard){
+//                 if(agressorName==="Marshal"){
+//                     foundVictim.onRoof = true;
+//                     foundVictim.save();
+//                 }
+//                 if(agressorName==="Shotgun"){
+//                     StageCoach.findOne({gameID:gameID}, function(err, foundStageCoach){
+//                         foundVictim.car = foundStageCoach.car;
+//                         foundVictim.save();
+//                     })
+//
+//                 }
+//                 foundCard.characterID = foundVictim._id;
+//                 foundCard.isHostile = true;
+//                 foundCard.save();
+//
+//                 res.status(200).send('OK');
+//             })
+//         })
+//     })
+//
+//
+// })
 
 router.post("/shootByName", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
@@ -441,39 +441,45 @@ router.post("/shootByName", function(req,res){
     }
     Character.findOne({gameID: gameID, character:realAgressorName}, function(err, foundAgressor){
         Character.findOne({gameID: gameID, character:victimName}, function(err, foundVictim){
-            Card.findOne({characterID: foundAgressor._id, isBullet:true}, function(err, foundCard){
-                if(foundCard){
-                    if(agressorName==="Marshal"){
-                        foundVictim.onRoof = true;
-                        foundVictim.save();
+            if(foundVictim&&foundAgressor){
+                Card.findOne({characterID: foundAgressor._id, isBullet:true}, function(err, foundCard){
+                    if(foundCard){
+                        if(agressorName==="Marshal"){
+                            foundVictim.onRoof = true;
+                            foundVictim.save();
+                        }
+                        if(agressorName==="Shotgun"){
+                            StageCoach.findOne({gameID:gameID}, function(err, foundStageCoach){
+                                if(foundVictim.car==0){
+                                    foundVictim.car++;
+                                    foundVictim.save();
+                                }
+                                else{
+                                    foundVictim.car--;
+                                    foundVictim.save();
+                                }
+
+
+                            })
+
+                        }
+                        foundCard.characterID = foundVictim._id;
+                        foundCard.isHostile = true;
+                        foundCard.save();
+
+                        res.status(200).send('OK');
                     }
-                    if(agressorName==="Shotgun"){
-                        StageCoach.findOne({gameID:gameID}, function(err, foundStageCoach){
-                            if(foundVictim.car==0){
-                                foundVictim.car++;
-                                foundVictim.save();
-                            }
-                            else{
-                                foundVictim.car--;
-                                foundVictim.save();
-                            }
-
-
-                        })
-
+                    else{
+                      res.status(500).send("/shootByName: No bullets left!");
                     }
-                    foundCard.characterID = foundVictim._id;
-                    foundCard.isHostile = true;
-                    foundCard.save();
-
-                    res.status(200).send('OK');
-                }
-                else{
-                  res.status(500).send("No bullets left!");
-                }
 
 
-            })
+                })
+            }else{
+                console.log("/shootByName: Horse not there");
+                res.status(500).send('/shootByName: Horse not there');
+            }
+
         })
     })
 

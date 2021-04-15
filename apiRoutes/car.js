@@ -45,7 +45,7 @@ router.get("/lootOnRoofCar/:gameID/:carNo", function(req,res){
 
 router.get("/charactersInCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    var carNo = mongoose.Types.ObjectId(req.params.carNo);
+    var carNo = req.params.carNo;
     Character.find({gameID:gameID, car:carNo, onRoof:{$ne: true}}).lean().exec(function(err, foundCharacters){
         var response = {
             characters: foundCharacters
@@ -56,7 +56,7 @@ router.get("/charactersInCar/:gameID/:carNo", function(req,res){
 
 router.get("/playerCharactersInCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    var carNo = mongoose.Types.ObjectId(req.params.carNo);
+    var carNo = req.params.carNo;
     Character.find({gameID:gameID, car:carNo, isUser:true, onRoof:{$ne: true}}).lean().exec(function(err, foundCharacters){
         var response = {
             characters: foundCharacters
@@ -67,7 +67,7 @@ router.get("/playerCharactersInCar/:gameID/:carNo", function(req,res){
 
 router.get("/charactersOnRoofCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    var carNo = mongoose.Types.ObjectId(req.params.carNo);
+    var carNo = req.params.carNo;
     Character.find({gameID:gameID, car:carNo, onRoof:true}).lean().exec(function(err, foundCharacters){
         var response = {
             characters: foundCharacters
@@ -77,7 +77,7 @@ router.get("/charactersOnRoofCar/:gameID/:carNo", function(req,res){
 });
 router.get("/playerCharactersOnRoofCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    var carNo = mongoose.Types.ObjectId(req.params.carNo);
+    var carNo = req.params.carNo;
     Character.find({gameID:gameID, car:carNo, isUser:true, onRoof:true}).lean().exec(function(err, foundCharacters){
         var response = {
             characters: foundCharacters
@@ -88,7 +88,7 @@ router.get("/playerCharactersOnRoofCar/:gameID/:carNo", function(req,res){
 
 router.get("/charactersAtCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    var carNo = mongoose.Types.ObjectId(req.params.carNo);
+    var carNo = req.params.carNo;
     Character.find({gameID:gameID, car:carNo}).lean().exec(function(err, foundCharacters){
         var response = {
             characters: foundCharacters
@@ -98,7 +98,7 @@ router.get("/charactersAtCar/:gameID/:carNo", function(req,res){
 });
 router.get("/playerCharactersAtCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    var carNo = mongoose.Types.ObjectId(req.params.carNo);
+    var carNo = req.params.carNo;
     Character.find({gameID:gameID, car:carNo}).lean().exec(function(err, foundCharacters){
         var response = {
             characters: foundCharacters
@@ -109,7 +109,7 @@ router.get("/playerCharactersAtCar/:gameID/:carNo", function(req,res){
 
 router.get("/horsesAtCar/:gameID/:carNo", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
-    var carNo = mongoose.Types.ObjectId(req.params.carNo);
+    var carNo = req.params.carNo;
     Horse.find({gameID:gameID, car:carNo}).lean().exec(function(err, foundHorses){
         var response = {
             horses: foundHorses
