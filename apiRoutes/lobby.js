@@ -388,7 +388,7 @@ router.post("/updateCharactersToGame", async function(req,res){
                     //       console.log(card);
                     //   })
                     // }
-                    for(i=0; i< 12; i++){
+                    for(i=0; i< 6; i++){
                       card = "Shoot";
                       var newCard = {
                           gameID: foundGame._id,
@@ -406,24 +406,24 @@ router.post("/updateCharactersToGame", async function(req,res){
                           console.log(card);
                       })
                     }
-                    // // for(i=0; i< 2; i++){
-                    // //   card = "Punch";
-                    // //   var newCard = {
-                    // //       gameID: foundGame._id,
-                    // //       characterID: foundCharacter._id,
-                    // //       character: foundCharacter.character,
-                    // //       card: card,
-                    // //       inHand: inHand,
-                    // //       inDeck: inDeck,
-                    // //       isBullet: isBullet,
-                    // //   }
-                    // //   Card.create(newCard, function(err, card){
-                    // //       if (err){
-                    // //           console.log(err);
-                    // //       }
-                    // //       console.log(card);
-                    // //   })
-                    // // }
+                    for(i=0; i< 6; i++){
+                        card = "Punch";
+                        var newCard = {
+                            gameID: foundGame._id,
+                            characterID: foundCharacter._id,
+                            character: foundCharacter.character,
+                            card: card,
+                            inHand: inHand,
+                            inDeck: inDeck,
+                            isBullet: isBullet,
+                        }
+                        Card.create(newCard, function(err, card){
+                            if (err){
+                                console.log(err);
+                            }
+                            console.log(card);
+                        })
+                    }
                     // for(i=0; i< 1; i++){
                     //   card = "Ride";
                     //   var newCard = {
