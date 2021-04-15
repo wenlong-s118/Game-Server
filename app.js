@@ -44,6 +44,7 @@ var apiSaveRoutes  = require("./apiRoutes/save");
 var apiHostageGenerationRoutes  = require("./apiRoutes/generatehostage");
 var apiPhaseRoutes  = require("./apiRoutes/phase");
 
+console.log("haha");
 
 mongoose.connect('mongodb+srv://Hexanome-14:COMP361D2@cluster0.jxfnz.mongodb.net/<coltDBSaveTest>?retryWrites=true&w=majority', {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false});
 app.use(express.urlencoded({extended: true}));
