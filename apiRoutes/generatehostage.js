@@ -62,6 +62,7 @@ router.post("/generateHostages", function(req, res){
                         })
                     }
                     foundHostageGenerator.save();
+                    res.status(200).send('OK');
                 }else{
                     console.log("/generateHostages: hostageGenerator not there");
                     res.status(500).send('/generateHostages: hostageGenerator not there');
@@ -75,7 +76,7 @@ router.post("/generateHostages", function(req, res){
 
 
     })
-    res.status(200).send('OK');
+
 })
 
 
