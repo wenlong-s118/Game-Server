@@ -150,17 +150,31 @@ router.post("/playActionCard", function(req,res){
     var characterName = req.body.characterName;
     var cardName = req.body.cardName;
     Game.findById(gameID,function(err, foundGame){
-        Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
-            Card.findOne({characterID: foundCharacter._id, inHand: true, card:cardName}, function(err, foundCard){
-                foundCard.inHand= false;
-                foundCard.actionStack = true;
-                foundCard.order = foundGame.cardInStackIndex;
-                foundCard.save();
-                foundGame.cardInStackIndex++;
-                foundGame.save();
-                res.status(200).send('OK');
+        if(foundGame){
+            Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
+                if(foundCharacter){
+                    Card.findOne({characterID: foundCharacter._id, inHand: true, card:cardName}, function(err, foundCard){
+                        foundCard.inHand= false;
+                        foundCard.actionStack = true;
+                        foundCard.order = foundGame.cardInStackIndex;
+                        foundCard.save();
+                        foundGame.cardInStackIndex++;
+                        foundGame.save();
+                        res.status(200).send('OK');
+                    })
+                }
+                else{
+                    console.log("Game not there");
+                    res.status(500).send('Card not there');
+                }
+
             })
-        })
+            
+        }else{
+            console.log("Game not there");
+            res.status(500).send('Game not there');
+        }
+
     })
 
 
@@ -172,19 +186,29 @@ router.post("/updateWhisky", function(req,res){
     var characterName = req.body.characterName;
     var whiskyType = req.body.whiskyType;
     Character.findOne({gameID:gameID, character:characterName}, function(err, foundCharacter){
-        Loot.findOne({characterID:foundCharacter._id, type:whiskyType}, function(err, foundLoot){
-            if(foundLoot.halfDrunk==true){
-                console.log("haha");
-                Loot.findByIdAndRemove(foundLoot._id).exec();
-            }
-            else{
-                foundLoot.halfDrunk = true;
-                foundLoot.isFull = false;
-                foundLoot.save();
-            }
-            res.status(200).send('OK');
-
-        })
+        if(foundLoot){
+            Loot.findOne({characterID:foundCharacter._id, type:whiskyType}, function(err, foundLoot){
+                if(foundLoot){
+                    if(foundLoot.halfDrunk==true){
+                        console.log("haha");
+                        Loot.findByIdAndRemove(foundLoot._id).exec();
+                    }
+                    else{
+                        foundLoot.halfDrunk = true;
+                        foundLoot.isFull = false;
+                        foundLoot.save();
+                    }
+                    res.status(200).send('OK');
+                }else{
+                    console.log("/updateWhisky: Loot not there");
+                    res.status(500).send('/updateWhisky: Loot not there');
+                }
+            })
+          }
+          else{
+              console.log("/updateWhisky: Character not there");
+              res.status(500).send('/updateWhisky: Character not there');
+          }
     })
 
 })
@@ -197,17 +221,31 @@ router.post("/punchByID", function(req,res){
     //character who gets punched
     //agressorID
     var victimID = mongoose.Types.ObjectId(req.body.victimID);
+
     Character.findById(victimID, function(err, foundCharacter){
-        Loot.findOne({characterID:victimID}, function(err, foundLoot){
-            foundLoot.characterID = null;
-            Car.findOne({gameID:gameID, carNumber:foundCharacter.car}, function(err,foundCar){
-                foundLoot.carID = foundCar._id;
+        if(foundCharacter){
+            Loot.findOne({characterID:victimID}, function(err, foundLoot){
+                if(foundLoot){
+                    foundLoot.characterID = null;
+                    Car.findOne({gameID:gameID, carNumber:foundCharacter.car}, function(err,foundCar){
+                        foundLoot.carID = foundCar._id;
+                    })
+                    foundCharacter.lootamount-=foundLoot.amount;
+                    foundCharacter.save();
+                    foundLoot.save();
+                    res.status(200).send('OK');
+                }else{
+                    console.log("/punchByID: Loot not there");
+                    res.status(500).send('/punchByID: Loot not there');
+                }
+
             })
-            foundCharacter.lootamount-=foundLoot.amount;
-            foundCharacter.save();
-            foundLoot.save();
-            res.status(200).send('OK');
-        })
+        }
+        else{
+            console.log("/punchByID: Character not there");
+            res.status(500).send('/punchByID: Character not there');
+        }
+
     })
 });
 
@@ -465,6 +503,7 @@ router.post("/generalMovementByName", function(req, res){
     var onRoof = req.body.onRoof;
     var onStageCoach = req.body.onStageCoach;
     Character.findOne({gameID: gameID, character:characterName}, function(err, foundCharacter){
+
         if(err){
           console.log(err);
         }
@@ -495,29 +534,41 @@ router.post("/rideHorse", function(req, res){
     var onRoof = req.body.onRoof;
     var onStageCoach = req.body.onStageCoach;
     Character.findOne({gameID: gameID, character:characterName}, function(err, foundCharacter){
-        Horse.findOne({gameID: gameID, horse:horseName}, function(err, foundHorse){
-            if(err){
-              console.log(err);
-            }
+        if(foundCharacter){
+            Horse.findOne({gameID: gameID, horse:horseName}, function(err, foundHorse){
+                if(foundHorse){
+                    if(err){
+                      console.log(err);
+                    }
 
-            if(onStageCoach){
-              foundCharacter.onStageCoach = true;
-              foundCharacter.car = null;
-              foundCharacter.onRoof = onRoof;
-              foundCharacter.save();
-              foundHorse.onStageCoach = true;
-              foundHorse.car = null;
-              foundHorse.save();
-              res.status(200).send('OK');
-            }else{
-              foundCharacter.car = carNumber;
-              foundCharacter.onRoof = onRoof;
-              foundCharacter.save();
-              foundHorse.car = carNumber;
-              foundHorse.save();
-              res.status(200).send('OK');
-            }
-        })
+                    if(onStageCoach){
+                      foundCharacter.onStageCoach = true;
+                      foundCharacter.car = null;
+                      foundCharacter.onRoof = onRoof;
+                      foundCharacter.save();
+                      foundHorse.onStageCoach = true;
+                      foundHorse.car = null;
+                      foundHorse.save();
+                      res.status(200).send('OK');
+                    }else{
+                      foundCharacter.car = carNumber;
+                      foundCharacter.onRoof = onRoof;
+                      foundCharacter.save();
+                      foundHorse.car = carNumber;
+                      foundHorse.save();
+                      res.status(200).send('OK');
+                    }
+                }else{
+                    console.log("/rideHorse: Horse not there");
+                    res.status(500).send('/rideHorse: Horse not there');
+                }
+
+            })
+        }else{
+            console.log("/rideHorse: Character not there");
+            res.status(500).send('/rideHorse: Character not there');
+        }
+
     })
 
 })
