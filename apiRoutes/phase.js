@@ -38,7 +38,7 @@ router.post("/isStealin", function(req,res){
             foundGame.save();
             res.status(200).send('OK');
         }else{
-            console.log(/isStealin: value not set);
+            console.log("/isStealin: value not set");
             res.status(500).send(false);
         }
 
