@@ -257,6 +257,9 @@ router.post("/punchByName", function(req,res){
     var lootType = req.body.lootType;
     var lootAmount = req.body.lootAmount;
     var newCar = req.body.newCar;
+    console.log(gameID);
+    console.log(agressorName);
+    console.log(victimName);
     Character.findOne({gameID:gameID, character:victimName}, function(err, foundVictim){
 
         Loot.findOne({characterID:foundVictim._id, type:lootType, amount:lootAmount}, function(err, foundLoot){
@@ -264,18 +267,23 @@ router.post("/punchByName", function(req,res){
                 if(agressorName === "Cheyenne"){
                     Character.findOne({gameID:gameID, character:agressorName}, function(err, foundAgressor){
                         console.log(foundAgressor)
-                        foundLoot.characterID = foundAgressor._id;
-                        foundLoot.save();
+                        if(foundLoot){
+                            foundLoot.characterID = foundAgressor._id;
+                            foundLoot.save();
+
+                        }
+
 
                     })
                 }
                 else{
-                    foundLoot.characterID = null;
-                    foundLoot.carID = foundCar._id;
-                    foundLoot.car = foundVictim.car;
-                    foundLoot.onRoof = foundVictim.onRoof
-                    foundLoot.save();
-
+                    if(foundLoot){
+                        foundLoot.characterID = null;
+                        foundLoot.carID = foundCar._id;
+                        foundLoot.car = foundVictim.car;
+                        foundLoot.onRoof = foundVictim.onRoof
+                        foundLoot.save();
+                    }
                 }
 
             })
@@ -434,6 +442,9 @@ router.post("/shootByName", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.body.gameID);
     var agressorName = req.body.agressorName;
     var victimName = req.body.victimName;
+    console.log(gameID);
+    console.log(agressorName);
+    console.log(victimName);
     var realAgressorName;
     if(agressorName==="Marshal"|| agressorName==="Shotgun"){
       realAgressorName="Neutral"
