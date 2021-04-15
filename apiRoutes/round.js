@@ -22,9 +22,11 @@ router.get("/actionStackOld/:gameID", function(req,res){
 router.get("/actionStack/:gameID", function(req,res){
     var gameID = mongoose.Types.ObjectId(req.params.gameID);
     Card.find({gameID:gameID, actionStack:true}).sort('order').exec(function(err, foundCards){
+
         var response = {
             cardsPlayed: foundCards
         };
+        console.log(response);
         return res.send(JSON.stringify(response));
     })
 })
