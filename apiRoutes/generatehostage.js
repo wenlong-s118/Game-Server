@@ -20,7 +20,7 @@ router.post("/initializeGenerator", async function(req, res){
         "Teacher",
         "Zealot",
         "OldLady",
-        // "PokerPlayer",
+        "PokerPlayer",
         "Photographer"
     ];
 
